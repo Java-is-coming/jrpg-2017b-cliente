@@ -21,6 +21,7 @@ import juego.Juego;
 import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
 import mundo.Mundo;
 import recursos.Recursos;
@@ -32,6 +33,10 @@ public class EstadoJuego extends Estado {
 	private Mundo mundo;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
 	private Map<Integer, PaquetePersonaje> personajesConectados;
+	
+	//Agregamos NPCs
+	private Map<Integer, PaqueteNPC> NPCsDisponibles;
+	
 	private boolean haySolicitud;
 	private int tipoSolicitud;
 

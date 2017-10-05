@@ -16,6 +16,7 @@ import estados.Estado;
 import estados.EstadoBatalla;
 import estados.EstadoJuego;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
 
 public class Juego implements Runnable {
@@ -48,6 +49,11 @@ public class Juego implements Runnable {
 	private PaqueteMovimiento ubicacionPersonaje;
 	private Map<Integer, PaquetePersonaje> personajesConectados;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
+	
+	//Agregamos NPCs
+	private Map<Integer, PaqueteNPC> NPCsDisponibles;
+	
+
 	private Map<String, MiChat> chatsActivos = new HashMap<>();
 
 
@@ -246,5 +252,12 @@ public class Juego implements Runnable {
 
 	public Map<String, MiChat> getChatsActivos() {
 		return chatsActivos;
+	}
+	public Map<Integer, PaqueteNPC> getNPCsDisponibles() {
+		return NPCsDisponibles;
+	}
+
+	public void setNPCsDisponibles(Map<Integer, PaqueteNPC> nPCsDisponibles) {
+		NPCsDisponibles = nPCsDisponibles;
 	}
 }
