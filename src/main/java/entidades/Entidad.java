@@ -207,8 +207,7 @@ public class Entidad {
 							comercio = Mundo.isoA2D(xComercio, yComercio);							
 						}
 						// pregunto si el menu emergente es de tipo batalla
-						if (juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuBatallar) {
+						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar) {
 							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
 							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && 
 									(int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
