@@ -52,7 +52,7 @@ public class MenuInfoNPC {
 		g.setFont(new Font("Book Antiqua", 1, 20));
 		g.drawImage(Recursos.botonMenu, x + 50, y + 380, 200, 25, null);
 		g.setColor(Color.WHITE);
-		Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[tipoMenu]);
+		Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[0]);
 	}
 
 
@@ -69,7 +69,7 @@ public class MenuInfoNPC {
 		g.setFont(new Font("Book Antiqua", 0, 20));
 		g.drawString(npc.getRaza(), x + 100, y + 260);
 		g.drawString(npc.getFuerza() + " ", x + 100, y + 290);
-		g.drawString(npc.getSaludTope() + " ", x + 150, y + 320);
+		g.drawString(npc.getSaludTope() + " ", x + 100, y + 320);
 
 	}
 
