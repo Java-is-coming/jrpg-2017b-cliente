@@ -195,35 +195,32 @@ public class Entidad {
 		if (juego.getHandlerMouse().getNuevoClick()) {
 			if (juego.getEstadoJuego().getHaySolicitud()) {
 
-				if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnMenu(posMouse[0], posMouse[1])) {
-					if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnBoton(posMouse[0], posMouse[1])) {
-						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoNPC.menuBatallarNPC) {
-							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
-							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && (int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
-								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
-								PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
-								
-								pBatalla.setId(juego.getPersonaje().getId());
-								pBatalla.setIdEnemigo(idEnemigo);
-								
-								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
-								
-								try {
-									juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
-								} catch (IOException e) {
-									JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
-								}
-							} else  {
-								JOptionPane.showMessageDialog(null, "El NPC se encuentra dentro de la zona de comercio, que hace un NPC en la zona de comercio, echenlo.");	
-							}				
-						}
-					} else if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnCerrar(posMouse[0], posMouse[1])) {
-						juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+				if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoNPC.menuBatallarNPC) {
+					if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnMenu(posMouse[0], posMouse[1])) {
+						if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnBoton(posMouse[0], posMouse[1])) {
+								//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
+								if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && (int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
+									juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+									PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
+									
+									pBatalla.setId(juego.getPersonaje().getId());
+									pBatalla.setIdEnemigo(idEnemigo);
+									
+									juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+									
+									try {
+										juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
+									} catch (IOException e) {
+										JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+									}
+								} else  {
+									JOptionPane.showMessageDialog(null, "El NPC se encuentra dentro de la zona de comercio, que hace un NPC en la zona de comercio, echenlo.");	
+								}	
+						} else if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnCerrar(posMouse[0], posMouse[1])) {
+							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+						}			
 					}
-				}
-				
-				
-				if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
+				} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
 					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
 						
 						// Pregunto si menuBatallar o menuComerciar o menu menuBatallarNPC, sino no me interesa hacer esto
