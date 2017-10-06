@@ -65,15 +65,17 @@ public class MenuInfoNPC {
 		g.setColor(Color.RED);
 		Pantalla.centerString(g, new Rectangle(x, y + 230, menu.getWidth(), 0), "< NPC >");
 		g.setColor(Color.BLACK);
-		g.drawString("Raza: ", x + 30, y + 260);
+		g.drawString("Nivel: ", x + 30, y + 260);
 		g.drawString("Fuerza: ", x + 30, y + 290);
 		g.drawString("Salud: ", x + 30, y + 320);
+		g.drawString("Dificultad: ", x + 30, y + 350);
 
 		// muestro los atributos
 		g.setFont(new Font("Book Antiqua", 0, 20));
-		g.drawString(npc.getRaza(), x + 100, y + 260);
+		g.drawString(npc.getNivel() + " ", x + 100, y + 260);
 		g.drawString(npc.getFuerza() + " ", x + 100, y + 290);
 		g.drawString(npc.getSaludTope() + " ", x + 100, y + 320);
+		g.drawString(npc.getDificultad() + " ", x + 140, y + 350);
 
 	}
 

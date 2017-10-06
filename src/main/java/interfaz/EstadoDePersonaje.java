@@ -99,7 +99,7 @@ public class EstadoDePersonaje {
 
 		g.drawImage(miniaturaPersonaje, x + 10, y + 9, ANCHOMINIATURA, ALTOMINIATURA, null);
 
-		if(npc.getSalud() == npc.getSaludTope()) {
+		if(npc.getSalud() == npc.getSalud()) {
 			drawBarra = ANCHOBARRA;
 		} else {
 			drawBarra = (npc.getSalud() * ANCHOBARRA) / npc.getSaludTope();

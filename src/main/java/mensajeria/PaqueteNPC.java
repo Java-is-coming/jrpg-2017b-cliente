@@ -37,10 +37,15 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	public int getEstado() {
 		return estado;
 	}
+	
 	public int getNivel() {
 		return nivel;
 	}
-
+	
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+	
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
