@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import entidades.Entidad;
 import interfaz.EstadoDePersonaje;
+import interfaz.MenuInfoNPC;
 import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import juego.Pantalla;
@@ -46,6 +47,7 @@ public class EstadoJuego extends Estado {
 	private BufferedImage miniaturaPersonaje;
 
 	MenuInfoPersonaje menuEnemigo;
+	MenuInfoNPC menuEnemigoNPC;
 
 	public EstadoJuego(Juego juego) {
 		super(juego);
@@ -176,6 +178,13 @@ public class EstadoJuego extends Estado {
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
 		this.tipoSolicitud = tipoSolicitud;
 	}
+	
+	public void setHaySolicitud(boolean b, PaqueteNPC enemigo) {
+		haySolicitud = b;
+		// menu que mostrara al enemigo
+		menuEnemigoNPC = new MenuInfoNPC(300, 50, enemigo);
+		
+	}
 
 	public boolean getHaySolicitud() {
 		return haySolicitud;
@@ -187,6 +196,10 @@ public class EstadoJuego extends Estado {
 
 	public MenuInfoPersonaje getMenuEnemigo() {
 		return menuEnemigo;
+	}
+	
+	public MenuInfoNPC getMenuEnemigoNPC() {
+		return menuEnemigoNPC;
 	}
 
 	public int getTipoSolicitud() {
