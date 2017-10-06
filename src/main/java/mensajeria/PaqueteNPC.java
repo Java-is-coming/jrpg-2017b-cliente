@@ -17,6 +17,7 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	private int idMapa;
 	private int estado;
 	private String nombre;
+	private String raza = "Elfo";
 	private int saludTope;
 	private int fuerza;
 	private int nivel = 1;
@@ -33,27 +34,23 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.estado = estado;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public int getMapa(){
 		return idMapa;
+	}
+	public String getRaza() {
+		return raza;
 	}
 
 	public void setMapa(int mapa){
 		idMapa = mapa;
-	}
-
-	public int getNivel() {
-		return nivel;
-	}
-
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
-
-	public int getExperiencia() {
-		return 0;
-	}
-
-	public void setExperiencia(int experiencia) {
 	}
 
 	public int getId() {
@@ -64,29 +61,6 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.id = id;
 	}
 
-	public String getCasta() {
-		return "";
-	}
-
-
-	public void setCasta(String casta) {		
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getRaza() {
-		return "";
-	}
-
-	public void setRaza(String raza) {
-	}
-
 	public int getSaludTope() {
 		return saludTope;
 	}
@@ -95,33 +69,12 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.saludTope = saludTope;
 	}
 
-	public int getEnergiaTope() {
-		return 0;
-	}
-
-	public void setEnergiaTope(int energiaTope) {
-	}
-
 	public int getFuerza() {
 		return fuerza;
 	}
 
 	public void setFuerza(int fuerza) {
 		this.fuerza = fuerza;
-	}
-
-	public int getDestreza() {
-		return 0;
-	}
-
-	public void setDestreza(int destreza) {
-	}
-
-	public int getInteligencia() {
-		return 0;
-	}
-
-	public void setInteligencia(int inteligencia) {
 	}
 
 	@Override
