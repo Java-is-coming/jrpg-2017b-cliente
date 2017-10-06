@@ -17,6 +17,7 @@ import chat.VentanaContactos;
 import estados.Estado;
 import frames.MenuEscape;
 import frames.MenuInventario;
+import interfaz.MenuInfoNPC;
 import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import juego.Pantalla;
