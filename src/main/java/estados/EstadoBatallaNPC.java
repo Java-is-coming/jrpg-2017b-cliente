@@ -150,17 +150,28 @@ public class EstadoBatallaNPC extends Estado {
 				if (haySpellSeleccionada && seRealizoAccion) {
 					if (!enemigo.estaVivo()) {
 						juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuGanarBatalla);
+						
 						if(personaje.ganarExperiencia(enemigo.otorgarExp())){
 							juego.getPersonaje().setNivel(personaje.getNivel());
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
 						}
+						
 						paqueteFinalizarBatalla.setGanadorBatalla(juego.getPersonaje().getId());
 						finalizarBatalla();
 						Estado.setEstado(juego.getEstadoJuego());
 						
 					} else {					
-						miTurno = true;
-						menuBatalla.setHabilitado(miTurno);
+						enemigo.atacar(personaje);
+						
+						if (!personaje.estaVivo())
+						{
+							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuPerderBatalla);
+							paqueteFinalizarBatalla.setGanadorBatalla(paqueteFinalizarBatalla.getIdEnemigo());
+							finalizarBatalla();
+							Estado.setEstado(juego.getEstadoJuego());
+						}
+						//juego.getEstadoBatalla().getPersonaje().actualizarAtributos(paqueteAtacar.getMapEnemigo());
+						setMiTurno(true);
 					}
 				} else if(haySpellSeleccionada && !seRealizoAccion){
 					JOptionPane.showMessageDialog(null, "No posees la energía suficiente para realizar esta habilidad.");

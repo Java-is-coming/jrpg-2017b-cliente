@@ -193,6 +193,7 @@ public class Entidad {
 		}
 		// Tomo el click izquierdo 
 		if (juego.getHandlerMouse().getNuevoClick()) {
+			
 			if (juego.getEstadoJuego().getHaySolicitud()) {
 				
 				if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoNPC.menuBatallarNPC) {
@@ -283,6 +284,7 @@ public class Entidad {
 					juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 				}
 			} else {
+				
 				boolean esPersonaje = false;
 				
 				Iterator<Integer> it = juego.getUbicacionPersonajes().
@@ -345,7 +347,7 @@ public class Entidad {
 							if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == tilePersonajes[1]) {
 								idEnemigo = actualNPC.getId();
 
-								juego.getEstadoJuego().setHaySolicitud(true,juego.getNPCsDisponibles().get(idEnemigo));	
+								juego.getEstadoJuego().setHaySolicitud(true, juego.getNPCsDisponibles().get(idEnemigo));	
 								
 								juego.getHandlerMouse().setNuevoClick(false);
 							}

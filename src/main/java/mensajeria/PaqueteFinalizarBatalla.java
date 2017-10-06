@@ -30,7 +30,7 @@ public class PaqueteFinalizarBatalla extends Paquete implements Serializable, Cl
 	}
 
 	public void setTipoBatalla(int tipoBatalla) {
-		this.id = tipoBatalla;
+		this.tipoBatalla = tipoBatalla;
 	}	
 
 	public int getIdEnemigo() {
