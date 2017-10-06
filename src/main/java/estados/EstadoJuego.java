@@ -33,6 +33,7 @@ public class EstadoJuego extends Estado {
 	private Mundo mundo;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
 	private Map<Integer, PaquetePersonaje> personajesConectados;
+
 	// Agregamos NPCs
 	private Map<Integer, PaqueteNPC> NPCsDisponibles;
 	//private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
