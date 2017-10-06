@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import chat.VentanaContactos;
 import estados.Estado;
@@ -22,6 +23,7 @@ import juego.Pantalla;
 import mensajeria.PaqueteBatalla;
 import mensajeria.PaqueteComerciar;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaqueteNPC;
 import mundo.Grafo;
 import mundo.Mundo;
 import mundo.Nodo;
@@ -193,8 +195,7 @@ public class Entidad {
 			if (juego.getEstadoJuego().getHaySolicitud()) {
 
 				if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
-					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], 
-							posMouse[1])) {
+					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
 						// Pregunto si menuBatallar o menuComerciar, sino no me interesa hacer esto
 						if (juego.getEstadoJuego().getTipoSolicitud() == 
 								MenuInfoPersonaje.menuBatallar || 
@@ -268,6 +269,8 @@ public class Entidad {
 					juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 				}
 			} else {
+				boolean esPersonaje = false;
+				
 				Iterator<Integer> it = juego.getUbicacionPersonajes().
 						keySet().iterator();
 				int key;
@@ -296,6 +299,7 @@ public class Entidad {
 								juego.getEstadoJuego().setHaySolicitud(true, juego.
 										getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.
 										menuComerciar);
+								
 							} else {
 								// SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU
 								// DE BATALLA
@@ -303,7 +307,37 @@ public class Entidad {
 										getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.
 										menuBatallar);		
 							}
+							esPersonaje = true;
 							juego.getHandlerMouse().setNuevoClick(false);
+						}
+					}
+				}
+				
+				if(!esPersonaje) {
+					it = juego.getNPCsDisponibles().keySet().iterator();
+					key = 0;
+					tileMoverme = Mundo.mouseATile(posMouse[0] + juego.getCamara().getxOffset() - 
+							xOffset,posMouse[1] + juego.getCamara().getyOffset() - yOffset);
+					
+					PaqueteNPC actualNPC;
+
+					while (it.hasNext()) {
+						key = it.next();
+						actualNPC = juego.getNPCsDisponibles().get(key);
+						tilePersonajes = Mundo.mouseATile(actualNPC.getPosX(), actualNPC.getPosY());
+						if (actualNPC != null && actualNPC.getId() != juego.getPersonaje().getId() 
+								&& juego.getNPCsDisponibles().get(actualNPC.getId()) != null
+								&& juego.getNPCsDisponibles().get(actualNPC.getId()).getEstado() == Estado.estadoJuego) {
+
+							if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == tilePersonajes[1]) {
+								idEnemigo = actualNPC.getId();
+
+								juego.getEstadoJuego().setHaySolicitud(true,juego.
+										getNPCsDisponibles().get(idEnemigo), MenuInfoPersonaje.
+										menuBatallar);	
+								
+								juego.getHandlerMouse().setNuevoClick(false);
+							}
 						}
 					}
 				}

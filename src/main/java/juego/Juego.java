@@ -90,6 +90,7 @@ public class Juego implements Runnable {
 	}
 
 	public void iniciar() { // Carga lo necesario para iniciar el juego
+		/*
 		try {
 			Map<Integer, PaqueteNPC> npcs = new HashMap<Integer, PaqueteNPC>();
 			
@@ -112,6 +113,7 @@ public class Juego implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		pantalla = new Pantalla(NOMBRE, ANCHO, ALTO, cliente);
 
 		pantalla.getCanvas().addMouseListener(handlerMouse);
