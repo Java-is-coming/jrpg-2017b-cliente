@@ -53,7 +53,7 @@ public class Juego implements Runnable {
 	
 	//Agregamos NPCs
 	private Map<Integer, PaqueteNPC> NPCsDisponibles;
-	private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
+	//private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
 	
 
 
@@ -92,27 +92,21 @@ public class Juego implements Runnable {
 	public void iniciar() { // Carga lo necesario para iniciar el juego
 		try {
 			Map<Integer, PaqueteNPC> npcs = new HashMap<Integer, PaqueteNPC>();
-			Map<Integer, PaqueteMovimiento> ubicaciones = new HashMap<>();
 			
 			for (int i = 0; i < 3; i++) {
 				PaqueteNPC npc = new PaqueteNPC();
 				npc.setNombre("NPC " + i);
-				npc.setEstado(Estado.estadoJuego);
+				npc.setEstado(Estado.estadoJuego);							
+				npc.setId(i);
+				npc.setFrame(1);
+				npc.setPosX(60*(i+1));
+				npc.setPosY(60*(i+1));
+				npc.setDireccion(1);
 				
+
 				npcs.put(i, npc);
-				
-				PaqueteMovimiento mov = new PaqueteMovimiento();
-				mov.setIdPersonaje(i);
-				mov.setFrame(1);
-				mov.setPosX(60*i);
-				mov.setPosY(60*i);
-				mov.setDireccion(1);
-				
-				
-				ubicaciones.put(i, mov);
 			}
 			NPCsDisponibles = npcs;
-			ubicacionesNPCsDisponibles = ubicaciones;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -292,12 +286,5 @@ public class Juego implements Runnable {
 
 	public void setNPCsDisponibles(Map<Integer, PaqueteNPC> nPCsDisponibles) {
 		NPCsDisponibles = nPCsDisponibles;
-	}
-	public Map<Integer, PaqueteMovimiento> getUbicacionesNPCsDisponibles() {
-		return ubicacionesNPCsDisponibles;
-	}
-
-	public void setUbicacionesNPCsDisponibles(Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles) {
-		this.ubicacionesNPCsDisponibles = ubicacionesNPCsDisponibles;
 	}
 }

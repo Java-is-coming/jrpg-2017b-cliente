@@ -36,7 +36,7 @@ public class EstadoJuego extends Estado {
 
 	// Agregamos NPCs
 	private Map<Integer, PaqueteNPC> NPCsDisponibles;
-	private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
+	//private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
 
 	private boolean haySolicitud;
 	private int tipoSolicitud;
@@ -126,24 +126,24 @@ public class EstadoJuego extends Estado {
 	public void graficarNPC(Graphics g) {
 		if (juego.getNPCsDisponibles() != null) {
 			NPCsDisponibles = new HashMap(juego.getNPCsDisponibles());
-			ubicacionesNPCsDisponibles = new HashMap(juego.getUbicacionesNPCsDisponibles());
+			//ubicacionesNPCsDisponibles = new HashMap(juego.getUbicacionesNPCsDisponibles());
 			Iterator<Integer> it = NPCsDisponibles.keySet().iterator();
 			
 			int key;
-			PaqueteMovimiento actual;
+			PaqueteNPC actual;
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
 			while (it.hasNext()) {
 				key = it.next();
-				actual = ubicacionesNPCsDisponibles.get(key);
-				if (actual != null && actual.getIdPersonaje() != juego.getPersonaje().getId()
-						&& NPCsDisponibles.get(actual.getIdPersonaje()).getEstado() == Estado.estadoJuego) {
+				actual = NPCsDisponibles.get(key);
+				if (actual != null && actual.getId() != juego.getPersonaje().getId()
+						&& NPCsDisponibles.get(actual.getId()).getEstado() == Estado.estadoJuego) {
 					Pantalla.centerString(g,
 							new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32),
 									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 20), 0, 10),
-							NPCsDisponibles.get(actual.getIdPersonaje()).getNombre());
+							NPCsDisponibles.get(actual.getId()).getNombre());
 					g.drawImage(
-							Recursos.personaje.get(NPCsDisponibles.get(actual.getIdPersonaje()).getRaza())
+							Recursos.personaje.get(NPCsDisponibles.get(actual.getId()).getRaza())
 									.get(actual.getDireccion())[actual.getFrame()],
 							(int) (actual.getPosX() - juego.getCamara().getxOffset()),
 							(int) (actual.getPosY() - juego.getCamara().getyOffset()), 64, 64, null);
