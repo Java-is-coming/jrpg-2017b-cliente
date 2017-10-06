@@ -15,6 +15,7 @@ public class MenuInfoNPC {
 	private static final int anchoPersonaje = 128;
 	private static final BufferedImage menu = Recursos.menuEnemigo;
 	public static final int menuBatallarNPC = 7;
+	public static final int menuPerderBatalla = 8;
 	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar", "Aceptar", "Comerciar"};
 
 	private int x;
