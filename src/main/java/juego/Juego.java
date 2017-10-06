@@ -3,6 +3,7 @@ package juego;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import estados.Estado;
 import estados.EstadoBatalla;
 import estados.EstadoJuego;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
 
 public class Juego implements Runnable {
@@ -48,6 +50,13 @@ public class Juego implements Runnable {
 	private PaqueteMovimiento ubicacionPersonaje;
 	private Map<Integer, PaquetePersonaje> personajesConectados;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
+	
+	//Agregamos NPCs
+	private Map<Integer, PaqueteNPC> NPCsDisponibles;
+	//private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
+	
+
+
 	private Map<String, MiChat> chatsActivos = new HashMap<>();
 
 
@@ -66,6 +75,7 @@ public class Juego implements Runnable {
 		ubicacionPersonaje.setFrame(0);
 		ubicacionPersonaje.setDireccion(6);
 
+
 		// Creo el escucha de mensajes
 		escuchaMensajes = new EscuchaMensajes(this);
 		escuchaMensajes.start();
@@ -76,9 +86,32 @@ public class Juego implements Runnable {
 
 		cargarRecursos = new CargarRecursos(cliente);
 		cargarRecursos.start();
+	
 	}
 
 	public void iniciar() { // Carga lo necesario para iniciar el juego
+		try {
+			Map<Integer, PaqueteNPC> npcs = new HashMap<Integer, PaqueteNPC>();
+			
+			for (int i = 0; i < 3; i++) {
+				PaqueteNPC npc = new PaqueteNPC();
+				npc.setNombre("NPC " + i);
+				npc.setEstado(Estado.estadoJuego);							
+				npc.setId(i);
+				npc.setFrame(1);
+				npc.setPosX(60*(i+1));
+				npc.setPosY(60*(i+1));
+				npc.setDireccion(1);
+				
+
+				npcs.put(i, npc);
+			}
+			NPCsDisponibles = npcs;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		pantalla = new Pantalla(NOMBRE, ANCHO, ALTO, cliente);
 
 		pantalla.getCanvas().addMouseListener(handlerMouse);
@@ -246,5 +279,12 @@ public class Juego implements Runnable {
 
 	public Map<String, MiChat> getChatsActivos() {
 		return chatsActivos;
+	}
+	public Map<Integer, PaqueteNPC> getNPCsDisponibles() {
+		return NPCsDisponibles;		
+	}
+
+	public void setNPCsDisponibles(Map<Integer, PaqueteNPC> nPCsDisponibles) {
+		NPCsDisponibles = nPCsDisponibles;
 	}
 }
