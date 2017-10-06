@@ -14,13 +14,7 @@ public class MenuInfoNPC {
 
 	private static final int anchoPersonaje = 128;
 	private static final BufferedImage menu = Recursos.menuEnemigo;
-	public static final int menuBatallar = 0;
-	public static final int menuInformacion = 1;
-	public static final int menuSubirNivel = 2;
-	public static final int menuGanarBatalla = 3;
-	public static final int menuPerderBatalla = 4;
-	public static final int menuGanarItem = 5;
-	public static final int menuComerciar = 6;
+	public static final int menuBatallarNPC = 7;
 	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar", "Aceptar", "Comerciar"};
 
 	private int x;
@@ -48,10 +42,7 @@ public class MenuInfoNPC {
 
 		// Grafico la leyenda segun el tipo de menu
 		switch(tipoMenu){
-			case menuBatallar:
-				graficarMenuInformacion(g);
-				break;
-			case menuInformacion:
+			case menuBatallarNPC:
 				graficarMenuInformacion(g);
 				break;
 		}

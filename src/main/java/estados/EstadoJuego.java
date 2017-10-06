@@ -92,8 +92,13 @@ public class EstadoJuego extends Estado {
 		g.drawImage(Recursos.mochila, 738, 545, 59, 52, null);
 		g.drawImage(Recursos.menu, 3, 562, 102, 35, null);
 		g.drawImage(Recursos.chat, 3, 524, 102, 35, null);
-		if (haySolicitud)
-			menuEnemigo.graficar(g, tipoSolicitud);
+		if (haySolicitud) {
+			if (tipoSolicitud == MenuInfoNPC.menuBatallarNPC)
+				menuEnemigoNPC.graficar(g, tipoSolicitud);
+			else
+				menuEnemigo.graficar(g, tipoSolicitud);
+			
+		}
 
 	}
 
@@ -183,7 +188,7 @@ public class EstadoJuego extends Estado {
 		haySolicitud = b;
 		// menu que mostrara al enemigo
 		menuEnemigoNPC = new MenuInfoNPC(300, 50, enemigo);
-		
+		this.tipoSolicitud = MenuInfoNPC.menuBatallarNPC;
 	}
 
 	public boolean getHaySolicitud() {
