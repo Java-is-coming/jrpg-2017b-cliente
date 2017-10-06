@@ -20,7 +20,9 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	private String raza = "Elfo";
 	private int saludTope;
 	private int fuerza;
+
 	private int nivel = 1;
+	private int dificultad;
 	
 	//Posicion
 	private float posX;
@@ -34,6 +36,9 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 
 	public int getEstado() {
 		return estado;
+	}
+	public int getNivel() {
+		return nivel;
 	}
 
 	public void setEstado(int estado) {
@@ -81,6 +86,13 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 
 	public void setFuerza(int fuerza) {
 		this.fuerza = fuerza;
+	}
+	public int getDificultad() {
+		return dificultad;
+	}
+
+	public void setDificultad(int dificultad) {
+		this.dificultad = dificultad;
 	}
 	
 	//Posicion
