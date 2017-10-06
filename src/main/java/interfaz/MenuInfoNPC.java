@@ -52,7 +52,7 @@ public class MenuInfoNPC {
 		g.setFont(new Font("Book Antiqua", 1, 20));
 		g.drawImage(Recursos.botonMenu, x + 50, y + 380, 200, 25, null);
 		g.setColor(Color.WHITE);
-		Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[tipoMenu]);
+		Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[0]);
 	}
 
 

@@ -197,11 +197,11 @@ public class Entidad {
 
 				if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
 					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
-						// Pregunto si menuBatallar o menuComerciar, sino no me interesa hacer esto
-						if (juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuBatallar || 
-								juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuComerciar) {
+						
+						// Pregunto si menuBatallar o menuComerciar o menu menuBatallarNPC, sino no me interesa hacer esto
+						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar 
+								|| juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuComerciar) {
+							
 							//Guardo las poss con el que quiero comerciar
 							xComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosX();
 							yComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosY();
@@ -210,10 +210,10 @@ public class Entidad {
 						// pregunto si el menu emergente es de tipo batalla
 						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar) {
 							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
-							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && 
-									(int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
+							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && (int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
+								
 								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
-								PaqueteBatalla pBatalla = new PaqueteBatalla();
+								PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarPersonaje);
 								
 								pBatalla.setId(juego.getPersonaje().getId());
 								pBatalla.setIdEnemigo(idEnemigo);
@@ -221,48 +221,57 @@ public class Entidad {
 								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 								
 								try {
-									juego.getCliente().getSalida().writeObject(gson.toJson
-											(pBatalla));
+									juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
 								} catch (IOException e) {
-									JOptionPane.showMessageDialog(null, "Fallo la conexión "
-											+ "con el servidor");
+									JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
 								}
-							} else {
-								JOptionPane.showMessageDialog(null, "El otro usuario se encuentra "
-										+ "dentro de la zona de comercio");	
+							} else  {
+								JOptionPane.showMessageDialog(null, "El otro usuario se encuentra dentro de la zona de comercio");	
 							}				
-						} else {
+						} else if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuComerciar) {
 							// PREGUNTO SI EL MENU EMERGENTE ES DE TIPO COMERCIO
-							if (juego.getEstadoJuego().getTipoSolicitud() == 
-									MenuInfoPersonaje.menuComerciar) {
-								if ((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && 
-										(int)comercio[1] >= 0 && (int)comercio[1] <= 29) {
+							if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuComerciar) {
+								if ((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && (int)comercio[1] >= 0 && (int)comercio[1] <= 29) {
 									if (juego.getCliente().getM1() == null) {
 										juego.getCliente().setPaqueteComercio(new PaqueteComerciar());
 										juego.getCliente().getPaqueteComercio().setId(juego.getPersonaje().getId());
 										juego.getCliente().getPaqueteComercio().setIdEnemigo(idEnemigo);
 										
 										try {
-											juego.getCliente().getSalida().writeObject(gson.toJson
-													(juego.getCliente().getPaqueteComercio()));
+											juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaqueteComercio()));
 										} catch (IOException e) {
-											JOptionPane.showMessageDialog(null, "Fallo la conexión "
-													+ "con el servidor");
+											JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
 										}	
 									} else {
 										JOptionPane.showMessageDialog(null, "Ya te encuentras comerciando!");
 									}
 								} else {
-									JOptionPane.showMessageDialog(null, "El otro usuario no se encuentra "
-											+ "dentro de la zona de comercio");
+									JOptionPane.showMessageDialog(null, "El otro usuario no se encuentra dentro de la zona de comercio");
 								}
 							}
+						} else if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoNPC.menuBatallarNPC) {
+							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
+							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && (int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
+								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+								PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
+								
+								pBatalla.setId(juego.getPersonaje().getId());
+								pBatalla.setIdEnemigo(idEnemigo);
+								
+								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+								
+								try {
+									juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
+								} catch (IOException e) {
+									JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+								}
+							} else  {
+								JOptionPane.showMessageDialog(null, "El NPC se encuentra dentro de la zona de comercio, que hace un NPC en la zona de comercio, echenlo.");	
+							}				
 						}
 						juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 
-
-					} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnCerrar(
-							posMouse[0], posMouse[1])) {
+					} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnCerrar(posMouse[0], posMouse[1])) {
 						juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 					}
 				} else {
@@ -325,8 +334,7 @@ public class Entidad {
 						key = it.next();
 						actualNPC = juego.getNPCsDisponibles().get(key);
 						tilePersonajes = Mundo.mouseATile(actualNPC.getPosX(), actualNPC.getPosY());
-						if (actualNPC != null && actualNPC.getId() != juego.getPersonaje().getId() 
-								&& juego.getNPCsDisponibles().get(actualNPC.getId()) != null
+						if (actualNPC != null && juego.getNPCsDisponibles().get(actualNPC.getId()) != null
 								&& juego.getNPCsDisponibles().get(actualNPC.getId()).getEstado() == Estado.estadoJuego) {
 
 							if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == tilePersonajes[1]) {

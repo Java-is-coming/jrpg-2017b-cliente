@@ -143,8 +143,7 @@ public class EstadoJuego extends Estado {
 			while (it.hasNext()) {
 				key = it.next();
 				actual = NPCsDisponibles.get(key);
-				if (actual != null && actual.getId() != juego.getPersonaje().getId()
-						&& NPCsDisponibles.get(actual.getId()).getEstado() == Estado.estadoJuego) {
+				if (actual != null && NPCsDisponibles.get(actual.getId()).getEstado() == Estado.estadoJuego) {
 					Pantalla.centerString(g,
 							new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32),
 									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 20), 0, 10),
