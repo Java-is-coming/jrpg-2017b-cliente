@@ -90,34 +90,6 @@ public class Juego implements Runnable {
 	}
 
 	public void iniciar() { // Carga lo necesario para iniciar el juego
-<<<<<<< HEAD
-		/*
-		try {
-			Map<Integer, PaqueteNPC> npcs = new HashMap<Integer, PaqueteNPC>();
-			
-			for (int i = 0; i < 3; i++) {
-				PaqueteNPC npc = new PaqueteNPC();
-				npc.setNombre("NPC " + i);
-				npc.setEstado(Estado.estadoJuego);							
-				npc.setId(i);
-				npc.setFrame(1);
-				npc.setPosX(60*(i+1));
-				npc.setPosY(60*(i+1));
-				npc.setDireccion(1);
-				
-
-				npcs.put(i, npc);
-			}
-			NPCsDisponibles = npcs;
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-=======
-
->>>>>>> origin/REC
 		pantalla = new Pantalla(NOMBRE, ANCHO, ALTO, cliente);
 
 		pantalla.getCanvas().addMouseListener(handlerMouse);

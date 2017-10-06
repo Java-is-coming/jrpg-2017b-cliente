@@ -332,9 +332,7 @@ public class Entidad {
 							if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == tilePersonajes[1]) {
 								idEnemigo = actualNPC.getId();
 
-								juego.getEstadoJuego().setHaySolicitud(true,juego.
-										getNPCsDisponibles().get(idEnemigo), MenuInfoPersonaje.
-										menuBatallar);	
+								juego.getEstadoJuego().setHaySolicitud(true,juego.getNPCsDisponibles().get(idEnemigo));	
 								
 								juego.getHandlerMouse().setNuevoClick(false);
 							}
