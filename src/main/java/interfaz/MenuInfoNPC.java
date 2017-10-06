@@ -62,6 +62,9 @@ public class MenuInfoNPC {
 		// muestro los nombres de los atributos
 		g.setColor(Color.BLACK);
 		Pantalla.centerString(g, new Rectangle(x, y + 200, menu.getWidth(), 0), npc.getRaza());
+		g.setColor(Color.RED);
+		Pantalla.centerString(g, new Rectangle(x, y + 230, menu.getWidth(), 0), "< NPC >");
+		g.setColor(Color.BLACK);
 		g.drawString("Raza: ", x + 30, y + 260);
 		g.drawString("Fuerza: ", x + 30, y + 290);
 		g.drawString("Salud: ", x + 30, y + 320);

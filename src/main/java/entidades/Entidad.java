@@ -194,26 +194,30 @@ public class Entidad {
 		// Tomo el click izquierdo 
 		if (juego.getHandlerMouse().getNuevoClick()) {
 			if (juego.getEstadoJuego().getHaySolicitud()) {
-
+				
 				if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoNPC.menuBatallarNPC) {
 					if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnMenu(posMouse[0], posMouse[1])) {
-						if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnBoton(posMouse[0], posMouse[1])) {								
-								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
-								PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
-								
-								pBatalla.setId(juego.getPersonaje().getId());
-								pBatalla.setIdEnemigo(idEnemigo);
-								
-								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
-								
-								try {
-									juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
-								} catch (IOException e) {
-									JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
-								}
+						if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnBoton(posMouse[0], posMouse[1])) {				
+
+							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+							PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
+							
+							pBatalla.setId(juego.getPersonaje().getId());
+							pBatalla.setIdEnemigo(idEnemigo);
+							
+							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+							
+							try {
+								juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
+							} catch (IOException e) {
+								JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+							}
+				
+						
 						} else if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnCerrar(posMouse[0], posMouse[1])) {
 							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
-						}			
+						}
+
 					}
 				} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
 					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
