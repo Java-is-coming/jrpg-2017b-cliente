@@ -201,9 +201,7 @@ public class EstadoBatallaNPC extends Estado {
 		g.setColor(Color.GREEN);
 
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 25, 5, personaje, miniaturaPersonaje);
-		//EstadoDePersonaje.dibujarEstadoDePersonaje(g, 550, 5, enemigo, miniaturaEnemigo);
-		
-
+		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 550, 5, enemigo, miniaturaEnemigo);
 	}
 
 	private void crearPersonajes() {
@@ -259,8 +257,8 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.removerBonus();
 
-			//paqueteEnemigoNPC.setSaludTope(enemigo.getSaludTope());
-			//paqueteEnemigoNPC.setFuerza(enemigo.getFuerza());
+			paqueteEnemigoNPC.setSaludTope(enemigo.getSaludTope());
+			paqueteEnemigoNPC.setFuerza(enemigo.getFuerza());
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			paqueteEnemigoNPC.setComando(Comando.ACTUALIZARPERSONAJE);
