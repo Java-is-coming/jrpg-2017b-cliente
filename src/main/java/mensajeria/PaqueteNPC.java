@@ -17,7 +17,7 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	private int idMapa;
 	private int estado;
 	private String nombre;
-	private String raza = "Elfo";
+	private String raza = "NPC";
 	private int saludTope;
 	private int fuerza;
 

@@ -16,7 +16,7 @@ public class MenuInfoNPC {
 	private static final BufferedImage menu = Recursos.menuEnemigo;
 	public static final int menuBatallarNPC = 7;
 	public static final int menuPerderBatalla = 8;
-	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar", "Aceptar", "Comerciar"};
+	private static final String [] leyendaBoton = {"Batallar"};
 
 	private int x;
 	private int y;
@@ -29,7 +29,6 @@ public class MenuInfoNPC {
 	}
 
 	public void graficar(Graphics g, int tipoMenu){
-
 		// dibujo el menu
 		g.drawImage(menu, x, y, null);
 

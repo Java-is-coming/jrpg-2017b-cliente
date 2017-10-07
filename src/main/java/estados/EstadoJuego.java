@@ -21,6 +21,7 @@ import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import juego.Pantalla;
 import mensajeria.Comando;
+import mensajeria.PaqueteBatalla;
 import mensajeria.PaqueteMovimiento;
 import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
@@ -138,21 +139,22 @@ public class EstadoJuego extends Estado {
 			
 			int key;
 			PaqueteNPC actual;
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
+			g.setColor(Color.RED);
+			g.setFont(new Font("Book Antiqua", Font.BOLD, 15));
 			while (it.hasNext()) {
 				key = it.next();
 				actual = NPCsDisponibles.get(key);
 				if (actual != null && NPCsDisponibles.get(actual.getId()).getEstado() == Estado.estadoJuego) {
 					Pantalla.centerString(g,
 							new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32),
-									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 20), 0, 10),
+									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 4), 0, 10),
 							NPCsDisponibles.get(actual.getId()).getNombre());
+							//NPCsDisponibles.get(actual.getId()).getNombre() + "X: " + NPCsDisponibles.get(actual.getId()).getPosX() + "Y: " + NPCsDisponibles.get(actual.getId()).getPosY());
 					g.drawImage(
 							Recursos.personaje.get(NPCsDisponibles.get(actual.getId()).getRaza())
 									.get(actual.getDireccion())[actual.getFrame()],
 							(int) (actual.getPosX() - juego.getCamara().getxOffset()),
-							(int) (actual.getPosY() - juego.getCamara().getyOffset()), 64, 64, null);
+							(int) (actual.getPosY() - juego.getCamara().getyOffset()), 128, 128, null);
 				}
 			}
 		}
@@ -179,7 +181,8 @@ public class EstadoJuego extends Estado {
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
 		haySolicitud = b;
 		// menu que mostrara al enemigo
-		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
+		if (tipoSolicitud !=  MenuInfoNPC.menuBatallarNPC && enemigo != null)
+			menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
 		this.tipoSolicitud = tipoSolicitud;
 	}
 	

@@ -200,13 +200,13 @@ public class Entidad {
 					if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnMenu(posMouse[0], posMouse[1])) {
 						if (juego.getEstadoJuego().getMenuEnemigoNPC().clickEnBoton(posMouse[0], posMouse[1])) {				
 
-							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+							//juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
 							PaqueteBatalla pBatalla = new PaqueteBatalla(PaqueteBatalla.batallarNPC);
 							
 							pBatalla.setId(juego.getPersonaje().getId());
 							pBatalla.setIdEnemigo(idEnemigo);
 							
-							juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoNPC.menuBatallarNPC);
+							juego.getEstadoJuego().setHaySolicitud(false, null);
 							
 							try {
 								juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
@@ -505,7 +505,7 @@ public class Entidad {
 	public void graficarNombre(final Graphics g) {
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Book Antiqua", Font.BOLD, 15));
-	    Pantalla.centerString(g, new java.awt.Rectangle(drawX + 32, drawY - 20, 0, 10), nombre);
+	    Pantalla.centerString(g, new java.awt.Rectangle(drawX + 32, drawY - 20, 0, 10), nombre);// + " X: " + getX() + " Y: " + getY());
 	}
 	/**Obtiene el frameActual del personaje
 	 */
