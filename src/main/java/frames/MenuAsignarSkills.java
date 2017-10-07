@@ -77,6 +77,11 @@ public class MenuAsignarSkills extends JFrame {
 					
 			
 			puntosAsignarInicial = puntosRestantes;
+			
+			if (puntosRestantes == 0) {
+				dispose();
+			}
+				
 		} else
 			puntosAsignarInicial = 3;
 		
