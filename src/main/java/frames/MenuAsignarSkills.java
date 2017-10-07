@@ -416,6 +416,9 @@ public class MenuAsignarSkills extends JFrame {
 		
 		final JButton buttonReasignar = new JButton("Reasignar");
 		buttonReasignar.setEnabled(true);
+		
+		if (puntosAsignarInicial == 0)
+			buttonReasignar.setEnabled(false);
 
 		buttonReasignar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
