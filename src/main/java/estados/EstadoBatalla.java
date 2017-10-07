@@ -22,6 +22,7 @@ import interfaz.EstadoDePersonaje;
 import interfaz.MenuBatalla;
 import interfaz.MenuInfoPersonaje;
 import juego.Juego;
+import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.PaqueteAtacar;
 import mensajeria.PaqueteBatalla;
@@ -149,6 +150,7 @@ public class EstadoBatalla extends Estado {
 						if(personaje.ganarExperiencia(enemigo.getNivel() * 40)){
 							juego.getPersonaje().setNivel(personaje.getNivel());
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
+							Pantalla.menuAsignar = null;
 						}
 						paqueteFinalizarBatalla.setGanadorBatalla(juego.getPersonaje().getId());
 						finalizarBatalla();
