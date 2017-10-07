@@ -19,8 +19,11 @@ import javax.swing.border.EmptyBorder;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import dominio.Casta;
 import juego.Pantalla;
 import mensajeria.Comando;
+import mensajeria.PaquetePersonaje;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -36,15 +39,30 @@ public class MenuAsignarSkills extends JFrame {
 	private int puntosDestreza = puntosDestrezaInicial;
 	private int puntosInteligencia = puntosInteligenciaInicial;
 	private final Gson gson = new Gson();
+	
+	private int puntosFuerzaBase = 0;
+	private int puntosDestrezaBase = 0;
+	private int puntosIntBase = 0;
+	
+	final int vecFuerza[] = { 15, 10, 10 };
+	final int vecDestreza[] = { 10, 10, 15 };
+	final int vecInteligencia[] = { 10, 15, 10 };
+	
+	final String Casta[] = { "Guerrero", "Hechicero", "Asesino" };
+	
+	private boolean reAsigno = false;
 
 	/**
 	 * Create the frame.
 	 */
-	public MenuAsignarSkills(final Cliente cliente) {
+	public MenuAsignarSkills(final Cliente cliente) {		
+				
 		puntosAsignarInicial = 3;
+		
 		puntosFuerzaInicial = cliente.getPaquetePersonaje().getFuerza();
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();
 		puntosInteligenciaInicial = cliente.getPaquetePersonaje().getInteligencia();
+			
 		puntosAsignar = puntosAsignarInicial;
 		puntosFuerza = puntosFuerzaInicial;
 		puntosDestreza = puntosDestrezaInicial;
@@ -132,10 +150,22 @@ public class MenuAsignarSkills extends JFrame {
 		buttonConfirm.setEnabled(false);
 		buttonConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {;
+			
 				puntosAsignarInicial = puntosAsignar;
+				
+				
+				if (reAsigno)
+				{
+					cliente.getPaquetePersonaje().setInteligencia(puntosInteligenciaInicial);
+					cliente.getPaquetePersonaje().setDestreza(puntosDestrezaInicial);
+					cliente.getPaquetePersonaje().setFuerza(puntosFuerzaInicial);
+				}
+				
+				
 				int bonusF = puntosFuerza-puntosFuerzaInicial;
 				int bonusD = puntosDestreza-puntosDestrezaInicial;
-				int bonusI = puntosInteligencia-puntosInteligenciaInicial;
+				int bonusI = puntosInteligencia-puntosInteligenciaInicial;			
+				
 				cliente.getPaquetePersonaje().useBonus(0, 0, bonusF, bonusD, bonusI);
 				cliente.getPaquetePersonaje().removerBonus();
 				cliente.getPaquetePersonaje().setComando(Comando.ACTUALIZARPERSONAJELV);
@@ -241,6 +271,7 @@ public class MenuAsignarSkills extends JFrame {
 				}
 			}
 		});
+		
 		buttonMinus1.setIcon(icono_1);
 		buttonMinus1.setBounds(12, 159, 34, 25);
 		contentPane.add(buttonMinus1);
@@ -353,6 +384,55 @@ public class MenuAsignarSkills extends JFrame {
 		buttonMore2.setIcon(icono_2);
 		buttonMore2.setBounds(118, 217, 34, 25);
 		contentPane.add(buttonMore2);
+		
+		final JButton buttonReasignar = new JButton("Reasignar");
+		buttonReasignar.setEnabled(true);
+
+		buttonReasignar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				for (int i = 0; i < Casta.length && puntosFuerzaBase == 0 ;i++) {
+					if (Casta[i].trim().equals(cliente.getPaquetePersonaje().getCasta().trim()))
+					{
+						puntosFuerzaBase = vecFuerza[i];
+						puntosDestrezaBase = vecDestreza[i];
+						puntosIntBase = vecInteligencia[i];
+					}			
+				}
+				
+				
+				PaquetePersonaje personajeAux = (PaquetePersonaje) cliente.getPaquetePersonaje().clone();
+				
+				personajeAux.setFuerza(puntosFuerzaBase);
+				personajeAux.setDestreza(puntosDestrezaBase);
+				personajeAux.setInteligencia(puntosIntBase);
+				
+				personajeAux.ponerBonus();
+				
+				puntosAsignarInicial = personajeAux.getNivel()	* 3;
+				puntosAsignar = puntosAsignarInicial;
+				
+				puntosFuerzaInicial = personajeAux.getFuerza();
+				puntosDestrezaInicial = personajeAux.getDestreza();
+				puntosInteligenciaInicial = personajeAux.getInteligencia();
+				
+				puntosFuerza = puntosFuerzaInicial;
+				puntosDestreza = puntosDestrezaInicial;
+				puntosInteligencia = puntosInteligenciaInicial;
+				
+				labelFuerza.setText(String.valueOf(puntosFuerzaInicial));
+				labelDestreza.setText(String.valueOf(puntosDestrezaInicial));
+				labelInteligencia.setText(String.valueOf(puntosInteligenciaInicial));
+				labelPuntos.setText(String.valueOf(puntosAsignarInicial));
+				
+				reAsigno = true;
+			}
+
+		});
+
+		buttonReasignar.setBounds(176, 78, 97, 25);
+		contentPane.add(buttonReasignar);		
+		
 		
 		final JLabel imageLabel = new JLabel(new ImageIcon("recursos//background.jpg")); 
 		imageLabel.setBounds(0, 0, 298, 294);
