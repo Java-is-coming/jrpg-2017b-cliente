@@ -344,7 +344,7 @@ public class Entidad {
 						if (actualNPC != null && juego.getNPCsDisponibles().get(actualNPC.getId()) != null
 								&& juego.getNPCsDisponibles().get(actualNPC.getId()).getEstado() == Estado.estadoJuego) {
 
-							if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == tilePersonajes[1]) {
+							if (Math.abs(tileMoverme[0] - tilePersonajes[0]) <=2 && Math.abs(tileMoverme[1] - tilePersonajes[1]) <=2) {
 								idEnemigo = actualNPC.getId();
 
 								juego.getEstadoJuego().setHaySolicitud(true, juego.getNPCsDisponibles().get(idEnemigo));	
