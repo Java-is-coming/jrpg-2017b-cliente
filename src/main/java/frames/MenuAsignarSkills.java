@@ -56,8 +56,30 @@ public class MenuAsignarSkills extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuAsignarSkills(final Cliente cliente) {		
-				
-		puntosAsignarInicial = 3;
+		
+		
+		for (int i = 0; i < Casta.length && puntosFuerzaBase == 0 ;i++) {
+			if (Casta[i].trim().equals(cliente.getPaquetePersonaje().getCasta().trim()))
+			{
+				puntosFuerzaBase = vecFuerza[i];
+				puntosDestrezaBase = vecDestreza[i];
+				puntosIntBase = vecInteligencia[i];
+			}			
+		}		
+		
+		if (cliente.getPaquetePersonaje().getNivel() > 1) {
+			
+			PaquetePersonaje personajeAux = (PaquetePersonaje) cliente.getPaquetePersonaje().clone();
+			personajeAux.removerBonus();
+			
+			int puntosTotales = personajeAux.getInteligencia() + personajeAux.getFuerza() + personajeAux.getDestreza();
+			int puntosRestantes = ((puntosFuerzaBase + puntosDestrezaBase + puntosIntBase) + (cliente.getPaquetePersonaje().getNivel() * 3)) - puntosTotales;		
+					
+			
+			puntosAsignarInicial = puntosRestantes;
+		} else
+			puntosAsignarInicial = 3;
+		
 		
 		puntosFuerzaInicial = cliente.getPaquetePersonaje().getFuerza();
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();
@@ -150,8 +172,6 @@ public class MenuAsignarSkills extends JFrame {
 		buttonConfirm.setEnabled(false);
 		buttonConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {;
-			
-				puntosAsignarInicial = puntosAsignar;
 				
 				
 				if (reAsigno)
@@ -176,6 +196,10 @@ public class MenuAsignarSkills extends JFrame {
 
 				}
 				JOptionPane.showMessageDialog(null,"Se han actualizado tus atributos.");
+				
+				if (puntosAsignar != puntosAsignarInicial)
+					Pantalla.menuAsignar = null;
+				
 				dispose();
 			}
 		});
@@ -391,16 +415,6 @@ public class MenuAsignarSkills extends JFrame {
 		buttonReasignar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				for (int i = 0; i < Casta.length && puntosFuerzaBase == 0 ;i++) {
-					if (Casta[i].trim().equals(cliente.getPaquetePersonaje().getCasta().trim()))
-					{
-						puntosFuerzaBase = vecFuerza[i];
-						puntosDestrezaBase = vecDestreza[i];
-						puntosIntBase = vecInteligencia[i];
-					}			
-				}
-				
-				
 				PaquetePersonaje personajeAux = (PaquetePersonaje) cliente.getPaquetePersonaje().clone();
 				
 				personajeAux.setFuerza(puntosFuerzaBase);
@@ -439,4 +453,11 @@ public class MenuAsignarSkills extends JFrame {
 		imageLabel.setVisible(true);
 		contentPane.add(imageLabel);
 	}
+	
+
+			
+
+		
+	
+	
 }
