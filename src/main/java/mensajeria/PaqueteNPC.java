@@ -11,34 +11,44 @@ import dominio.Item;
 import estados.Estado;
 
 public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
- //https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
- 
- private int id;
- private int idMapa;
- private int estado;
- private String nombre;
- private String raza = "Elfo";
- private int saludTope;
- private int fuerza;
- private int nivel = 1;
- 
- //Posicion
- private float posX;
- private float posY;
- private int direccion;
- private int frame;
- 
- public PaqueteNPC() throws IOException {
-  estado = Estado.estadoOffline;
- }
+	//https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
+	
+	private int id;
+	private int idMapa;
+	private int estado;
+	private String nombre;
+	private String raza = "NPC";
+	private int saludTope;
+	private int fuerza;
 
- public int getEstado() {
-  return estado;
- }
+	private int nivel = 1;
+	private int dificultad;
+	
+	//Posicion
+	private float posX;
+	private float posY;
+	private int direccion;
+	private int frame;
+	
+	public PaqueteNPC() throws IOException {
+		estado = Estado.estadoOffline;
+	}
 
- public void setEstado(int estado) {
-  this.estado = estado;
- }
+	public int getEstado() {
+		return estado;
+	}
+	
+	public int getNivel() {
+		return nivel;
+	}
+	
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+	
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
 
  public String getNombre() {
   return nombre;
@@ -79,14 +89,21 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
   return fuerza;
  }
 
- public void setFuerza(int fuerza) {
-  this.fuerza = fuerza;
- }
- 
- //Posicion
- public float getPosX() {
-  return posX;
- }
+	public void setFuerza(int fuerza) {
+		this.fuerza = fuerza;
+	}
+	public int getDificultad() {
+		return dificultad;
+	}
+
+	public void setDificultad(int dificultad) {
+		this.dificultad = dificultad;
+	}
+	
+	//Posicion
+	public float getPosX() {
+		return posX;
+	}
 
  public void setPosX(float posX) {
   this.posX = posX;

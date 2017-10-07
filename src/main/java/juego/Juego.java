@@ -15,6 +15,7 @@ import cliente.EscuchaMensajes;
 import dominio.Personaje;
 import estados.Estado;
 import estados.EstadoBatalla;
+import estados.EstadoBatallaNPC;
 import estados.EstadoJuego;
 import mensajeria.PaqueteMovimiento;
 import mensajeria.PaqueteNPC;
@@ -90,28 +91,6 @@ public class Juego implements Runnable {
 	}
 
 	public void iniciar() { // Carga lo necesario para iniciar el juego
-		try {
-			Map<Integer, PaqueteNPC> npcs = new HashMap<Integer, PaqueteNPC>();
-			
-			for (int i = 0; i < 3; i++) {
-				PaqueteNPC npc = new PaqueteNPC();
-				npc.setNombre("NPC " + i);
-				npc.setEstado(Estado.estadoJuego);							
-				npc.setId(i);
-				npc.setFrame(1);
-				npc.setPosX(60*(i+1));
-				npc.setPosY(60*(i+1));
-				npc.setDireccion(1);
-				
-
-				npcs.put(i, npc);
-			}
-			NPCsDisponibles = npcs;
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		pantalla = new Pantalla(NOMBRE, ANCHO, ALTO, cliente);
 
 		pantalla.getCanvas().addMouseListener(handlerMouse);
@@ -232,8 +211,16 @@ public class Juego implements Runnable {
 	public EstadoBatalla getEstadoBatalla(){
 		return (EstadoBatalla) estadoBatalla;
 	}
+	
+	public EstadoBatallaNPC getEstadoBatallaNPC(){
+		return (EstadoBatallaNPC) estadoBatalla;
+	}
 
 	public void setEstadoBatalla(EstadoBatalla estadoBatalla){
+		this.estadoBatalla = estadoBatalla;
+	}
+	
+	public void setEstadoBatalla(EstadoBatallaNPC estadoBatalla){
 		this.estadoBatalla = estadoBatalla;
 	}
 

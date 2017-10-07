@@ -27,6 +27,18 @@ public class Recursos {
 	// Hash de imagenes para los personajes (humano, ogro, elfo)
 	public static Map<String, LinkedList<BufferedImage[]>> personaje = new HashMap<>();
 
+	private static SpriteSheet spriteNPC;
+	public static LinkedList<BufferedImage[]> NPC = new LinkedList<>();
+	private static BufferedImage[] NPCIzq;
+	private static BufferedImage[] NPCArribaIzq;
+	private static BufferedImage[] NPCArriba;
+	private static BufferedImage[] NPCArribaDer;
+	private static BufferedImage[] NPCDer;
+	private static BufferedImage[] NPCAbajoDer;
+	private static BufferedImage[] NPCAbajo;
+	private static BufferedImage[] NPCAbajoIzq;
+	
+	
 	private static SpriteSheet spriteHumano;
 	public static LinkedList<BufferedImage[]> humano = new LinkedList<>();
 	private static BufferedImage[] humanoIzq;
@@ -178,6 +190,78 @@ public class Recursos {
 		humano.add(humanoAbajo);
 		humano.add(humanoAbajoIzq);
 		// Fin humano
+				
+		// Inicio NPC
+		spriteNPC = new SpriteSheet(CargadorImagen.cargarImagen("/NPC.png"));
+		
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+		
+		NPCIzq = new BufferedImage[4];
+		NPCArribaIzq = new BufferedImage[4];
+		NPCArriba = new BufferedImage[4];
+		NPCArribaDer = new BufferedImage[4];
+		NPCDer = new BufferedImage[4];
+		NPCAbajoDer = new BufferedImage[4];
+		NPCAbajo = new BufferedImage[4];
+		NPCAbajoIzq = new BufferedImage[4];
+
+		for (int i = 0; i < 4; i++) {
+			NPCIzq[i] = spriteNPC.getTile(ANCHO * (i+4), 0, ANCHO, ALTO);
+		}
+		
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+
+		for (int i = 0; i < 4; i++) {
+			NPCArribaIzq[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO, ANCHO, ALTO);
+		}
+
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+		
+		for (int i = 0; i < 4; i++) {
+			NPCArriba[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 2, ANCHO, ALTO);
+		}
+		
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+
+		for (int i = 0; i < 4; i++) {
+			NPCArribaDer[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 3, ANCHO, ALTO);
+		}
+		
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+
+		for (int i = 0; i < 4; i++) {
+			NPCDer[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 4, ANCHO, ALTO);
+		}
+
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+		
+		for (int i = 0; i < 4; i++) {
+			NPCAbajoDer[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 5, ANCHO, ALTO);
+		}
+		
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+
+		for (int i = 0; i < 4; i++) {
+			NPCAbajo[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 6, ANCHO, ALTO);
+		}
+
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+		
+		for (int i = 0; i < 4; i++) {
+			NPCAbajoIzq[i] = spriteNPC.getTile(ANCHO * (i+4), ALTO * 7, ANCHO, ALTO);
+		}
+
+		actualizarBarraDeCarga(++elementosCargados, menuCarga);
+		
+		NPC.add(NPCIzq);
+		NPC.add(NPCArribaIzq);
+		NPC.add(NPCArriba);
+		NPC.add(NPCArribaDer);
+		NPC.add(NPCDer);
+		NPC.add(NPCAbajoDer);
+		NPC.add(NPCAbajo);
+		NPC.add(NPCAbajoIzq);
+		// Fin NPC		
 
 		// Inicio Ogro
 		spriteOgro = new SpriteSheet(CargadorImagen.cargarImagen("/Ogro.png"));
@@ -329,6 +413,7 @@ public class Recursos {
 		personaje.put("Humano", humano);
 		personaje.put("Orco", orco);
 		personaje.put("Elfo", elfo);
+		personaje.put("NPC", NPC);
 
 		// Inicio Entorno
 		cesped = CargadorImagen.cargarImagen("/Cesped.png");

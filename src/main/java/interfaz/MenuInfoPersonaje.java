@@ -35,7 +35,9 @@ public class MenuInfoPersonaje {
 	}
 
 	public void graficar(Graphics g, int tipoMenu){
-
+		if (tipoMenu >= leyendaBoton.length)
+			return;
+			
 		// dibujo el menu
 		g.drawImage(menu, x, y, null);
 
