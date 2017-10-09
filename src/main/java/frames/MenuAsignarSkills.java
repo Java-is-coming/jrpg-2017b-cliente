@@ -417,8 +417,12 @@ public class MenuAsignarSkills extends JFrame {
 		final JButton buttonReasignar = new JButton("Reasignar");
 		buttonReasignar.setEnabled(true);
 		
-		if (puntosAsignarInicial == 0)
+		if (puntosAsignarInicial == 0) {
 			buttonReasignar.setEnabled(false);
+			buttonMore.setEnabled(false);
+			buttonMore1.setEnabled(false);
+			buttonMore2.setEnabled(false);
+		}
 
 		buttonReasignar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -446,7 +450,7 @@ public class MenuAsignarSkills extends JFrame {
 				labelDestreza.setText(String.valueOf(puntosDestrezaInicial));
 				labelInteligencia.setText(String.valueOf(puntosInteligenciaInicial));
 				labelPuntos.setText(String.valueOf(puntosAsignarInicial));
-				
+				buttonReasignar.setEnabled(false);
 				reAsigno = true;
 			}
 
