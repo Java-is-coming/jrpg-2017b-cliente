@@ -1,16 +1,21 @@
 package comandos;
 
 import estados.Estado;
-import mensajeria.PaqueteFinalizarBatalla;
 
-public class FinalizarBatalla extends ComandosEscucha{
+/**
+ * Finaliza la batalla con un usuario o NPC
+ *
+ */
+public class FinalizarBatalla extends ComandosEscucha {
 
-	@Override
-	public void ejecutar() {
-		PaqueteFinalizarBatalla paqueteFinalizarBatalla = (PaqueteFinalizarBatalla) gson.fromJson(cadenaLeida, PaqueteFinalizarBatalla.class);
-		juego.getPersonaje().setEstado(Estado.estadoJuego);
-		Estado.setEstado(juego.getEstadoJuego());
-		
-	}
-	
+    @Override
+    public void ejecutar() {
+        // final PaqueteFinalizarBatalla paqueteFinalizarBatalla =
+        // gson.fromJson(cadenaLeida,
+        // PaqueteFinalizarBatalla.class);
+        getJuego().getPersonaje().setEstado(Estado.ESTADO_JUEGO);
+        Estado.setEstado(getJuego().getEstadoJuego());
+
+    }
+
 }

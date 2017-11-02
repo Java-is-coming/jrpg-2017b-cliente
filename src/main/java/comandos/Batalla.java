@@ -5,26 +5,27 @@ import estados.EstadoBatalla;
 import estados.EstadoBatallaNPC;
 import mensajeria.PaqueteBatalla;
 
+/**
+ * Comando para iniciar batalla con un contrincante ya sea NPC o personaje
+ *
+ */
 public class Batalla extends ComandosEscucha {
 
-	@Override
-	public void ejecutar() {
-		
-		PaqueteBatalla paqueteBatalla = (PaqueteBatalla) gson.fromJson(cadenaLeida, PaqueteBatalla.class);
-		juego.getPersonaje().setEstado(Estado.estadoBatalla);
-		Estado.setEstado(null);
-		
-		if (paqueteBatalla.getTipoBatalla() == PaqueteBatalla.batallarPersonaje){
-			juego.setEstadoBatalla(new EstadoBatalla(juego, paqueteBatalla));
-			Estado.setEstado(juego.getEstadoBatalla());
-		}
-		else {
-			juego.setEstadoBatalla(new EstadoBatallaNPC(juego, paqueteBatalla));
-			Estado.setEstado(juego.getEstadoBatallaNPC());
-		}
-		
-		
+    @Override
+    public void ejecutar() {
 
-	}
+        final PaqueteBatalla paqueteBatalla = gson.fromJson(cadenaLeida, PaqueteBatalla.class);
+        getJuego().getPersonaje().setEstado(Estado.ESTADO_BATALLA);
+        Estado.setEstado(null);
+
+        if (paqueteBatalla.getTipoBatalla() == PaqueteBatalla.batallarPersonaje) {
+            getJuego().setEstadoBatalla(new EstadoBatalla(getJuego(), paqueteBatalla));
+            Estado.setEstado(getJuego().getEstadoBatalla());
+        } else {
+            getJuego().setEstadoBatalla(new EstadoBatallaNPC(getJuego(), paqueteBatalla));
+            Estado.setEstado(getJuego().getEstadoBatallaNPC());
+        }
+
+    }
 
 }

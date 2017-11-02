@@ -6,35 +6,59 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Clase utilitaria
+ *
+ */
+public final class Utilitarias {
 
-public class Utilitarias {
+    /**
+     * Constructor oculto
+     */
+    private Utilitarias() {
 
-	public static String archivoAString(String path) {
-		StringBuilder builder = new StringBuilder();
+    }
 
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			String linea;
+    /**
+     * Archivo a string
+     *
+     * @param path
+     *            ruta al archivo
+     * @return String devuelve el contenido en string
+     */
+    public static String archivoAString(final String path) {
+        final StringBuilder builder = new StringBuilder();
 
-			while ((linea = br.readLine()) != null) {
-				builder.append(linea + System.lineSeparator());
-			}
+        try {
+            final BufferedReader br = new BufferedReader(new FileReader(path));
+            String linea;
 
-			br.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Fallo al intentar cargar el mapa " + path );
-		}
+            while ((linea = br.readLine()) != null) {
+                builder.append(linea + System.lineSeparator());
+            }
 
-		return builder.toString();
-	}
+            br.close();
+        } catch (final IOException e) {
+            JOptionPane.showMessageDialog(null, "Fallo al intentar cargar el mapa " + path);
+        }
 
-	public static int parseInt(String numero) {
-		try {
-			return Integer.parseInt(numero);
-		} catch (NumberFormatException e) {
+        return builder.toString();
+    }
 
-			return 0;
-		}
-	}
+    /**
+     * Parseo a entero de un string
+     *
+     * @param numero
+     *            string a convertir
+     * @return int entero convertido
+     */
+    public static int parseInt(final String numero) {
+        try {
+            return Integer.parseInt(numero);
+        } catch (final NumberFormatException e) {
+
+            return 0;
+        }
+    }
 
 }

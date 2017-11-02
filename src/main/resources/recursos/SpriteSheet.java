@@ -2,7 +2,7 @@ package recursos;
 
 import java.awt.image.BufferedImage;
 
-public class SpriteSheet {
+ public class SpriteSheet {
 
 	private BufferedImage sprite;
 	

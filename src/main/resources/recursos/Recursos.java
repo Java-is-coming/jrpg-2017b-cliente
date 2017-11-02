@@ -15,7 +15,7 @@ import frames.MenuCarga;
 import frames.MenuMapas;
 import mundo.Tile;
 
-public class Recursos {
+ public class Recursos {
 
 	private static int ELEMENTOS = 65;
 	private static int ANCHOBARRA = 345;
