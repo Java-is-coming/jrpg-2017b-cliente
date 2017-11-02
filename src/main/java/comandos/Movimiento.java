@@ -2,13 +2,18 @@ package comandos;
 
 import mensajeria.PaqueteDeMovimientos;
 
-public class Movimiento extends ComandosEscucha{
+/**
+ * Movimiento del personaje en el mapa
+ *
+ *
+ */
+public class Movimiento extends ComandosEscucha {
 
-	@Override
-	public void ejecutar() {
-		PaqueteDeMovimientos pdm = (PaqueteDeMovimientos) gson.fromJson(cadenaLeida,PaqueteDeMovimientos.class);
-		juego.setUbicacionPersonajes(pdm.getPersonajes());
-		
-	}
+    @Override
+    public void ejecutar() {
+        final PaqueteDeMovimientos pdm = gson.fromJson(cadenaLeida, PaqueteDeMovimientos.class);
+        getJuego().setUbicacionPersonajes(pdm.getPersonajes());
+
+    }
 
 }

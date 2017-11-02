@@ -9,31 +9,41 @@ import cliente.Cliente;
 import mensajeria.Comando;
 import recursos.Recursos;
 
+/**
+ * Thread de carga de los recursos del juego
+ *
+ */
 public class CargarRecursos extends Thread {
 
-	private Cliente cliente;
+    private final Cliente cliente;
 
-	public CargarRecursos(Cliente cliente) {
-		this.cliente = cliente;
-	}
+    /**
+     * Construye el thread
+     *
+     * @param cliente
+     *            cliente
+     */
+    public CargarRecursos(final Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-	@Override
-	public void run() {
-		synchronized (cliente) {
-			try {
-				Recursos.cargar(cliente.getMenuCarga());
-			} catch (FileNotFoundException e) {
-				JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
+    @Override
+    public void run() {
+        synchronized (cliente) {
+            try {
+                Recursos.cargar(cliente.getMenuCarga());
+            } catch (final FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
 
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
-			}
+            } catch (final NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
+            } catch (final IOException e) {
+                JOptionPane.showMessageDialog(null, "Falló al cargar los recursos");
+            }
 
-			cliente.setAccion(Comando.SALIR);
-			cliente.notify();
-		}
-	}
+            cliente.setAccion(Comando.SALIR);
+            cliente.notify();
+        }
+    }
 
 }

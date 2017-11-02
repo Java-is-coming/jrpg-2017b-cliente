@@ -1,3 +1,4 @@
+
 package estados;
 
 import java.awt.Color;
@@ -55,8 +56,8 @@ public class EstadoBatallaNPC extends Estado {
 		mundo = new Mundo(juego, "recursos/mundoBatalla.txt", "recursos/mundoBatallaCapaDos.txt");
 		miTurno = paqueteBatalla.isMiTurno();
 
-		paquetePersonaje = juego.getPersonajesConectados().get(paqueteBatalla.getId());
-		paqueteEnemigoNPC = juego.getNPCsDisponibles().get(paqueteBatalla.getIdEnemigo());
+		paquetePersonaje = getJuego().getPersonajesConectados().get(paqueteBatalla.getId());
+		paqueteEnemigoNPC = getJuego().getNPCsDisponibles().get(paqueteBatalla.getIdEnemigo());
 
 		crearPersonajes();
 
@@ -71,18 +72,18 @@ public class EstadoBatallaNPC extends Estado {
 		paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.batallarNPC);
 
 		// por defecto batalla perdida
-		juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoNPC.menuPerderBatalla);
+		getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(), MenuInfoNPC.menuPerderBatalla);
 
 		// limpio la accion del mouse
-		juego.getHandlerMouse().setNuevoClick(false);
+		getJuego().getHandlerMouse().setNuevoClick(false);
 
 	}
 
 	@Override
 	public void actualizar() {
 
-		juego.getCamara().setxOffset(-350);
-		juego.getCamara().setyOffset(150);
+		getJuego().getCamara().setxOffset(-350);
+		getJuego().getCamara().setyOffset(150);
 
 		seRealizoAccion = false;
 		haySpellSeleccionada = false;
@@ -90,14 +91,15 @@ public class EstadoBatallaNPC extends Estado {
 		if (miTurno) {
 
 			if (!personaje.estaVivo()) {
-				juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuPerderBatalla);
+				getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
+						MenuInfoPersonaje.menuPerderBatalla);
 				paqueteFinalizarBatalla.setGanadorBatalla(paqueteFinalizarBatalla.getIdEnemigo());
 				finalizarBatalla();
-				Estado.setEstado(juego.getEstadoJuego());
+				Estado.setEstado(getJuego().getEstadoJuego());
 			} else {
 
-				if (juego.getHandlerMouse().getNuevoClick()) {
-					posMouse = juego.getHandlerMouse().getPosMouse();
+				if (getJuego().getHandlerMouse().getNuevoClick()) {
+					posMouse = getJuego().getHandlerMouse().getPosMouse();
 
 					if (menuBatalla.clickEnMenu(posMouse[0], posMouse[1])) {
 
@@ -150,19 +152,19 @@ public class EstadoBatallaNPC extends Estado {
 
 					if (haySpellSeleccionada && seRealizoAccion) {
 						if (!enemigo.estaVivo()) {
-							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(),
+							getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
 									MenuInfoPersonaje.menuGanarBatalla);
 
 							if (personaje.ganarExperiencia(enemigo.otorgarExp())) {
-								juego.getPersonaje().setNivel(personaje.getNivel());
-								juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(),
+								getJuego().getPersonaje().setNivel(personaje.getNivel());
+								getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
 										MenuInfoPersonaje.menuSubirNivel);
-								Pantalla.menuAsignar = null;
+								Pantalla.setMenuAsignar(null);
 							}
 
-							paqueteFinalizarBatalla.setGanadorBatalla(juego.getPersonaje().getId());
+							paqueteFinalizarBatalla.setGanadorBatalla(getJuego().getPersonaje().getId());
 							finalizarBatalla();
-							Estado.setEstado(juego.getEstadoJuego());
+							Estado.setEstado(getJuego().getEstadoJuego());
 
 						} else {
 
@@ -179,7 +181,7 @@ public class EstadoBatallaNPC extends Estado {
 								"No posees la energía suficiente para realizar esta habilidad.");
 					}
 
-					juego.getHandlerMouse().setNuevoClick(false);
+					getJuego().getHandlerMouse().setNuevoClick(false);
 				}
 			}
 		}
@@ -188,7 +190,7 @@ public class EstadoBatallaNPC extends Estado {
 	@Override
 	public void graficar(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, juego.getAncho(), juego.getAlto());
+		g.fillRect(0, 0, getJuego().getAncho(), getJuego().getAlto());
 		mundo.graficar(g);
 
 		g.drawImage(Recursos.personaje.get(paquetePersonaje.getRaza()).get(3)[0], 0, 175, 256, 256, null);
@@ -238,7 +240,7 @@ public class EstadoBatallaNPC extends Estado {
 
 	public void enviarAtaque(PaqueteAtacarNPC paqueteAtacarNPC) {
 		try {
-			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteAtacarNPC));
+			getJuego().getCliente().getSalida().writeObject(gson.toJson(paqueteAtacarNPC));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor.");
 		}
@@ -246,7 +248,7 @@ public class EstadoBatallaNPC extends Estado {
 
 	private void finalizarBatalla() {
 		try {
-			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteFinalizarBatalla));
+			getJuego().getCliente().getSalida().writeObject(gson.toJson(paqueteFinalizarBatalla));
 
 			paquetePersonaje.setSaludTope(personaje.getSaludTope());
 			paquetePersonaje.setEnergiaTope(personaje.getEnergiaTope());
@@ -263,8 +265,8 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			// paqueteEnemigoNPC.setComando(Comando.ACTUALIZARPERSONAJE);
 
-			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
-			// juego.getCliente().getSalida().writeObject(gson.toJson(paqueteEnemigoNPC));
+			getJuego().getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
+			// getJuego().getCliente().getSalida().writeObject(gson.toJson(paqueteEnemigoNPC));
 
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
@@ -282,7 +284,7 @@ public class EstadoBatallaNPC extends Estado {
 	public void setMiTurno(boolean b) {
 		miTurno = b;
 		menuBatalla.setHabilitado(b);
-		juego.getHandlerMouse().setNuevoClick(false);
+		getJuego().getHandlerMouse().setNuevoClick(false);
 	}
 
 	public Personaje getPersonaje() {
@@ -297,4 +299,4 @@ public class EstadoBatallaNPC extends Estado {
 	public boolean esEstadoDeJuego() {
 		return false;
 	}
-}
+}=======

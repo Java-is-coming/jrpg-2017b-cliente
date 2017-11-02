@@ -4,32 +4,86 @@ import java.awt.Graphics;
 
 import juego.Juego;
 
+/**
+ * Clase abstracta para indicar el estado actual del personaje
+ *
+ */
 public abstract class Estado {
 
-	private static Estado estadoActual = null;
+    private static Estado estadoActual = null;
 
-	// Tipo de estados
-	public static int estadoOffline = 0;
-	public static int estadoJuego = 1;
-	public static int estadoBatalla = 2;
+    // Tipo de estados
+    public static final int ESTADO_OFFLINE = 0;
+    public static final int ESTADO_JUEGO = 1;
+    public static final int ESTADO_BATALLA = 2;
 
-	protected Juego juego;
+    private Juego juego;
 
-	public Estado(Juego juego) {
-		this.juego = juego;
-	}
+    /**
+     * Constructor
+     *
+     * @param juego
+     *            juego
+     */
+    public Estado(final Juego juego) {
+        this.setJuego(juego);
+    }
 
-	public abstract void actualizar();
+    /**
+     * Actualizar estado
+     */
+    public abstract void actualizar();
 
-	public abstract void graficar(Graphics g);
+    /**
+     * Graficar estado
+     *
+     * @param g
+     *            graphics
+     */
+    public abstract void graficar(Graphics g);
 
-	public static void setEstado(Estado estado) {
-		estadoActual = estado;
-	}
+    /**
+     * Set de estado
+     *
+     * @param estado
+     *            estado
+     */
+    public static void setEstado(final Estado estado) {
+        estadoActual = estado;
+    }
 
-	public static Estado getEstado() {
-		return estadoActual;
-	}
-	
-	public abstract boolean esEstadoDeJuego();
+    /**
+     * Get estado actual
+     *
+     * @return Estado estadoActual
+     */
+    public static Estado getEstado() {
+        return estadoActual;
+    }
+
+    /**
+     * Es estado juego
+     *
+     * @return boolean
+     */
+    public abstract boolean esEstadoDeJuego();
+
+    /**
+     * Getter de juego
+     *
+     * @return the juego
+     */
+    protected Juego getJuego() {
+        return juego;
+    }
+
+    /**
+     * Setter de juego
+     *
+     * @param juego
+     *            juego
+     */
+    protected void setJuego(final Juego juego) {
+        this.juego = juego;
+    }
 }

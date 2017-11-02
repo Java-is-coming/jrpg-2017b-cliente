@@ -7,8 +7,8 @@ public class AtacarNPC extends ComandosEscucha {
 	@Override
 	public void ejecutar() {
 		PaqueteAtacarNPC paqueteAtacarNPC = gson.fromJson(cadenaLeida, PaqueteAtacarNPC.class);
-		juego.getEstadoBatallaNPC().getPersonaje().actualizarAtributos(paqueteAtacarNPC.getMapPersonaje());
-		juego.getEstadoBatallaNPC().setMiTurno(true);
+		getJuego().getEstadoBatallaNPC().getPersonaje().actualizarAtributos(paqueteAtacarNPC.getMapPersonaje());
+		getJuego().getEstadoBatallaNPC().setMiTurno(true);
 
 	}
 

@@ -2,141 +2,139 @@ package mensajeria;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.JOptionPane;
-
-import dominio.Item;
 import estados.Estado;
 
 public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
-	//https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
-	
-	private int id;
-	private int idMapa;
-	private int estado;
-	private String nombre;
-	private String raza = "NPC";
-	private int saludTope;
-	private int fuerza;
+    // https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
 
-	private int nivel = 1;
-	private int dificultad;
-	
-	//Posicion
-	private float posX;
-	private float posY;
-	private int direccion;
-	private int frame;
-	
-	public PaqueteNPC() throws IOException {
-		estado = Estado.estadoOffline;
-	}
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private int idMapa;
+    private int estado;
+    private String nombre;
+    private final String raza = "NPC";
+    private int saludTope;
+    private int fuerza;
 
-	public int getEstado() {
-		return estado;
-	}
-	
-	public int getNivel() {
-		return nivel;
-	}
-	
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
-	
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
+    private int nivel = 1;
+    private int dificultad;
 
- public String getNombre() {
-  return nombre;
- }
+    // Posicion
+    private float posX;
+    private float posY;
+    private int direccion;
+    private int frame;
 
- public void setNombre(String nombre) {
-  this.nombre = nombre;
- }
+    public PaqueteNPC() throws IOException {
+        estado = Estado.ESTADO_OFFLINE;
+    }
 
- public int getMapa(){
-  return idMapa;
- }
- public String getRaza() {
-  return raza;
- }
+    public int getEstado() {
+        return estado;
+    }
 
- public void setMapa(int mapa){
-  idMapa = mapa;
- }
+    public int getNivel() {
+        return nivel;
+    }
 
- public int getId() {
-  return id;
- }
+    public void setNivel(final int nivel) {
+        this.nivel = nivel;
+    }
 
- public void setId(int id) {
-  this.id = id;
- }
+    public void setEstado(final int estado) {
+        this.estado = estado;
+    }
 
- public int getSaludTope() {
-  return saludTope;
- }
+    public String getNombre() {
+        return nombre;
+    }
 
- public void setSaludTope(int saludTope) {
-  this.saludTope = saludTope;
- }
+    public void setNombre(final String nombre) {
+        this.nombre = nombre;
+    }
 
- public int getFuerza() {
-  return fuerza;
- }
+    public int getMapa() {
+        return idMapa;
+    }
 
-	public void setFuerza(int fuerza) {
-		this.fuerza = fuerza;
-	}
-	public int getDificultad() {
-		return dificultad;
-	}
+    public String getRaza() {
+        return raza;
+    }
 
-	public void setDificultad(int dificultad) {
-		this.dificultad = dificultad;
-	}
-	
-	//Posicion
-	public float getPosX() {
-		return posX;
-	}
+    public void setMapa(final int mapa) {
+        idMapa = mapa;
+    }
 
- public void setPosX(float posX) {
-  this.posX = posX;
- }
+    public int getId() {
+        return id;
+    }
 
- public float getPosY() {
-  return posY;
- }
+    public void setId(final int id) {
+        this.id = id;
+    }
 
- public void setPosY(float posY) {
-  this.posY = posY;
- }
+    public int getSaludTope() {
+        return saludTope;
+    }
 
- public int getDireccion() {
-  return direccion;
- }
+    public void setSaludTope(final int saludTope) {
+        this.saludTope = saludTope;
+    }
 
- public void setDireccion(int direccion) {
-  this.direccion = direccion;
- }
+    public int getFuerza() {
+        return fuerza;
+    }
 
- public int getFrame() {
-  return frame;
- }
+    public void setFuerza(final int fuerza) {
+        this.fuerza = fuerza;
+    }
 
- public void setFrame(int frame) {
-  this.frame = frame;
- }
+    public int getDificultad() {
+        return dificultad;
+    }
 
- @Override
- public Object clone() {
-  Object obj = null;
-  obj = super.clone();
-  return obj;
- } 
+    public void setDificultad(final int dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    // Posicion
+    public float getPosX() {
+        return posX;
+    }
+
+    public void setPosX(final float posX) {
+        this.posX = posX;
+    }
+
+    public float getPosY() {
+        return posY;
+    }
+
+    public void setPosY(final float posY) {
+        this.posY = posY;
+    }
+
+    public int getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(final int direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getFrame() {
+        return frame;
+    }
+
+    public void setFrame(final int frame) {
+        this.frame = frame;
+    }
+
+    @Override
+    public Object clone() {
+        Object obj = null;
+        obj = super.clone();
+        return obj;
+    }
 }

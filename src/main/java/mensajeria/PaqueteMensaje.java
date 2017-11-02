@@ -3,41 +3,44 @@ package mensajeria;
 import java.io.Serializable;
 
 public class PaqueteMensaje extends Paquete implements Serializable, Cloneable {
-	
-		private String userEmisor;
-		private String userReceptor;
-		private String msj;
 
-		public PaqueteMensaje(){
-		}
+    private String userEmisor;
+    private String userReceptor;
+    private String msj;
 
-		public String getMensaje() {
-			return msj;
-		}
+    public PaqueteMensaje() {
+    }
 
-		public void setMensaje(String mensaje) {
-			this.msj = mensaje;
-		}
+    @Override
+    public String getMensaje() {
+        return msj;
+    }
 
-		public String getUserEmisor() {
-			return userEmisor;
-		}
+    @Override
+    public void setMensaje(String mensaje) {
+        this.msj = mensaje;
+    }
 
-		public void setUserEmisor(String idEmisor) {
-			this.userEmisor = idEmisor;
-		}
+    public String getUserEmisor() {
+        return userEmisor;
+    }
 
-		public String getUserReceptor() {
-			return userReceptor;
-		}
+    public void setUserEmisor(String idEmisor) {
+        this.userEmisor = idEmisor;
+    }
 
-		public void setUserReceptor(String idReceptor){
-			this.userReceptor = idReceptor;
-		}
-		
-		public Object clone() {
-			Object obj = null;
-			obj = super.clone();
-			return obj;
-		}
+    public String getUserReceptor() {
+        return userReceptor;
+    }
+
+    public void setUserReceptor(String idReceptor) {
+        this.userReceptor = idReceptor;
+    }
+
+    @Override
+    public Object clone() {
+        Object obj = null;
+        obj = super.clone();
+        return obj;
+    }
 }
