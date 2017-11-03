@@ -18,12 +18,7 @@ public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
      */
     public PaqueteUsuario() {
 
-	public PaqueteUsuario(int pj, String user, String pw) {
-		idPj = pj;
-		username = user;
-		password = pw;
-		inicioSesion = false;
-	} 
+    }
 
     /**
      * Constructor
