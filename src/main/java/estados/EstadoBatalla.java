@@ -83,6 +83,7 @@ public class EstadoBatalla extends Estado {
         paqueteFinalizarBatalla = new PaqueteFinalizarBatalla();
         paqueteFinalizarBatalla.setId(personaje.getIdPersonaje());
         paqueteFinalizarBatalla.setIdEnemigo(enemigo.getIdPersonaje());
+        paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.BATALLAR_PERSONAJE);
 
         // por defecto batalla perdida
         juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.MENU_PERDERBATALLA);

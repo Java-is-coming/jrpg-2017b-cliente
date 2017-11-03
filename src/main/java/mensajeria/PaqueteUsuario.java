@@ -18,7 +18,12 @@ public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
      */
     public PaqueteUsuario() {
 
-    }
+	public PaqueteUsuario(int pj, String user, String pw) {
+		idPj = pj;
+		username = user;
+		password = pw;
+		inicioSesion = false;
+	} 
 
     /**
      * Constructor
@@ -111,13 +116,6 @@ public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
      */
     public void setInicioSesion(final boolean inicioSesion) {
         this.inicioSesion = inicioSesion;
-    }
-
-    @Override
-    public Object clone() {
-        Object obj = null;
-        obj = super.clone();
-        return obj;
     }
 
 }
