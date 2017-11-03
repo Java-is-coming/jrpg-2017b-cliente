@@ -14,6 +14,8 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
     private static final long serialVersionUID = 1L;
     private int id;
+    private int idInventario;
+    private int idMochila;
     private int idMapa;
     private int estado;
     private String casta;
@@ -23,9 +25,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
     private int energiaTope;
     private int fuerza;
     private int destreza;
-    private int inteligencia;
+    private int inteligencia; 
     private int nivel = 1;
     private int experiencia;
+    private int idAlianza = -1;
     private ArrayList<Item> items = new ArrayList<Item>();
 
     public PaquetePersonaje() throws IOException {
@@ -157,7 +160,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
     public final void setItems(final ArrayList<Item> items) {
         this.items = items;
-    }
+    } 
 
     public final int getItemID(final int index) {
         return items.get(index).getIdItem();
@@ -276,4 +279,28 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
             this.items.add(item);
         }
     }
+
+	public int getIdAlianza() {
+		return idAlianza;
+	}
+
+	public void setIdAlianza(int idAlianza) {
+		this.idAlianza = idAlianza;
+	}
+
+	public int getIdInventario() {
+		return idInventario;
+	}
+
+	public void setIdInventario(int idInventario) {
+		this.idInventario = idInventario;
+	}
+
+	public int getIdMochila() {
+		return idMochila;
+	}
+
+	public void setIdMochila(int idMochila) {
+		this.idMochila = idMochila;
+	}
 }

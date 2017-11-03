@@ -25,12 +25,12 @@ public class Celda extends JPanel {
     private Item it;
 
     public Celda(Item item, PaquetePersonaje paquetePersonaje) throws IOException {
-        this.item = item.getFoto();
+        this.item = item.getBufferedFoto();
         it = item;
         this.paquetePersonaje = paquetePersonaje;
         label = new JLabel(new ImageIcon(this.item.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));
         actionListenersYLabel(item);
-    }
+    } 
 
     public Celda() {
         label = new JLabel(new ImageIcon(Recursos.noItem.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));

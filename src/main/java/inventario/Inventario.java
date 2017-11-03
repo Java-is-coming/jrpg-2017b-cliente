@@ -25,7 +25,7 @@ public class Inventario extends JPanel {
         for (int row = 0; row < CANTFILAS; row++) {
             for (int col = 0; col < CANTCOLUMNAS; col++) {
                 gbc.gridx = col;
-                gbc.gridy = row;
+                gbc.gridy = row; 
                 Celda cellPane;
                 if (!items.isEmpty()) {
                     cellPane = new Celda(items.get(0), paquetePersonaje);

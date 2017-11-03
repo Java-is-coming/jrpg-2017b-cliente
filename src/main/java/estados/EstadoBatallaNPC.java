@@ -299,4 +299,4 @@ public class EstadoBatallaNPC extends Estado {
 	public boolean esEstadoDeJuego() {
 		return false;
 	}
-}=======
+}
