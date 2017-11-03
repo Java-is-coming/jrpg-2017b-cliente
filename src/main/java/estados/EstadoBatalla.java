@@ -73,7 +73,7 @@ public class EstadoBatalla extends Estado {
         paqueteFinalizarBatalla.setIdEnemigo(enemigo.getIdPersonaje());
 
         // por defecto batalla perdida
-        juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuPerderBatalla);
+        juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.MENU_PERDERBATALLA);
 
         // limpio la accion del mouse
         juego.getHandlerMouse().setNuevoClick(false);
@@ -146,11 +146,11 @@ public class EstadoBatalla extends Estado {
                 if (haySpellSeleccionada && seRealizoAccion) {
                     if (!enemigo.estaVivo()) {
                         getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-                                MenuInfoPersonaje.menuGanarBatalla);
+                                MenuInfoPersonaje.MENU_GANARBATALLA);
                         if (personaje.ganarExperiencia(enemigo.getNivel() * 40)) {
                             getJuego().getPersonaje().setNivel(personaje.getNivel());
                             getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-                                    MenuInfoPersonaje.menuSubirNivel);
+                                    MenuInfoPersonaje.MENU_SUBIRNIVEL);
                             Pantalla.setMenuAsignar(null);
                         }
                         paqueteFinalizarBatalla.setGanadorBatalla(getJuego().getPersonaje().getId());

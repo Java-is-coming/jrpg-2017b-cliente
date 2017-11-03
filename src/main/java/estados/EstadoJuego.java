@@ -93,7 +93,7 @@ public class EstadoJuego extends Estado {
         g.drawImage(Recursos.menu, 3, 562, 102, 35, null);
         g.drawImage(Recursos.chat, 3, 524, 102, 35, null);
         if (haySolicitud) {
-            if (tipoSolicitud == MenuInfoNPC.menuBatallarNPC) {
+            if (tipoSolicitud == MenuInfoNPC.MENU_BATALLARNPC) {
                 menuEnemigoNPC.graficar(g, tipoSolicitud);
             } else {
                 menuEnemigo.graficar(g, tipoSolicitud);
@@ -184,7 +184,7 @@ public class EstadoJuego extends Estado {
     public void setHaySolicitud(final boolean b, final PaquetePersonaje enemigo, final int tipoSolicitud) {
         haySolicitud = b;
         // menu que mostrara al enemigo
-        if (tipoSolicitud != MenuInfoNPC.menuBatallarNPC && enemigo != null) {
+        if (tipoSolicitud != MenuInfoNPC.MENU_BATALLARNPC && enemigo != null) {
             menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
         }
         this.tipoSolicitud = tipoSolicitud;
@@ -194,7 +194,7 @@ public class EstadoJuego extends Estado {
         haySolicitud = b;
         // menu que mostrara al enemigo
         menuEnemigoNPC = new MenuInfoNPC(300, 50, enemigo);
-        this.tipoSolicitud = MenuInfoNPC.menuBatallarNPC;
+        this.tipoSolicitud = MenuInfoNPC.MENU_BATALLARNPC;
     }
 
     public boolean getHaySolicitud() {

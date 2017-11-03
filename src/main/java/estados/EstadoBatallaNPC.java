@@ -68,10 +68,10 @@ public class EstadoBatallaNPC extends Estado {
         paqueteFinalizarBatalla = new PaqueteFinalizarBatalla();
         paqueteFinalizarBatalla.setId(personaje.getIdPersonaje());
         paqueteFinalizarBatalla.setIdEnemigo(paqueteEnemigoNPC.getId());
-        paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.batallarNPC);
+        paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.BATALLAR_NPC);
 
         // por defecto batalla perdida
-        juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoNPC.menuPerderBatalla);
+        juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoNPC.MENU_PERDERBATALLA);
 
         // limpio la accion del mouse
         juego.getHandlerMouse().setNuevoClick(false);
@@ -144,12 +144,12 @@ public class EstadoBatallaNPC extends Estado {
                 if (haySpellSeleccionada && seRealizoAccion) {
                     if (!enemigo.estaVivo()) {
                         getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-                                MenuInfoPersonaje.menuGanarBatalla);
+                                MenuInfoPersonaje.MENU_GANARBATALLA);
 
                         if (personaje.ganarExperiencia(enemigo.otorgarExp())) {
                             getJuego().getPersonaje().setNivel(personaje.getNivel());
                             getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-                                    MenuInfoPersonaje.menuSubirNivel);
+                                    MenuInfoPersonaje.MENU_SUBIRNIVEL);
                             Pantalla.setMenuAsignar(null);
                         }
 
@@ -162,7 +162,7 @@ public class EstadoBatallaNPC extends Estado {
 
                         if (!personaje.estaVivo()) {
                             getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-                                    MenuInfoPersonaje.menuPerderBatalla);
+                                    MenuInfoPersonaje.MENU_PERDERBATALLA);
                             paqueteFinalizarBatalla.setGanadorBatalla(paqueteFinalizarBatalla.getIdEnemigo());
                             finalizarBatalla();
                             Estado.setEstado(getJuego().getEstadoJuego());

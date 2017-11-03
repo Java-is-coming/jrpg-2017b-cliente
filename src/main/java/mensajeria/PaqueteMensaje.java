@@ -2,12 +2,20 @@ package mensajeria;
 
 import java.io.Serializable;
 
+/**
+ * Paquete de mensaje
+ *
+ */
 public class PaqueteMensaje extends Paquete implements Serializable, Cloneable {
 
+    private static final long serialVersionUID = 1L;
     private String userEmisor;
     private String userReceptor;
     private String msj;
 
+    /**
+     * Constructor
+     */
     public PaqueteMensaje() {
     }
 
@@ -17,23 +25,45 @@ public class PaqueteMensaje extends Paquete implements Serializable, Cloneable {
     }
 
     @Override
-    public void setMensaje(String mensaje) {
+    public void setMensaje(final String mensaje) {
         this.msj = mensaje;
     }
 
+    /**
+     * Getter de user emisor
+     *
+     * @return String usuario
+     */
     public String getUserEmisor() {
         return userEmisor;
     }
 
-    public void setUserEmisor(String idEmisor) {
+    /**
+     * Setter de user emisor
+     *
+     * @param idEmisor
+     *            user
+     */
+    public void setUserEmisor(final String idEmisor) {
         this.userEmisor = idEmisor;
     }
 
+    /**
+     * Getter de user receptors
+     *
+     * @return String user
+     */
     public String getUserReceptor() {
         return userReceptor;
     }
 
-    public void setUserReceptor(String idReceptor) {
+    /**
+     * Setter de user receptor
+     *
+     * @param idReceptor
+     *            user
+     */
+    public void setUserReceptor(final String idReceptor) {
         this.userReceptor = idReceptor;
     }
 

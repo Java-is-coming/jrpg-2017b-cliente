@@ -17,52 +17,79 @@ import dominio.Item;
 import mensajeria.PaquetePersonaje;
 import recursos.Recursos;
 
+/**
+ * Celda
+ *
+ */
 public class Celda extends JPanel {
 
+    private static final long serialVersionUID = 1L;
     private BufferedImage item;
     private PaquetePersonaje paquetePersonaje;
     private final JLabel label;
     private Item it;
 
-    public Celda(Item item, PaquetePersonaje paquetePersonaje) throws IOException {
+    private static final int WIDTH_HEIGHT = 49;
+
+    /**
+     * Constructor
+     *
+     * @param item
+     *            item a mostrar
+     * @param paquetePersonaje
+     *            personaje
+     * @throws IOException
+     *             error
+     */
+    public Celda(final Item item, final PaquetePersonaje paquetePersonaje) throws IOException {
         this.item = item.getFoto();
         it = item;
         this.paquetePersonaje = paquetePersonaje;
-        label = new JLabel(new ImageIcon(this.item.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));
+        label = new JLabel(new ImageIcon(this.item.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_DEFAULT)));
         actionListenersYLabel(item);
     }
 
+    /**
+     * Constructor base
+     */
     public Celda() {
-        label = new JLabel(new ImageIcon(Recursos.noItem.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));
+        label = new JLabel(
+                new ImageIcon(Recursos.noItem.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_DEFAULT)));
         add(label);
     }
 
-    private void actionListenersYLabel(Item item) {
+    /**
+     * Muestra información del item
+     *
+     * @param itemInfo
+     *            item
+     */
+    private void actionListenersYLabel(final Item itemInfo) {
         final StringBuilder s = new StringBuilder();
 
-        s.append("<html>" + item.getNombre() + "<br>");
+        s.append("<html>" + itemInfo.getNombre() + "<br>");
 
-        if (item.getBonusSalud() != 0) {
-            s.append("+" + item.getBonusSalud() + " Salud " + "<br>");
+        if (itemInfo.getBonusSalud() != 0) {
+            s.append("+" + itemInfo.getBonusSalud() + " Salud " + "<br>");
         }
-        if (item.getBonusEnergia() != 0) {
-            s.append("+" + item.getBonusEnergia() + " Energia " + "<br>");
+        if (itemInfo.getBonusEnergia() != 0) {
+            s.append("+" + itemInfo.getBonusEnergia() + " Energia " + "<br>");
         }
-        if (item.getBonusFuerza() != 0) {
-            s.append("+" + item.getBonusFuerza() + " Fuerza " + "<br>");
+        if (itemInfo.getBonusFuerza() != 0) {
+            s.append("+" + itemInfo.getBonusFuerza() + " Fuerza " + "<br>");
         }
-        if (item.getBonusDestreza() != 0) {
-            s.append("+" + item.getBonusDestreza() + " Destreza " + "<br>");
+        if (itemInfo.getBonusDestreza() != 0) {
+            s.append("+" + itemInfo.getBonusDestreza() + " Destreza " + "<br>");
         }
-        if (item.getBonusInteligencia() != 0) {
-            s.append("+" + item.getBonusInteligencia() + " Inteligencia");
+        if (itemInfo.getBonusInteligencia() != 0) {
+            s.append("+" + itemInfo.getBonusInteligencia() + " Inteligencia");
         }
         s.append("</html>");
         label.setToolTipText(s.toString());
 
-        label.addMouseListener(mouseListener);
+        label.addMouseListener(getMouseListener());
 
-        addMouseListener(mouseListener);
+        addMouseListener(getMouseListener());
 
         add(label);
         this.validate();
@@ -70,26 +97,55 @@ public class Celda extends JPanel {
 
     }
 
+    /**
+     * Limpia el label
+     */
     protected void resetLabel() {
-        label.setIcon(new ImageIcon(Recursos.noItem.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));
+        label.setIcon(
+                new ImageIcon(Recursos.noItem.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_DEFAULT)));
         label.setToolTipText(null);
         paquetePersonaje.removerItem(it);
-        label.removeMouseListener(mouseListener);
-        removeMouseListener(mouseListener);
+        label.removeMouseListener(getMouseListener());
+        removeMouseListener(getMouseListener());
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(60, 60);
+        final int dimension = 60;
+        return new Dimension(dimension, dimension);
     }
 
+    /**
+     * Getter del label
+     *
+     * @return JLabel label
+     */
     public JLabel getLabel() {
         return label;
     }
 
-    MouseListener mouseListener = new MouseAdapter() {
+    /**
+     * Getter de mouselistener
+     *
+     * @return mouseListener mouse
+     */
+    MouseListener getMouseListener() {
+        return mouseListener;
+    }
+
+    /**
+     * Setter de mouselistener
+     *
+     * @param mouseListener
+     *            mouselistener
+     */
+    void setMouseListener(final MouseListener mouseListener) {
+        this.mouseListener = mouseListener;
+    }
+
+    private MouseListener mouseListener = new MouseAdapter() {
         @Override
-        public void mouseClicked(MouseEvent e) {
+        public void mouseClicked(final MouseEvent e) {
             final Object[] options = {"Tirar", "Cancelar"};
             if (e.getClickCount() == 2) {
                 final int answer = JOptionPane.showOptionDialog(getParent(), "¿Qué desea hacer?",

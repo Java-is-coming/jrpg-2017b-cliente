@@ -18,7 +18,7 @@ public class Batalla extends ComandosEscucha {
         getJuego().getPersonaje().setEstado(Estado.ESTADO_BATALLA);
         Estado.setEstado(null);
 
-        if (paqueteBatalla.getTipoBatalla() == PaqueteBatalla.batallarPersonaje) {
+        if (paqueteBatalla.getTipoBatalla() == PaqueteBatalla.BATALLAR_PERSONAJE) {
             getJuego().setEstadoBatalla(new EstadoBatalla(getJuego(), paqueteBatalla));
             Estado.setEstado(getJuego().getEstadoBatalla());
         } else {

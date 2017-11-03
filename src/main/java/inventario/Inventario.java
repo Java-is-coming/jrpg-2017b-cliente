@@ -13,12 +13,26 @@ import javax.swing.border.MatteBorder;
 import dominio.Item;
 import mensajeria.PaquetePersonaje;
 
+/**
+ * Clase para el manejo de inventario
+ *
+ */
 public class Inventario extends JPanel {
+
+    private static final long serialVersionUID = 1L;
     private static final int CANTCOLUMNAS = 3;
     private static final int CANTFILAS = 3;
     private final ArrayList<Item> items;
 
-    public Inventario(PaquetePersonaje paquetePersonaje) throws IOException {
+    /**
+     * Constructor de inventario
+     *
+     * @param paquetePersonaje
+     *            paquete
+     * @throws IOException
+     *             excepcion
+     */
+    public Inventario(final PaquetePersonaje paquetePersonaje) throws IOException {
         setLayout(new GridBagLayout());
         items = new ArrayList<Item>(paquetePersonaje.getItems());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -49,7 +63,8 @@ public class Inventario extends JPanel {
                     }
                 }
                 cellPane.setBorder(border);
-                gbc.weightx = gbc.weighty = 1.0;
+                gbc.weightx = 1.0;
+                gbc.weighty = 1.0;
                 gbc.fill = GridBagConstraints.BOTH;
 
                 add(cellPane, gbc);
