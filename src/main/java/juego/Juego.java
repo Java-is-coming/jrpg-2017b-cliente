@@ -106,7 +106,10 @@ public class Juego implements Runnable {
 
     }
 
-    public void iniciar() { // Carga lo necesario para iniciar el juego
+    /**
+     * Carga lo necesario para iniciar el juego
+     */
+    public void iniciar() {
         pantalla = new Pantalla(nombre, ancho, alto, cliente);
 
         pantalla.getCanvas().addMouseListener(handlerMouse);
@@ -116,14 +119,20 @@ public class Juego implements Runnable {
         Personaje.cargarTablaNivel();
     }
 
-    private void actualizar() { // Actualiza los objetos y sus posiciones
+    /**
+     * Actualiza los objetos y sus posiciones
+     */
+    private void actualizar() {
 
         if (Estado.getEstado() != null) {
             Estado.getEstado().actualizar();
         }
     }
 
-    private void graficar() { // Grafica los objetos y sus posiciones
+    /**
+     * Grafica los objetos y sus posiciones
+     */
+    private void graficar() {
         bs = pantalla.getCanvas().getBufferStrategy();
         if (bs == null) { // Seteo una estrategia para el canvas en caso de que no tenga una
             final int buffer = 3;
@@ -151,7 +160,10 @@ public class Juego implements Runnable {
     }
 
     @Override
-    public void run() { // Hilo principal del juego
+    /**
+     * Hilo principal del juego
+     */
+    public void run() {
 
         final int fps = 60; // Cantidad de actualizaciones por segundo que se desean
         final double tiempoLimite = 1000000000;
@@ -187,7 +199,10 @@ public class Juego implements Runnable {
         stop();
     }
 
-    public synchronized void start() { // Inicia el juego
+    /**
+     * Inicia el juego
+     */
+    public synchronized void start() {
         if (corriendo) {
             return;
         }
@@ -200,7 +215,10 @@ public class Juego implements Runnable {
         hilo.start();
     }
 
-    public synchronized void stop() { // Detiene el juego
+    /**
+     * Detiene el juego
+     */
+    public synchronized void stop() {
         if (!corriendo) {
             return;
         }
@@ -212,90 +230,204 @@ public class Juego implements Runnable {
         }
     }
 
+    /**
+     * Getter del ancho
+     *
+     * @return int ancho
+     */
     public int getAncho() {
         return ancho;
     }
 
+    /**
+     * Getter del alto
+     *
+     * @return int alto
+     */
     public int getAlto() {
         return alto;
     }
 
+    /**
+     * Getter de handler de mouse
+     *
+     * @return HandlerMouse handler
+     */
     public HandlerMouse getHandlerMouse() {
         return handlerMouse;
     }
 
+    /**
+     * Getter de camara
+     *
+     * @return Camara camara
+     */
     public Camara getCamara() {
         return camara;
     }
 
+    /**
+     * Getter de estado juegi
+     *
+     * @return EstadoJuego estado
+     */
     public EstadoJuego getEstadoJuego() {
         return (EstadoJuego) estadoJuego;
     }
 
+    /**
+     * Getter estado batalla
+     *
+     * @return EstadoBatalla estado
+     */
     public EstadoBatalla getEstadoBatalla() {
         return (EstadoBatalla) estadoBatalla;
     }
 
+    /**
+     * Getter estado batalla npc
+     *
+     * @return EstadoBatallaNPC estado
+     */
     public EstadoBatallaNPC getEstadoBatallaNPC() {
         return (EstadoBatallaNPC) estadoBatalla;
     }
 
+    /**
+     * Setter estado batalla
+     *
+     * @param estadoBatalla
+     *            estado
+     */
     public void setEstadoBatalla(final EstadoBatalla estadoBatalla) {
         this.estadoBatalla = estadoBatalla;
     }
 
+    /**
+     * Setter estado batalla
+     *
+     * @param estadoBatalla
+     *            estadoBatallaNPC
+     */
     public void setEstadoBatalla(final EstadoBatallaNPC estadoBatalla) {
         this.estadoBatalla = estadoBatalla;
     }
 
+    /**
+     * Getter de cliente
+     *
+     * @return Cliente cliente
+     */
     public Cliente getCliente() {
         return cliente;
     }
 
+    /**
+     * Getter escucha mensajes
+     *
+     * @return EscuchaMensajes escucha
+     */
     public EscuchaMensajes getEscuchaMensajes() {
         return escuchaMensajes;
     }
 
+    /**
+     * Getter de paquete personaje
+     *
+     * @return PaquetePersonaje personaje
+     */
     public PaquetePersonaje getPersonaje() {
         return paquetePersonaje;
     }
 
+    /**
+     * Getter de ubicacion de personaje
+     *
+     * @return PaqueteMovimiento paquete
+     */
     public PaqueteMovimiento getUbicacionPersonaje() {
         return ubicacionPersonaje;
     }
 
+    /**
+     * Setter de personaje
+     *
+     * @param pPersonaje
+     *            paquete
+     */
     public void setPersonaje(final PaquetePersonaje pPersonaje) {
         this.paquetePersonaje = pPersonaje;
     }
 
+    /**
+     * Actualiza el personaje
+     */
     public void actualizarPersonaje() {
         paquetePersonaje = (PaquetePersonaje) (personajesConectados.get(paquetePersonaje.getId()).clone());
     }
 
+    /**
+     * Getter de personajes conectados
+     *
+     * @return Map<Integer, PaquetePersonaje> mapa
+     */
     public Map<Integer, PaquetePersonaje> getPersonajesConectados() {
         return personajesConectados;
     }
 
+    /**
+     * Setter de personajes conectados
+     *
+     * @param map
+     *            personajes
+     */
     public void setPersonajesConectados(final Map<Integer, PaquetePersonaje> map) {
         this.personajesConectados = map;
     }
 
+    /**
+     * Getter de ubicacion de personajes
+     *
+     * @return Map<Integer, PaqueteMovimiento> mapa
+     */
     public Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
         return ubicacionPersonajes;
     }
 
+    /**
+     * Setter de ubicacion de personajes
+     *
+     * @param ubicacionPersonajes
+     *            Map
+     */
     public void setUbicacionPersonajes(final Map<Integer, PaqueteMovimiento> ubicacionPersonajes) {
         this.ubicacionPersonajes = ubicacionPersonajes;
     }
 
+    /**
+     * Chats activos
+     *
+     * @return Map<String, MiChat> map
+     */
     public Map<String, MiChat> getChatsActivos() {
         return chatsActivos;
     }
 
+    /**
+     * Getter de NPCs disponibles
+     *
+     * @return Map<Integer, PaqueteNPC> map
+     */
     public Map<Integer, PaqueteNPC> getNPCsDisponibles() {
         return npcsDisponibles;
     }
 
+    /**
+     * Setter de NPCs disponibles
+     *
+     * @param nPCsDisponibles
+     *            map
+     */
     public void setNPCsDisponibles(final Map<Integer, PaqueteNPC> nPCsDisponibles) {
         npcsDisponibles = nPCsDisponibles;
     }

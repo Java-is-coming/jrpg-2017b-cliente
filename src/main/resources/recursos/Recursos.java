@@ -438,9 +438,9 @@ import mundo.Tile;
 		
 		
 		// Mapa
-		if (MenuMapas.numberMap == 1) {
+		if (MenuMapas.getNumberMap() == 1) {
 			SpriteSheet mapaAubenor = new SpriteSheet(CargadorImagen.cargarImagen("/Aubenor.png"));
-			Tile.aubenor = new Tile[81];
+			Tile.setAubenor(new Tile[81]);
 			boolean [][] solidezAubenor = {{true, true, false, true, false, true, true, true, true, true},
 					{true, true, true, true, true, true, true, true, true, true},
 					{true, true, true, true, true, true, true, true, true, true},
@@ -451,12 +451,12 @@ import mundo.Tile;
 					{true, true, true, true, true, true, true, true, true, true}};		
 			for(int y = 0 ; y < 8 ; y++){
 				for(int x = 0; x < 10 ; x++){
-					Tile.aubenor[y * 10 + x + 1] = new Tile(mapaAubenor.getTile(x * 64, y * 64, 64, 64), y * 10 + x + 1, solidezAubenor[y][x], 64, 64);
+					Tile.getAubenor()[y * 10 + x + 1] = new Tile(mapaAubenor.getTile(x * 64, y * 64, 64, 64), y * 10 + x + 1, solidezAubenor[y][x], 64, 64);
 				}
 			}
 		} else {
 			SpriteSheet mapaAris = new SpriteSheet(CargadorImagen.cargarImagen("/Aris.png"));
-			Tile.aris = new Tile[81];
+			Tile.setAris(new Tile[81]);
 			boolean [][] solidezAris = {{true, false, false, false, false, false, false, true, true, true},
 					{false, false, false, false, false, false, false, false, true, true},
 					{false, false, false, false, true, true, true, true, true, true},
@@ -467,7 +467,7 @@ import mundo.Tile;
 					{true, true, true, true, true, true, true, true, true, true}};
 			for(int y = 0 ; y < 8 ; y++){
 				for(int x = 0; x < 10 ; x++){
-					Tile.aris[y * 10 + x + 1] = new Tile(mapaAris.getTile(x * 64, y * 64, 64, 64), y * 10 + x + 1, solidezAris[y][x], 64, 64);
+					Tile.getAris()[y * 10 + x + 1] = new Tile(mapaAris.getTile(x * 64, y * 64, 64, 64), y * 10 + x + 1, solidezAris[y][x], 64, 64);
 				}
 			}
 		}

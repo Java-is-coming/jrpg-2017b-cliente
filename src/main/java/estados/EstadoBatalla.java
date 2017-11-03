@@ -31,6 +31,9 @@ import mensajeria.PaquetePersonaje;
 import mundo.Mundo;
 import recursos.Recursos;
 
+/**
+ * Estado batalla de un personaje
+ */
 public class EstadoBatalla extends Estado {
 
     private final Mundo mundo;
@@ -53,7 +56,15 @@ public class EstadoBatalla extends Estado {
 
     private final MenuBatalla menuBatalla;
 
-    public EstadoBatalla(Juego juego, PaqueteBatalla paqueteBatalla) {
+    /**
+     * Constructor
+     *
+     * @param juego
+     *            instancia de juego
+     * @param paqueteBatalla
+     *            paquete de batalla
+     */
+    public EstadoBatalla(final Juego juego, final PaqueteBatalla paqueteBatalla) {
         super(juego);
         mundo = new Mundo(juego, "recursos/mundoBatalla.txt", "recursos/mundoBatallaCapaDos.txt");
         miTurno = paqueteBatalla.isMiTurno();
@@ -65,8 +76,9 @@ public class EstadoBatalla extends Estado {
 
         menuBatalla = new MenuBatalla(miTurno, personaje);
 
-        miniaturaEnemigo = Recursos.personaje.get(enemigo.getNombreRaza()).get(5)[0];
-        miniaturaPersonaje = Recursos.personaje.get(personaje.getNombreRaza()).get(5)[0];
+        final int frame = 5;
+        miniaturaEnemigo = Recursos.personaje.get(enemigo.getNombreRaza()).get(frame)[0];
+        miniaturaPersonaje = Recursos.personaje.get(personaje.getNombreRaza()).get(frame)[0];
 
         paqueteFinalizarBatalla = new PaqueteFinalizarBatalla();
         paqueteFinalizarBatalla.setId(personaje.getIdPersonaje());
@@ -83,8 +95,10 @@ public class EstadoBatalla extends Estado {
     @Override
     public void actualizar() {
 
-        getJuego().getCamara().setxOffset(-350);
-        getJuego().getCamara().setyOffset(150);
+        final int xOffset = 350;
+        getJuego().getCamara().setxOffset(-xOffset);
+        final int yOffset = 150;
+        getJuego().getCamara().setyOffset(yOffset);
 
         seRealizoAccion = false;
         haySpellSeleccionada = false;
@@ -104,7 +118,8 @@ public class EstadoBatalla extends Estado {
                         haySpellSeleccionada = true;
                     }
 
-                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 2) {
+                    final int boton2 = 2;
+                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton2) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
                             personaje.habilidadRaza2(enemigo);
@@ -112,7 +127,8 @@ public class EstadoBatalla extends Estado {
                         haySpellSeleccionada = true;
                     }
 
-                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 3) {
+                    final int boton3 = 3;
+                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton3) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
                             personaje.habilidadCasta1(enemigo);
@@ -120,7 +136,8 @@ public class EstadoBatalla extends Estado {
                         haySpellSeleccionada = true;
                     }
 
-                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 4) {
+                    final int boton4 = 4;
+                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton4) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
                             personaje.habilidadCasta2(enemigo);
@@ -128,7 +145,8 @@ public class EstadoBatalla extends Estado {
                         haySpellSeleccionada = true;
                     }
 
-                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 5) {
+                    final int boton5 = 5;
+                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton5) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
                             personaje.habilidadCasta3(enemigo);
@@ -136,9 +154,11 @@ public class EstadoBatalla extends Estado {
                         haySpellSeleccionada = true;
                     }
 
-                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 6) {
+                    final int boton6 = 6;
+                    if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton6) {
                         seRealizoAccion = true;
-                        personaje.serEnergizado(10);
+                        final int energizado = 10;
+                        personaje.serEnergizado(energizado);
                         haySpellSeleccionada = true;
                     }
                 }
@@ -147,7 +167,8 @@ public class EstadoBatalla extends Estado {
                     if (!enemigo.estaVivo()) {
                         getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
                                 MenuInfoPersonaje.MENU_GANARBATALLA);
-                        if (personaje.ganarExperiencia(enemigo.getNivel() * 40)) {
+                        final int multiplicador = 40;
+                        if (personaje.ganarExperiencia(enemigo.getNivel() * multiplicador)) {
                             getJuego().getPersonaje().setNivel(personaje.getNivel());
                             getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
                                     MenuInfoPersonaje.MENU_SUBIRNIVEL);
@@ -179,24 +200,36 @@ public class EstadoBatalla extends Estado {
     }
 
     @Override
-    public void graficar(Graphics g) {
+    public void graficar(final Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getJuego().getAncho(), getJuego().getAlto());
         mundo.graficar(g);
 
-        g.drawImage(Recursos.personaje.get(paquetePersonaje.getRaza()).get(3)[0], 0, 175, 256, 256, null);
-        g.drawImage(Recursos.personaje.get(paqueteEnemigo.getRaza()).get(7)[0], 550, 75, 256, 256, null);
+        final int size = 256;
+        final int yPersonaje = 175;
+        final int frame3 = 3;
+        g.drawImage(Recursos.personaje.get(paquetePersonaje.getRaza()).get(frame3)[0], 0, yPersonaje, size, size, null);
+        final int yPersonaje1 = 75;
+        final int xPersonaje = 550;
+        final int frame7 = 7;
+        g.drawImage(Recursos.personaje.get(paqueteEnemigo.getRaza()).get(frame7)[0], xPersonaje, yPersonaje1, size,
+                size, null);
 
         mundo.graficarObstaculos(g);
         menuBatalla.graficar(g);
 
         g.setColor(Color.GREEN);
 
-        EstadoDePersonaje.dibujarEstadoDePersonaje(g, 25, 5, personaje, miniaturaPersonaje);
-        EstadoDePersonaje.dibujarEstadoDePersonaje(g, 550, 5, enemigo, miniaturaEnemigo);
+        final int xPersonaje2 = 25;
+        final int yMiniaturas = 5;
+        EstadoDePersonaje.dibujarEstadoDePersonaje(g, xPersonaje2, yMiniaturas, personaje, miniaturaPersonaje);
+        EstadoDePersonaje.dibujarEstadoDePersonaje(g, xPersonaje, yMiniaturas, enemigo, miniaturaEnemigo);
 
     }
 
+    /**
+     * Crea los personajes
+     */
     private void crearPersonajes() {
         String nombre = paquetePersonaje.getNombre();
         int salud = paquetePersonaje.getSaludTope();
@@ -248,14 +281,23 @@ public class EstadoBatalla extends Estado {
         }
     }
 
-    public void enviarAtaque(PaqueteAtacar paqueteAtacar) {
+    /**
+     * Enviar ataque
+     *
+     * @param pAtacar
+     *            paquete
+     */
+    public void enviarAtaque(final PaqueteAtacar pAtacar) {
         try {
-            getJuego().getCliente().getSalida().writeObject(gson.toJson(paqueteAtacar));
+            getJuego().getCliente().getSalida().writeObject(gson.toJson(pAtacar));
         } catch (final IOException e) {
             JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor.");
         }
     }
 
+    /**
+     * Finaliza la batalla
+     */
     private void finalizarBatalla() {
         try {
             getJuego().getCliente().getSalida().writeObject(gson.toJson(paqueteFinalizarBatalla));
@@ -289,24 +331,50 @@ public class EstadoBatalla extends Estado {
         }
     }
 
+    /**
+     * Get paquete personaje
+     *
+     * @return paquete personaje
+     */
     public PaquetePersonaje getPaquetePersonaje() {
         return paquetePersonaje;
     }
 
+    /**
+     * Get paquete enemigo
+     *
+     * @return paquete enemigo
+     */
     public PaquetePersonaje getPaqueteEnemigo() {
         return paqueteEnemigo;
     }
 
-    public void setMiTurno(boolean b) {
+    /**
+     * Set de turno personaje
+     *
+     * @param b
+     *            turno
+     */
+    public void setMiTurno(final boolean b) {
         miTurno = b;
         menuBatalla.setHabilitado(b);
         getJuego().getHandlerMouse().setNuevoClick(false);
     }
 
+    /**
+     * Getter de personaje
+     *
+     * @return Personaje pj
+     */
     public Personaje getPersonaje() {
         return personaje;
     }
 
+    /**
+     * Getter de enemigo
+     *
+     * @return personaje enemigo
+     */
     public Personaje getEnemigo() {
         return enemigo;
     }

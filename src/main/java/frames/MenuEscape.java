@@ -25,33 +25,51 @@ import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.Paquete;
 
+/**
+ * Menu escape
+ *
+ * @author julia
+ *
+ */
 public class MenuEscape extends JFrame {
 
+    private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
     private final Gson gson = new Gson();
 
     /**
-     * Create the frame.
+     * Crea el menu
+     *
+     * @param instancia
+     *            de cliente
      */
     public MenuEscape(final Cliente cliente) {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
         this.setResizable(false);
-        this.setBounds(100, 100, 180, 270);
+        final int bounds = 100;
+        final int widthVentana = 180;
+        final int heightVentana = 270;
+        this.setBounds(bounds, bounds, widthVentana, heightVentana);
         this.setLocationRelativeTo(null);
 
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        final int borders = 5;
+        contentPane.setBorder(new EmptyBorder(borders, borders, borders, borders));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         final JButton verStats = new JButton("Estadísticas");
         verStats.setIcon(new ImageIcon("recursos//stats.png"));
         verStats.setToolTipText("Presiona S para ver estadísticas");
-        verStats.setBounds(29, 13, 125, 25);
+        final int xStats = 29;
+        final int yStats = 13;
+        final int widthStats = 125;
+        final int heightStats = 25;
+        verStats.setBounds(xStats, yStats, widthStats, heightStats);
         verStats.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 dispose();
                 Pantalla.setMenuEscp(null);
                 if (Pantalla.getMenuStats() == null) {
@@ -65,10 +83,14 @@ public class MenuEscape extends JFrame {
         final JButton asignarSkills = new JButton("Asignar Skills");
         asignarSkills.setIcon(new ImageIcon("recursos//asignar skills.png"));
         asignarSkills.setToolTipText("Presiona A para asignar skills");
-        asignarSkills.setBounds(29, 66, 125, 25);
+        final int xAsignar = 29;
+        final int yAsignar = 66;
+        final int widthAsignar = 125;
+        final int heightAsignar = 25;
+        asignarSkills.setBounds(xAsignar, yAsignar, widthAsignar, heightAsignar);
         asignarSkills.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 dispose();
                 Pantalla.setMenuEscp(null);
                 if (Pantalla.getMenuAsignar() == null) {
@@ -82,10 +104,11 @@ public class MenuEscape extends JFrame {
         final JButton inventario = new JButton("Inventario");
         inventario.setIcon(new ImageIcon("recursos//inventario.png"));
         inventario.setToolTipText("Presiona I para abrir inventario");
-        inventario.setBounds(29, 121, 125, 25);
+        final int yInventario = 121;
+        inventario.setBounds(xAsignar, yInventario, widthAsignar, heightAsignar);
         inventario.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 dispose();
                 Pantalla.setMenuEscp(null);
                 if (Estado.getEstado().esEstadoDeJuego()) {
@@ -99,11 +122,13 @@ public class MenuEscape extends JFrame {
         contentPane.add(inventario);
 
         final JButton desconectarse = new JButton("Desconectarse");
-        desconectarse.setBounds(29, 175, 125, 25);
+        final int xDesconectar = 29;
+        final int yDesconectar = 175;
+        desconectarse.setBounds(xDesconectar, yDesconectar, widthAsignar, heightAsignar);
         desconectarse.setIcon(new ImageIcon("recursos//desconectarse.png"));
         desconectarse.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     final Paquete p = new Paquete();
                     p.setComando(Comando.DESCONECTAR);
@@ -123,10 +148,12 @@ public class MenuEscape extends JFrame {
 
         final JButton volver = new JButton("Volver");
         volver.setIcon(new ImageIcon("recursos//volver.png"));
-        volver.setBounds(29, 227, 125, 25);
+        final int xVolver = 29;
+        final int yVolver = 227;
+        volver.setBounds(xVolver, yVolver, widthAsignar, heightAsignar);
         volver.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 Pantalla.setMenuEscp(null);
                 dispose();
             }
@@ -140,9 +167,13 @@ public class MenuEscape extends JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo cargar el fondo");
 
         }
+        final int widthIcon = 200;
+        final int heightIcon = 350;
         final JLabel background = new JLabel(
-                new ImageIcon(imagenFondo.getScaledInstance(200, 350, Image.SCALE_DEFAULT)));
-        background.setBounds(0, 0, 186, 273);
+                new ImageIcon(imagenFondo.getScaledInstance(widthIcon, heightIcon, Image.SCALE_DEFAULT)));
+        final int widthBkg = 186;
+        final int heightBkg = 273;
+        background.setBounds(0, 0, widthBkg, heightBkg);
         contentPane.add(background);
     }
 }

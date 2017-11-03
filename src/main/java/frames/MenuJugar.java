@@ -22,14 +22,24 @@ import javax.swing.border.EmptyBorder;
 import cliente.Cliente;
 import mensajeria.Comando;
 
+/**
+ * Menu del juego
+ */
 public class MenuJugar extends JFrame {
 
+    private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
 
+    /**
+     * Constructor del menu
+     * 
+     * @param cliente
+     *            cliente
+     */
     public MenuJugar(final Cliente cliente) {
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(final KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     final MenuInicioSesion menuInicioSesion = new MenuInicioSesion(cliente);
                     menuInicioSesion.setVisible(true);
@@ -47,7 +57,7 @@ public class MenuJugar extends JFrame {
         // En caso de cerrar la ventana
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(final WindowEvent e) {
                 synchronized (cliente) {
                     cliente.setAccion(Comando.SALIR);
                     cliente.notify();
@@ -58,42 +68,61 @@ public class MenuJugar extends JFrame {
 
         // Propiedades de la ventana
         setTitle("WOME - World Of the Middle Earth");
-        setBounds(100, 100, 450, 300);
+        final int boundsVentana = 100;
+        final int widthVentana = 450;
+        final int heightVentana = 300;
+        setBounds(boundsVentana, boundsVentana, widthVentana, heightVentana);
         setLocationRelativeTo(null);
         setResizable(false);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        final int border = 5;
+        contentPane.setBorder(new EmptyBorder(border, border, border, border));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         final JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 444, 271);
+        final int widthPane = 444;
+        final int heightPane = 271;
+        layeredPane.setBounds(0, 0, widthPane, heightPane);
         contentPane.add(layeredPane);
 
         // Boton Registrarse
         final JLabel lblRegistrarse = new JLabel("Registrarse");
-        lblRegistrarse.setBounds(181, 162, 82, 23);
+        final int xRegistrarse = 181;
+        final int yRegistrarse = 162;
+        final int widthRegistrarse = 82;
+        final int heightRegistrarse = 23;
+        lblRegistrarse.setBounds(xRegistrarse, yRegistrarse, widthRegistrarse, heightRegistrarse);
         layeredPane.add(lblRegistrarse, new Integer(2));
         lblRegistrarse.setForeground(Color.WHITE);
         lblRegistrarse.setEnabled(true);
-        lblRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        final int fontSize = 15;
+        lblRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         lblRegistrarse.setBackground(Color.WHITE);
 
         // Boton Iniciar sesion
         final JLabel lblIniciarSesion = new JLabel("Iniciar Sesion");
-        lblIniciarSesion.setBounds(175, 91, 91, 23);
+        final int xIniciar = 175;
+        final int yIniciar = 91;
+        final int widthIniciar = 91;
+        final int heightIniciar = 23;
+        lblIniciarSesion.setBounds(xIniciar, yIniciar, widthIniciar, heightIniciar);
         layeredPane.add(lblIniciarSesion, new Integer(2));
         lblIniciarSesion.setForeground(Color.WHITE);
-        lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         final JButton btnRegistrar = new JButton("Registrarse");
-        btnRegistrar.setBounds(121, 162, 191, 23);
+        final int xBtnReg = 121;
+        final int yBtnReg = 162;
+        final int widthBtnReg = 191;
+        final int heightBtnReg = 23;
+        btnRegistrar.setBounds(xBtnReg, yBtnReg, widthBtnReg, heightBtnReg);
         layeredPane.add(btnRegistrar, new Integer(1));
         btnRegistrar.setFocusable(false);
         btnRegistrar.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 final MenuRegistro menuRegistro = new MenuRegistro(cliente);
                 menuRegistro.setVisible(true);
                 dispose();
@@ -101,13 +130,17 @@ public class MenuJugar extends JFrame {
         });
 
         final JButton btnIniciarSesion = new JButton("Iniciar Sesion");
-        btnIniciarSesion.setBounds(121, 92, 191, 23);
+        final int xBtnIniciar = 121;
+        final int yBtnIniciar = 92;
+        final int widthBtnIniciar = 191;
+        final int heightBtnIniciar = 23;
+        btnIniciarSesion.setBounds(xBtnIniciar, yBtnIniciar, widthBtnIniciar, heightBtnIniciar);
         layeredPane.add(btnIniciarSesion, new Integer(1));
         btnIniciarSesion.setFocusable(false);
         btnIniciarSesion.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
         btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 final MenuInicioSesion menuInicioSesion = new MenuInicioSesion(cliente);
                 menuInicioSesion.setVisible(true);
                 dispose();
@@ -115,7 +148,9 @@ public class MenuJugar extends JFrame {
         });
 
         final JLabel lblBackground = new JLabel("");
-        lblBackground.setBounds(0, 0, 444, 271);
+        final int widthLbl = 444;
+        final int heightLbl = 271;
+        lblBackground.setBounds(0, 0, widthLbl, heightLbl);
         lblBackground.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/menuBackground.jpg")));
         layeredPane.add(lblBackground, new Integer(0));
     }

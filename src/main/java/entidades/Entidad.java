@@ -45,8 +45,6 @@ public class Entidad {
     private float y;
     private float dx;
     private float dy;
-    private float xInicio;
-    private float yInicio;
     private float xFinal;
     private float yFinal;
     private final int xOffset;
@@ -55,8 +53,6 @@ public class Entidad {
     private int drawY;
     private int[] posMouseRecorrido;
     private int[] posMouse;
-    private int[] tile;
-
     // Movimiento Actual
     private static final int horizontalDer = 4;
     private static final int horizontalIzq = 0;
@@ -342,7 +338,8 @@ public class Entidad {
                                 // SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU
                                 // DE BATALLA
                                 juego.getEstadoJuego().setHaySolicitud(true,
-                                        juego.getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.MENU_BATALLAR);
+                                        juego.getPersonajesConectados().get(idEnemigo),
+                                        MenuInfoPersonaje.MENU_BATALLAR);
                             }
                             esPersonaje = true;
                             juego.getHandlerMouse().setNuevoClick(false);
@@ -394,9 +391,6 @@ public class Entidad {
         if (!enMovimiento && tileMoverme != null) {
 
             enMovimiento = false;
-
-            xInicio = x;
-            yInicio = y;
 
             tileActual = Mundo.mouseATile(x, y);
 
@@ -663,10 +657,8 @@ public class Entidad {
             // sea minimo
             double minimo = Double.MAX_VALUE;
             int indiceMinimo = 0;
-            Nodo nodoW = null;
             for (int i = 0; i < grafoLibres.obtenerCantidadDeNodosTotal(); i++) {
                 if (!conjSolucion[i] && vecCostos[i] < minimo) {
-                    nodoW = grafoLibres.obtenerNodos()[i];
                     minimo = vecCostos[i];
                     indiceMinimo = i;
                 }

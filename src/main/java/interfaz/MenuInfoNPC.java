@@ -20,7 +20,6 @@ public class MenuInfoNPC {
     private static final BufferedImage MENU = Recursos.menuEnemigo;
     public static final int MENU_BATALLARNPC = 7;
     public static final int MENU_PERDERBATALLA = 8;
-    private static final String[] LEYENDABOTON = {"Batallar"};
 
     private final int x;
     private final int y;
@@ -79,7 +78,7 @@ public class MenuInfoNPC {
         final int height = 25;
         g.drawImage(Recursos.botonMenu, x + offsetX3, y + offsetY3, width, height, null);
         g.setColor(Color.WHITE);
-        Pantalla.centerString(g, new Rectangle(x + offsetX3, y + offsetY3, width, height), LEYENDABOTON[tipoMenu]);
+        Pantalla.centerString(g, new Rectangle(x + offsetX3, y + offsetY3, width, height), "Batallar");
     }
 
     /**

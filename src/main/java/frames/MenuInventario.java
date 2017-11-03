@@ -17,13 +17,24 @@ import inventario.Inventario;
 import juego.Pantalla;
 import mensajeria.Comando;
 
+/**
+ * Menu que muestra el inventario
+ */
 public class MenuInventario extends JFrame {
+
+    private static final long serialVersionUID = 1L;
     private final JButton cancelar = new JButton("Exit");
 
+    /**
+     * Constructor del menu
+     *
+     * @param cliente
+     *            cliente
+     */
     public MenuInventario(final Cliente cliente) {
         cancelar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     final Gson gson = new Gson();
                     cliente.getPaquetePersonaje().setComando(Comando.ACTUALIZARINVENTARIO);
@@ -46,10 +57,13 @@ public class MenuInventario extends JFrame {
             JOptionPane.showMessageDialog(null, "Falló al iniciar el inventario");
 
         }
-        this.setBounds(600, 600, 600, 600);
+        final int bounds = 600;
+        this.setBounds(bounds, bounds, bounds, bounds);
         this.pack();
         this.setLocationRelativeTo(null);
-        this.setLocation(900, 140);
+        final int locationX = 900;
+        final int locationY = 140;
+        this.setLocation(locationX, locationY);
         this.setResizable(false);
         this.setVisible(true);
     }

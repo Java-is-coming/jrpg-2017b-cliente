@@ -19,14 +19,21 @@ import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
 
+/**
+ * Menu inicio
+ */
 public class MenuInicio extends JFrame {
 
+    private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
 
+    /**
+     * Constructor
+     */
     public MenuInicio() {
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(final KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     final Cliente cliente = new Cliente();
                     cliente.start();
@@ -43,11 +50,15 @@ public class MenuInicio extends JFrame {
 
         // Propiedades de la ventana
         setTitle("WOME - World Of the Middle Earth");
-        setBounds(100, 100, 450, 300);
+        final int bounds = 100;
+        final int widthVentana = 450;
+        final int heightVentana = 300;
+        setBounds(bounds, bounds, widthVentana, heightVentana);
         setLocationRelativeTo(null);
         setResizable(false);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        final int border = 5;
+        contentPane.setBorder(new EmptyBorder(border, border, border, border));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
@@ -83,7 +94,7 @@ public class MenuInicio extends JFrame {
         btnRegistrar.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 final Cliente cliente = new Cliente();
                 cliente.start();
                 dispose();
@@ -97,7 +108,7 @@ public class MenuInicio extends JFrame {
         btnIniciarSesion.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
         btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 dispose();
             }
         });
@@ -109,7 +120,7 @@ public class MenuInicio extends JFrame {
         layeredPane.add(lblBackground, new Integer(0));
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new MenuInicio().setVisible(true);
     }
 
