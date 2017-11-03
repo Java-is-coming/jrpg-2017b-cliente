@@ -1,4 +1,3 @@
-
 package estados;
 
 import java.awt.Color;
@@ -69,10 +68,10 @@ public class EstadoBatallaNPC extends Estado {
 		paqueteFinalizarBatalla = new PaqueteFinalizarBatalla();
 		paqueteFinalizarBatalla.setId(personaje.getIdPersonaje());
 		paqueteFinalizarBatalla.setIdEnemigo(paqueteEnemigoNPC.getId());
-		paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.batallarNPC);
+		paqueteFinalizarBatalla.setTipoBatalla(PaqueteBatalla.BATALLAR_NPC);
 
 		// por defecto batalla perdida
-		getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(), MenuInfoNPC.menuPerderBatalla);
+		getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(), MenuInfoNPC.MENU_PERDERBATALLA);
 
 		// limpio la accion del mouse
 		getJuego().getHandlerMouse().setNuevoClick(false);
@@ -92,7 +91,7 @@ public class EstadoBatallaNPC extends Estado {
 
 			if (!personaje.estaVivo()) {
 				getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-						MenuInfoPersonaje.menuPerderBatalla);
+						MenuInfoPersonaje.MENU_PERDERBATALLA);
 				paqueteFinalizarBatalla.setGanadorBatalla(paqueteFinalizarBatalla.getIdEnemigo());
 				finalizarBatalla();
 				Estado.setEstado(getJuego().getEstadoJuego());
@@ -153,12 +152,12 @@ public class EstadoBatallaNPC extends Estado {
 					if (haySpellSeleccionada && seRealizoAccion) {
 						if (!enemigo.estaVivo()) {
 							getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-									MenuInfoPersonaje.menuGanarBatalla);
+									MenuInfoPersonaje.MENU_GANARBATALLA);
 
 							if (personaje.ganarExperiencia(enemigo.otorgarExp())) {
 								getJuego().getPersonaje().setNivel(personaje.getNivel());
 								getJuego().getEstadoJuego().setHaySolicitud(true, getJuego().getPersonaje(),
-										MenuInfoPersonaje.menuSubirNivel);
+										MenuInfoPersonaje.MENU_SUBIRNIVEL);
 								Pantalla.setMenuAsignar(null);
 							}
 
