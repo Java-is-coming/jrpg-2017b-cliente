@@ -531,8 +531,8 @@ public class Entidad {
 	public void graficarNombre(final Graphics g) {
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Book Antiqua", Font.BOLD, 15));
-		Pantalla.centerString(g, new java.awt.Rectangle(drawX + 32, drawY - 20, 0, 10), nombre);// + " X: " + getX() + "
-																								// Y: " + getY());
+		Pantalla.centerString(g, new java.awt.Rectangle(drawX + 32, drawY - 20, 0, 10),
+				nombre + " X: " + getX() + " Y: " + getY());
 	}
 
 	/**
