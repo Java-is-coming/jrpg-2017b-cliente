@@ -64,31 +64,50 @@ public class MenuInicio extends JFrame {
 
         final JLabel lblLogo = new JLabel("");
         lblLogo.setIcon(new ImageIcon(MenuCarga.class.getResource("/frames/WOME.png")));
-        lblLogo.setBounds(109, 39, 216, 90);
+        final int xLblLogo = 109;
+        final int yLblLogo = 39;
+        final int widthLblLogo = 216;
+        final int heightLblLogo = 90;
+        lblLogo.setBounds(xLblLogo, yLblLogo, widthLblLogo, heightLblLogo);
         contentPane.add(lblLogo);
 
         final JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 444, 271);
+        final int widthPane = 444;
+        final int heightPane = 271;
+        layeredPane.setBounds(0, 0, widthPane, heightPane);
         contentPane.add(layeredPane);
 
         // Boton Jugar
         final JLabel lblRegistrarse = new JLabel("Jugar");
-        lblRegistrarse.setBounds(205, 162, 82, 23);
+        final int xJugar = 205;
+        final int yJugar = 162;
+        final int widthJugar = 82;
+        final int heightJugar = 23;
+        lblRegistrarse.setBounds(xJugar, yJugar, widthJugar, heightJugar);
         layeredPane.add(lblRegistrarse, new Integer(2));
         lblRegistrarse.setForeground(Color.WHITE);
         lblRegistrarse.setEnabled(true);
-        lblRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        final int fontSize = 15;
+        lblRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         lblRegistrarse.setBackground(Color.WHITE);
 
         // Boton Salir
         final JLabel lblIniciarSesion = new JLabel("Salir");
-        lblIniciarSesion.setBounds(210, 202, 91, 23);
+        final int xSalir = 210;
+        final int ySalir = 202;
+        final int widthSalir = 91;
+        final int heightSalir = 23;
+        lblIniciarSesion.setBounds(xSalir, ySalir, widthSalir, heightSalir);
         layeredPane.add(lblIniciarSesion, new Integer(2));
         lblIniciarSesion.setForeground(Color.WHITE);
-        lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         final JButton btnRegistrar = new JButton("Jugar");
-        btnRegistrar.setBounds(127, 162, 191, 23);
+        final int xBtnJugar = 127;
+        final int yBtnJugar = 162;
+        final int widthBtnJugar = 191;
+        final int heightBtnJugar = 23;
+        btnRegistrar.setBounds(xBtnJugar, yBtnJugar, widthBtnJugar, heightBtnJugar);
         layeredPane.add(btnRegistrar, new Integer(1));
         btnRegistrar.setFocusable(false);
         btnRegistrar.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
@@ -102,7 +121,11 @@ public class MenuInicio extends JFrame {
         });
 
         final JButton btnIniciarSesion = new JButton("Salir");
-        btnIniciarSesion.setBounds(127, 202, 191, 23);
+        final int xBtnSalir = 127;
+        final int yBtnSalir = 202;
+        final int widthBtnSalir = 191;
+        final int heightBtnSalir = 23;
+        btnIniciarSesion.setBounds(xBtnSalir, yBtnSalir, widthBtnSalir, heightBtnSalir);
         layeredPane.add(btnIniciarSesion, new Integer(1));
         btnIniciarSesion.setFocusable(false);
         btnIniciarSesion.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/BotonMenu.png")));
@@ -115,11 +138,19 @@ public class MenuInicio extends JFrame {
 
         final JLabel lblBackground = new JLabel("");
 
-        lblBackground.setBounds(0, 0, 444, 271);
+        final int widthBkg = 444;
+        final int heightBkg = 271;
+        lblBackground.setBounds(0, 0, widthBkg, heightBkg);
         lblBackground.setIcon(new ImageIcon(MenuJugar.class.getResource("/frames/menuBackground.jpg")));
         layeredPane.add(lblBackground, new Integer(0));
     }
 
+    /**
+     * Main menu inicio
+     *
+     * @param args
+     *            argumentos main
+     */
     public static void main(final String[] args) {
         new MenuInicio().setVisible(true);
     }

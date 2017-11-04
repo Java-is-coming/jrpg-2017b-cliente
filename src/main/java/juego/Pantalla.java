@@ -93,41 +93,48 @@ public class Pantalla {
         pantalla.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_I) {
-                    if (Estado.getEstado().esEstadoDeJuego()) {
+
+                final int keyCode = e.getKeyCode();
+                if (Estado.getEstado().esEstadoDeJuego()) {
+
+                    if (keyCode == KeyEvent.VK_I) {
+
                         if (getMenuInventario() == null) {
                             setMenuInventario(new MenuInventario(cliente));
                             getMenuInventario().setVisible(true);
                         }
                     }
-                } else if (e.getKeyCode() == KeyEvent.VK_A) {
-                    if (Estado.getEstado().esEstadoDeJuego()) {
+
+                    if (keyCode == KeyEvent.VK_A) {
+
                         if (getMenuAsignar() == null) {
                             setMenuAsignar(new MenuAsignarSkills(cliente));
                             getMenuAsignar().setVisible(true);
                         }
                     }
-                } else if (e.getKeyCode() == KeyEvent.VK_S) {
-                    if (Estado.getEstado().esEstadoDeJuego()) {
+
+                    if (keyCode == KeyEvent.VK_S) {
                         if (getMenuStats() == null) {
                             setMenuStats(new MenuStats(cliente));
                             getMenuStats().setVisible(true);
                         }
                     }
-                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    if (Estado.getEstado().esEstadoDeJuego()) {
+
+                    if (keyCode == KeyEvent.VK_ESCAPE) {
                         if (getMenuEscp() == null) {
                             setMenuEscp(new MenuEscape(cliente));
                             getMenuEscp().setVisible(true);
                         }
                     }
-                } else if (e.getKeyCode() == KeyEvent.VK_C) {
-                    // if(Estado.getEstado().esEstadoDeJuego()) {
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_C) {
+
                     if (getVentContac() == null) {
                         setVentContac(new VentanaContactos(cliente.getJuego()));
                         getVentContac().setVisible(true);
                     }
-                    // }
+
                 }
             }
         });
@@ -143,6 +150,7 @@ public class Pantalla {
 
         pantalla.add(canvas);
         pantalla.pack();
+
     }
 
     /**

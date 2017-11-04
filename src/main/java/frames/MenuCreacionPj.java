@@ -29,8 +29,12 @@ import cliente.Cliente;
 import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 
+/**
+ * Menu creacion personaje
+ */
 public class MenuCreacionPj extends JFrame {
 
+    private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
     private final JTextField nombre;
     private final JLabel destreza;
@@ -42,22 +46,32 @@ public class MenuCreacionPj extends JFrame {
     private final JComboBox<String> cbxCasta;
     private final JComboBox<String> cbxRaza;
 
+    /**
+     * Constructor menu
+     *
+     * @param cliente
+     *            instancia cliente
+     * @param personaje
+     *            personaje a crear
+     * @param gson
+     *            paquete
+     */
     public MenuCreacionPj(final Cliente cliente, final PaquetePersonaje personaje, final Gson gson) {
         setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/frames/IconoWome.png"));
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                 new ImageIcon(MenuJugar.class.getResource("/cursor.png")).getImage(), new Point(0, 0),
                 "custom cursor"));
 
-        final String vecSalud[] = {"55", "50", "60"};
-        final String vecEnergia[] = {"55", "60", "50"};
-        final String vecFuerza[] = {"15", "10", "10"};
-        final String vecDestreza[] = {"10", "10", "15"};
-        final String vecInteligencia[] = {"10", "15", "10"};
+        final String[] vecSalud = {"55", "50", "60"};
+        final String[] vecEnergia = {"55", "60", "50"};
+        final String[] vecFuerza = {"15", "10", "10"};
+        final String[] vecDestreza = {"10", "10", "15"};
+        final String[] vecInteligencia = {"10", "15", "10"};
 
         // En caso de cerrar
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(final WindowEvent e) {
                 personaje.setNombre(nombre.getText());
                 if (nombre.getText().equals("")) {
                     personaje.setNombre("nameless");
@@ -79,129 +93,205 @@ public class MenuCreacionPj extends JFrame {
         setTitle("WOME - Crear personaje");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        setBounds(100, 100, 450, 300);
+        final int bounds = 100;
+        final int width450 = 450;
+        final int height300 = 300;
+        setBounds(bounds, bounds, width450, height300);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        final int border = 5;
+        contentPane.setBorder(new EmptyBorder(border, border, border, border));
         setContentPane(contentPane);
         contentPane.setLayout(null);
         setLocationRelativeTo(null);
 
         final JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 444, 271);
+        final int widthPane = 444;
+        final int heightPane = 271;
+        layeredPane.setBounds(0, 0, widthPane, heightPane);
         contentPane.add(layeredPane);
 
-        final JLabel lblNewLabel_5 = new JLabel("Fuerza");
-        lblNewLabel_5.setBounds(33, 100, 46, 14);
-        layeredPane.add(lblNewLabel_5, new Integer(1));
-        lblNewLabel_5.setForeground(Color.WHITE);
-        lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        final JLabel lblFuerza = new JLabel("Fuerza");
+        final int xLblFza = 33;
+        final int widthLblFza = 46;
+        final int heightLblFza = 14;
+        lblFuerza.setBounds(xLblFza, bounds, widthLblFza, heightLblFza);
+        layeredPane.add(lblFuerza, new Integer(1));
+        lblFuerza.setForeground(Color.WHITE);
+        final int fontSize = 13;
+        lblFuerza.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         fuerza = new JLabel("15");
-        fuerza.setBounds(110, 102, 22, 14);
+        final int xFza = 110;
+        final int yFza = 102;
+        final int heightFza = 22;
+        final int widthFza = 14;
+        fuerza.setBounds(xFza, yFza, heightFza, widthFza);
         layeredPane.add(fuerza, new Integer(1));
         fuerza.setForeground(Color.GREEN);
 
         final JLabel lblDestreza = new JLabel("Destreza");
-        lblDestreza.setBounds(33, 126, 60, 14);
+        final int xLblDestreza = 33;
+        final int yLblDestreza = 126;
+        final int widthLblDestreza = 60;
+        final int heightLblDestreza = 14;
+        lblDestreza.setBounds(xLblDestreza, yLblDestreza, widthLblDestreza, heightLblDestreza);
         layeredPane.add(lblDestreza, new Integer(1));
         lblDestreza.setForeground(Color.WHITE);
-        lblDestreza.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblDestreza.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         destreza = new JLabel("10");
-        destreza.setBounds(110, 127, 22, 14);
+        final int xDestreza = 110;
+        final int yDestreza = 127;
+        final int widthDestreza = 22;
+        final int heightDestreza = 14;
+        destreza.setBounds(xDestreza, yDestreza, widthDestreza, heightDestreza);
         layeredPane.add(destreza, new Integer(1));
         destreza.setForeground(Color.GREEN);
 
         final JLabel lblInteligencia = new JLabel("Inteligencia");
-        lblInteligencia.setBounds(33, 151, 66, 22);
+        final int xLblInt = 33;
+        final int yLblInt = 151;
+        final int widthLblInt = 66;
+        final int heightLblInt = 22;
+        lblInteligencia.setBounds(xLblInt, yLblInt, widthLblInt, heightLblInt);
         layeredPane.add(lblInteligencia, new Integer(1));
-        lblInteligencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblInteligencia.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         lblInteligencia.setForeground(Color.WHITE);
 
         inteligencia = new JLabel("10");
-        inteligencia.setBounds(110, 156, 22, 14);
+        final int xInt = 110;
+        final int yInt = 156;
+        final int widthInt = 22;
+        final int heightInt = 14;
+        inteligencia.setBounds(xInt, yInt, widthInt, heightInt);
         layeredPane.add(inteligencia, new Integer(1));
         inteligencia.setForeground(Color.GREEN);
 
         final JLabel lblSalud = new JLabel("Salud");
-        lblSalud.setBounds(33, 183, 46, 14);
+        final int xLblSalud = 33;
+        final int yLblSalud = 183;
+        final int widthLblSalud = 46;
+        final int heightLblSalud = 14;
+        lblSalud.setBounds(xLblSalud, yLblSalud, widthLblSalud, heightLblSalud);
         layeredPane.add(lblSalud, new Integer(1));
-        lblSalud.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblSalud.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         lblSalud.setForeground(Color.WHITE);
 
         salud = new JLabel("55");
-        salud.setBounds(110, 183, 22, 14);
+        final int xSalud = 110;
+        final int ySalud = 183;
+        final int widthSalud = 22;
+        final int heightSalud = 14;
+        salud.setBounds(xSalud, ySalud, widthSalud, heightSalud);
         layeredPane.add(salud, new Integer(1));
         salud.setForeground(Color.GREEN);
 
         final JLabel lblEnergia = new JLabel("Energia");
-        lblEnergia.setBounds(33, 204, 46, 20);
+        final int xLblEng = 33;
+        final int yLblEng = 204;
+        final int widthLblEng = 46;
+        final int heightLblEng = 20;
+        lblEnergia.setBounds(xLblEng, yLblEng, widthLblEng, heightLblEng);
         layeredPane.add(lblEnergia, new Integer(1));
         lblEnergia.setForeground(Color.WHITE);
-        lblEnergia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblEnergia.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         energia = new JLabel("55");
-        energia.setBounds(110, 208, 22, 14);
+        final int xEng = 110;
+        final int yEng = 208;
+        final int widthEng = 22;
+        final int heightEng = 14;
+        energia.setBounds(xEng, yEng, widthEng, heightEng);
         layeredPane.add(energia, new Integer(1));
         energia.setForeground(Color.GREEN);
 
-        final JLabel lblNewLabel_4 = new JLabel("Nombre");
-        lblNewLabel_4.setBounds(207, 125, 60, 14);
-        layeredPane.add(lblNewLabel_4, new Integer(1));
-        lblNewLabel_4.setForeground(Color.WHITE);
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        final JLabel lblNombre = new JLabel("Nombre");
+        final int xLblNombre = 207;
+        final int yLblNombre = 125;
+        final int widthLblNombre = 60;
+        final int heightLblNombre = 14;
+        lblNombre.setBounds(xLblNombre, yLblNombre, widthLblNombre, heightLblNombre);
+        layeredPane.add(lblNombre, new Integer(1));
+        lblNombre.setForeground(Color.WHITE);
+        final int fontSize1 = 15;
+        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, fontSize1));
 
         nombre = new JTextField();
         nombre.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 crearPj(cliente, personaje, gson, vecSalud, vecEnergia, vecFuerza, vecDestreza, vecInteligencia);
             }
         });
-        nombre.setBounds(277, 122, 122, 20);
+        final int xNombre = 277;
+        final int yNombre = 122;
+        final int widthNombre = 122;
+        final int heightNombre = 20;
+        nombre.setBounds(xNombre, yNombre, widthNombre, heightNombre);
         layeredPane.add(nombre, new Integer(1));
-        nombre.setColumns(10);
+        final int columns = 10;
+        nombre.setColumns(columns);
 
         final JLabel lblAceptar = new JLabel("Aceptar");
-        lblAceptar.setBounds(280, 173, 50, 24);
+        final int xLblAceptar = 280;
+        final int yLblAceptar = 173;
+        final int widthLblAceptar = 50;
+        final int heightLblAceptar = 24;
+        lblAceptar.setBounds(xLblAceptar, yLblAceptar, widthLblAceptar, heightLblAceptar);
         layeredPane.add(lblAceptar, new Integer(2));
         lblAceptar.setForeground(Color.WHITE);
-        lblAceptar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblAceptar.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         // En caso de apretar el boton aceptar
         final JButton btnAceptar = new JButton("Aceptar");
-        btnAceptar.setBounds(230, 174, 153, 23);
+        final int xBtnAceptar = 230;
+        final int yBtnAceptar = 174;
+        final int widthBtnAceptar = 153;
+        final int heightBtnAceptar = 23;
+        btnAceptar.setBounds(xBtnAceptar, yBtnAceptar, widthBtnAceptar, heightBtnAceptar);
         layeredPane.add(btnAceptar, new Integer(1));
         btnAceptar.setFocusable(false);
         btnAceptar.setIcon(new ImageIcon(MenuCreacionPj.class.getResource("/frames/BotonMenu.png")));
 
         btnAceptar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 crearPj(cliente, personaje, gson, vecSalud, vecEnergia, vecFuerza, vecDestreza, vecInteligencia);
 
             }
 
         });
 
-        final JLabel lblNewLabel = new JLabel("Raza");
-        lblNewLabel.setBounds(33, 23, 46, 14);
-        layeredPane.add(lblNewLabel, new Integer(1));
-        lblNewLabel.setForeground(Color.WHITE);
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        final JLabel lblRaza = new JLabel("Raza");
+        final int xLblRaza = 33;
+        final int yLblRaza = 23;
+        final int widthLblRaza = 46;
+        final int heightLblRaza = 14;
+        lblRaza.setBounds(xLblRaza, yLblRaza, widthLblRaza, heightLblRaza);
+        layeredPane.add(lblRaza, new Integer(1));
+        lblRaza.setForeground(Color.WHITE);
+        lblRaza.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         final JLabel lblCasta = new JLabel("Casta");
-        lblCasta.setBounds(161, 23, 46, 14);
+        final int xLblCasta = 161;
+        final int yLblCasta = 23;
+        final int widthLblCasata = 46;
+        final int heightLblCasta = 14;
+        lblCasta.setBounds(xLblCasta, yLblCasta, widthLblCasata, heightLblCasta);
         layeredPane.add(lblCasta, new Integer(1));
         lblCasta.setForeground(Color.WHITE);
-        lblCasta.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblCasta.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
 
         cbxCasta = new JComboBox<>();
-        cbxCasta.setBounds(161, 48, 76, 20);
+        final int xCombo = 161;
+        final int yCombo = 48;
+        final int widthCombo = 76;
+        final int heightCombo = 20;
+        cbxCasta.setBounds(xCombo, yCombo, widthCombo, heightCombo);
         layeredPane.add(cbxCasta, new Integer(1));
         cbxCasta.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 fuerza.setText(vecFuerza[cbxCasta.getSelectedIndex()]);
                 destreza.setText(vecDestreza[cbxCasta.getSelectedIndex()]);
                 inteligencia.setText(vecInteligencia[cbxCasta.getSelectedIndex()]);
@@ -212,11 +302,15 @@ public class MenuCreacionPj extends JFrame {
         cbxCasta.addItem("Asesino");
 
         cbxRaza = new JComboBox<>();
-        cbxRaza.setBounds(32, 48, 76, 20);
+        final int xCmbRaza = 32;
+        final int yCmbRaza = 48;
+        final int widthCmbRaza = 76;
+        final int heightCmbRaza = 20;
+        cbxRaza.setBounds(xCmbRaza, yCmbRaza, widthCmbRaza, heightCmbRaza);
         layeredPane.add(cbxRaza, new Integer(1));
         cbxRaza.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 salud.setText(vecSalud[cbxRaza.getSelectedIndex()]);
                 energia.setText(vecEnergia[cbxRaza.getSelectedIndex()]);
             }
@@ -226,13 +320,36 @@ public class MenuCreacionPj extends JFrame {
         cbxRaza.addItem("Orco");
 
         final JLabel lblBackground = new JLabel("");
-        lblBackground.setBounds(0, 0, 444, 271);
+        final int widthBkg = 444;
+        final int heightBkg = 271;
+        lblBackground.setBounds(0, 0, widthBkg, heightBkg);
         layeredPane.add(lblBackground, new Integer(0));
         lblBackground.setIcon(new ImageIcon(MenuCreacionPj.class.getResource("/frames/menuBackground.jpg")));
     }
 
-    protected void crearPj(Cliente cliente, PaquetePersonaje personaje, Gson gson, String[] vecSalud,
-            String[] vecEnergia, String[] vecFuerza, String[] vecDestreza, String[] vecInteligencia) {
+    /**
+     * Crea personaje
+     *
+     * @param cliente
+     *            instancia
+     * @param personaje
+     *            a crear
+     * @param gson
+     *            info
+     * @param vecSalud
+     *            salud
+     * @param vecEnergia
+     *            energia
+     * @param vecFuerza
+     *            fuerza
+     * @param vecDestreza
+     *            destreza
+     * @param vecInteligencia
+     *            inteligencia
+     */
+    protected void crearPj(final Cliente cliente, final PaquetePersonaje personaje, final Gson gson,
+            final String[] vecSalud, final String[] vecEnergia, final String[] vecFuerza, final String[] vecDestreza,
+            final String[] vecInteligencia) {
 
         personaje.setNombre(nombre.getText());
         if (nombre.getText().equals("")) {

@@ -32,7 +32,7 @@ public class MenuJugar extends JFrame {
 
     /**
      * Constructor del menu
-     * 
+     *
      * @param cliente
      *            cliente
      */

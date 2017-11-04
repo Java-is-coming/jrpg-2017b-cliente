@@ -27,9 +27,6 @@ import mensajeria.Paquete;
 
 /**
  * Menu escape
- *
- * @author julia
- *
  */
 public class MenuEscape extends JFrame {
 
@@ -40,8 +37,8 @@ public class MenuEscape extends JFrame {
     /**
      * Crea el menu
      *
-     * @param instancia
-     *            de cliente
+     * @param cliente
+     *            instancia de cliente
      */
     public MenuEscape(final Cliente cliente) {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

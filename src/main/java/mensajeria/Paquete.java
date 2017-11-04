@@ -143,12 +143,12 @@ public class Paquete implements Serializable, Cloneable {
      * @return Comando comando
      */
     public Comando getObjeto(final String nombrePaquete) {
+        Comando c = null;
         try {
-            Comando c;
             c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMES[comando]).newInstance();
             return c;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            return null;
+            return c;
         }
 
     }
@@ -163,12 +163,12 @@ public class Paquete implements Serializable, Cloneable {
      * @return Comando objeto
      */
     public static Comando getObjetoSet(final String nombrePaquete, final int accion) {
+        Comando c = null;
         try {
-            Comando c;
             c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMESBIS[accion]).newInstance();
             return c;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            return null;
+            return c;
         }
 
     }

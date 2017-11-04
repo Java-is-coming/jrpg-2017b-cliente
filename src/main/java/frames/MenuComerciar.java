@@ -122,7 +122,8 @@ public class MenuComerciar extends JFrame {
         contentPane.add(listADar);
 
         final JList<String> listAObtener = new JList<String>();
-        listAObtener.setBounds(428, yListItems, widthListItems, heightListItems);
+        final int xListAObtener = 428;
+        listAObtener.setBounds(xListAObtener, yListItems, widthListItems, heightListItems);
         contentPane.add(listAObtener);
 
         final JLabel lblMisItems = new JLabel("Mis Items");

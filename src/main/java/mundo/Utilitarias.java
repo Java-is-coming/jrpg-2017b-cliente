@@ -46,6 +46,32 @@ public final class Utilitarias {
     }
 
     /**
+     * Archivo de una linea
+     *
+     * @param path
+     *            ruta al archivo
+     * @return String devuelve el contenido en string
+     */
+    public static String archivoLineaAString(final String path) {
+        String contenido = "";
+
+        try {
+            final BufferedReader br = new BufferedReader(new FileReader(path));
+            String linea;
+            linea = br.readLine();
+            if (linea != null) {
+                contenido = linea;
+            }
+
+            br.close();
+        } catch (final IOException e) {
+            JOptionPane.showMessageDialog(null, "Fallo al intentar cargar el mapa " + path);
+        }
+
+        return contenido;
+    }
+
+    /**
      * Parseo a entero de un string
      *
      * @param numero

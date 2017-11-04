@@ -320,10 +320,7 @@ public class MenuInfoPersonaje {
         final int offsetX1 = 250;
         final int offsetY = 380;
         final int offsetY1 = 405;
-        if (mouseX >= x + offsetX && mouseX <= x + offsetX1 && mouseY >= y + offsetY && mouseY <= y + offsetY1) {
-            return true;
-        }
-        return false;
+        return (mouseX >= x + offsetX && mouseX <= x + offsetX1 && mouseY >= y + offsetY && mouseY <= y + offsetY1);
     }
 
     /**
@@ -340,11 +337,8 @@ public class MenuInfoPersonaje {
         final int offsetX1 = 4;
         final int offsetY = 12;
         final int offsetY1 = 36;
-        if (mouseX >= x + MENU.getWidth() - offsetX && mouseX <= x + MENU.getWidth() + offsetX1 && mouseY >= y + offsetY
-                && mouseY <= y + offsetY1) {
-            return true;
-        }
-        return false;
+        return (mouseX >= x + MENU.getWidth() - offsetX && mouseX <= x + MENU.getWidth() + offsetX1
+                && mouseY >= y + offsetY && mouseY <= y + offsetY1);
     }
 
     /**
@@ -357,9 +351,6 @@ public class MenuInfoPersonaje {
      * @return boolean click
      */
     public boolean clickEnMenu(final int mouseX, final int mouseY) {
-        if (mouseX >= x && mouseX <= x + MENU.getWidth() && mouseY >= y && mouseY <= y + MENU.getHeight()) {
-            return true;
-        }
-        return false;
+        return (mouseX >= x && mouseX <= x + MENU.getWidth() && mouseY >= y && mouseY <= y + MENU.getHeight());
     }
 }

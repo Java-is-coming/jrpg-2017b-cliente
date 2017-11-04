@@ -21,6 +21,7 @@ import mensajeria.PaqueteComerciar;
 import mensajeria.PaqueteMensaje;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
+import mundo.Utilitarias;
 
 /**
  * La clase Cliente tiene como función ejecutar el cliente.
@@ -49,7 +50,7 @@ public class Cliente extends Thread {
 
     // Ip y puerto
     private String ip;
-    private final int puerto = 55050;
+    private int puerto;
 
     // Resolución
     private final int anchoPantalla = 800;
@@ -81,6 +82,8 @@ public class Cliente extends Thread {
      * Constructor del Cliente
      */
     public Cliente() {
+
+        puerto = Utilitarias.parseInt(Utilitarias.archivoLineaAString("puerto.txt"));
 
         ip = JOptionPane.showInputDialog("Ingrese IP del servidor: (default localhost)");
         if (ip == null) {

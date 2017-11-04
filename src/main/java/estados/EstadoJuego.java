@@ -27,197 +27,328 @@ import mensajeria.PaquetePersonaje;
 import mundo.Mundo;
 import recursos.Recursos;
 
+/**
+ * Estado de juego
+ */
 public class EstadoJuego extends Estado {
 
-	private final Entidad entidadPersonaje;
-	private PaquetePersonaje paquetePersonaje;
-	private final Mundo mundo;
-	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
-	private Map<Integer, PaquetePersonaje> personajesConectados;
+    private final Entidad entidadPersonaje;
+    private PaquetePersonaje paquetePersonaje;
+    private final Mundo mundo;
+    private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
+    private Map<Integer, PaquetePersonaje> personajesConectados;
 
-	// Agregamos NPCs
-	private Map<Integer, PaqueteNPC> NPCsDisponibles;
-	// private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
+    // Agregamos NPCs
+    private Map<Integer, PaqueteNPC> npcsDisponibles;
+    // private Map<Integer, PaqueteMovimiento> ubicacionesNPCsDisponibles;
 
-	private boolean haySolicitud;
-	private int tipoSolicitud;
+    private boolean haySolicitud;
+    private int tipoSolicitud;
 
-	private final Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
-	private final BufferedImage miniaturaPersonaje;
+    private final BufferedImage miniaturaPersonaje;
 
-	MenuInfoPersonaje menuEnemigo;
-	MenuInfoNPC menuEnemigoNPC;
+    private MenuInfoPersonaje menuEnemigo;
+    private MenuInfoNPC menuEnemigoNPC;
 
-	public EstadoJuego(final Juego juego) {
-		super(juego);
-		mundo = new Mundo(juego, "recursos/" + getMundo() + ".txt", "recursos/" + getMundo() + ".txt");
-		paquetePersonaje = juego.getPersonaje();
-		entidadPersonaje = new Entidad(juego, mundo, 64, 64, juego.getPersonaje().getNombre(), 0, 0,
-				Recursos.personaje.get(juego.getPersonaje().getRaza()), 150);
-		miniaturaPersonaje = Recursos.personaje.get(paquetePersonaje.getRaza()).get(5)[0];
+    /**
+     * Constructor
+     *
+     * @param juego
+     *            instancia de juego
+     */
+    public EstadoJuego(final Juego juego) {
+        super(juego);
+        mundo = new Mundo(juego, "recursos/" + getMundo() + ".txt", "recursos/" + getMundo() + ".txt");
+        paquetePersonaje = juego.getPersonaje();
+        final int size = 64;
+        final int velAnimacion = 150;
+        entidadPersonaje = new Entidad(juego, mundo, size, size, juego.getPersonaje().getNombre(), 0, 0,
+                Recursos.personaje.get(juego.getPersonaje().getRaza()), velAnimacion);
+        final int frameMin = 5;
+        miniaturaPersonaje = Recursos.personaje.get(paquetePersonaje.getRaza()).get(frameMin)[0];
 
-		try {
-			// Le envio al servidor que me conecte al mapa y mi posicion
-			juego.getPersonaje().setComando(Comando.CONEXION);
-			juego.getPersonaje().setEstado(Estado.ESTADO_JUEGO);
-			juego.getCliente().getSalida().writeObject(gson.toJson(juego.getPersonaje(), PaquetePersonaje.class));
-			juego.getCliente().getSalida()
-					.writeObject(gson.toJson(juego.getUbicacionPersonaje(), PaqueteMovimiento.class));
-		} catch (final IOException e) {
-			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor al ingresar al mundo");
-		}
-	}
+        try {
+            // Le envio al servidor que me conecte al mapa y mi posicion
+            juego.getPersonaje().setComando(Comando.CONEXION);
+            juego.getPersonaje().setEstado(Estado.ESTADO_JUEGO);
+            juego.getCliente().getSalida().writeObject(gson.toJson(juego.getPersonaje(), PaquetePersonaje.class));
+            juego.getCliente().getSalida()
+                    .writeObject(gson.toJson(juego.getUbicacionPersonaje(), PaqueteMovimiento.class));
+        } catch (final IOException e) {
+            JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor al ingresar al mundo");
+        }
+    }
 
-	@Override
-	public void actualizar() {
-		mundo.actualizar();
-		entidadPersonaje.actualizar();
-	}
+    @Override
+    public void actualizar() {
+        mundo.actualizar();
+        entidadPersonaje.actualizar();
+    }
 
-	@Override
-	public void graficar(final Graphics g) {
-		g.drawImage(Recursos.background, 0, 0, getJuego().getAncho(), getJuego().getAlto(), null);
-		mundo.graficar(g);
-		// entidadPersonaje.graficar(g);
-		graficarPersonajes(g);
+    @Override
+    public void graficar(final Graphics g) {
+        g.drawImage(Recursos.background, 0, 0, getJuego().getAncho(), getJuego().getAlto(), null);
+        mundo.graficar(g);
+        // entidadPersonaje.graficar(g);
+        graficarPersonajes(g);
 
-		// Agregamos el grafico de losw NPC
-		graficarNPC(g);
+        // Agregamos el grafico de losw NPC
+        graficarNPC(g);
 
-		mundo.graficarObstaculos(g);
-		entidadPersonaje.graficarNombre(g);
-		g.drawImage(Recursos.marco, 0, 0, getJuego().getAncho(), getJuego().getAlto(), null);
-		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 5, 5, paquetePersonaje, miniaturaPersonaje);
-		g.drawImage(Recursos.mochila, 738, 545, 59, 52, null);
-		g.drawImage(Recursos.menu, 3, 562, 102, 35, null);
-		g.drawImage(Recursos.chat, 3, 524, 102, 35, null);
-		if (haySolicitud) {
-			if (tipoSolicitud == MenuInfoNPC.MENU_BATALLARNPC) {
-				menuEnemigoNPC.graficar(g, tipoSolicitud);
-			} else {
-				menuEnemigo.graficar(g, tipoSolicitud);
-			}
-		}
-	}
+        mundo.graficarObstaculos(g);
+        entidadPersonaje.graficarNombre(g);
+        g.drawImage(Recursos.marco, 0, 0, getJuego().getAncho(), getJuego().getAlto(), null);
+        final int estado = 5;
+        EstadoDePersonaje.dibujarEstadoDePersonaje(g, estado, estado, paquetePersonaje, miniaturaPersonaje);
+        final int xMochila = 738;
+        final int yMochila = 545;
+        final int widthMochila = 59;
+        final int heightMochila = 52;
+        g.drawImage(Recursos.mochila, xMochila, yMochila, widthMochila, heightMochila, null);
+        final int xRecursos = 3;
+        final int yMenu = 562;
+        final int widthMenu = 102;
+        final int heightMenu = 35;
+        g.drawImage(Recursos.menu, xRecursos, yMenu, widthMenu, heightMenu, null);
+        final int yChat = 524;
+        final int widthChat = 102;
+        final int heightChat = 35;
+        g.drawImage(Recursos.chat, xRecursos, yChat, widthChat, heightChat, null);
+        if (haySolicitud) {
+            if (tipoSolicitud == MenuInfoNPC.MENU_BATALLARNPC) {
+                getMenuEnemigoNPC().graficar(g, tipoSolicitud);
+            } else {
+                getMenuEnemigo().graficar(g, tipoSolicitud);
+            }
+        }
+    }
 
-	public void graficarPersonajes(final Graphics g) {
-		if (getJuego().getPersonajesConectados() != null) {
-			personajesConectados = new HashMap(getJuego().getPersonajesConectados());
-			ubicacionPersonajes = new HashMap(getJuego().getUbicacionPersonajes());
-			final Iterator<Integer> it = personajesConectados.keySet().iterator();
-			int key;
-			PaqueteMovimiento actual;
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
-			while (it.hasNext()) {
-				key = it.next();
-				actual = ubicacionPersonajes.get(key);
-				if (actual != null && actual.getIdPersonaje() != getJuego().getPersonaje().getId()
-						&& personajesConectados.get(actual.getIdPersonaje()).getEstado() == Estado.ESTADO_JUEGO) {
-					Pantalla.centerString(g,
-							new Rectangle((int) (actual.getPosX() - getJuego().getCamara().getxOffset() + 32),
-									(int) (actual.getPosY() - getJuego().getCamara().getyOffset() - 20), 0, 10),
-							personajesConectados.get(actual.getIdPersonaje()).getNombre());
-					g.drawImage(
-							Recursos.personaje.get(personajesConectados.get(actual.getIdPersonaje()).getRaza())
-									.get(actual.getDireccion())[actual.getFrame()],
-							(int) (actual.getPosX() - getJuego().getCamara().getxOffset()),
-							(int) (actual.getPosY() - getJuego().getCamara().getyOffset()), 64, 64, null);
-				}
-			}
-		}
-	}
+    /**
+     * Grafica personajes
+     *
+     * @param g
+     *            graphics
+     */
+    public void graficarPersonajes(final Graphics g) {
+        if (getJuego().getPersonajesConectados() != null) {
+            personajesConectados = new HashMap<Integer, PaquetePersonaje>(getJuego().getPersonajesConectados());
+            ubicacionPersonajes = new HashMap<Integer, PaqueteMovimiento>(getJuego().getUbicacionPersonajes());
+            final Iterator<Integer> it = personajesConectados.keySet().iterator();
+            int key;
+            PaqueteMovimiento actual;
+            g.setColor(Color.WHITE);
+            final int fontSize = 15;
+            g.setFont(new Font("Book Antiqua", Font.PLAIN, fontSize));
+            while (it.hasNext()) {
+                key = it.next();
+                actual = ubicacionPersonajes.get(key);
+                if (actual != null && actual.getIdPersonaje() != getJuego().getPersonaje().getId()
+                        && personajesConectados.get(actual.getIdPersonaje()).getEstado() == Estado.ESTADO_JUEGO) {
+                    final int offset = 32;
+                    final int offsetY = 20;
+                    final int height = 10;
+                    Pantalla.centerString(g,
+                            new Rectangle((int) (actual.getPosX() - getJuego().getCamara().getxOffset() + offset),
+                                    (int) (actual.getPosY() - getJuego().getCamara().getyOffset() - offsetY), 0,
+                                    height),
+                            personajesConectados.get(actual.getIdPersonaje()).getNombre());
+                    final int size = 64;
+                    g.drawImage(
+                            Recursos.personaje.get(personajesConectados.get(actual.getIdPersonaje()).getRaza())
+                                    .get(actual.getDireccion())[actual.getFrame()],
+                            (int) (actual.getPosX() - getJuego().getCamara().getxOffset()),
+                            (int) (actual.getPosY() - getJuego().getCamara().getyOffset()), size, size, null);
+                }
+            }
+        }
+    }
 
-	public void graficarNPC(final Graphics g) {
-		if (getJuego().getNPCsDisponibles() != null) {
-			NPCsDisponibles = new HashMap(getJuego().getNPCsDisponibles());
-			// ubicacionesNPCsDisponibles = new
-			// HashMap(juego.getUbicacionesNPCsDisponibles());
-			final Iterator<Integer> it = NPCsDisponibles.keySet().iterator();
+    /**
+     * Grafica NPCs
+     *
+     * @param g
+     *            graphics
+     */
+    public void graficarNPC(final Graphics g) {
+        if (getJuego().getNPCsDisponibles() != null) {
+            npcsDisponibles = new HashMap<Integer, PaqueteNPC>(getJuego().getNPCsDisponibles());
+            // ubicacionesNPCsDisponibles = new
+            // HashMap(juego.getUbicacionesNPCsDisponibles());
+            final Iterator<Integer> it = npcsDisponibles.keySet().iterator();
 
-			int key;
-			PaqueteNPC actual;
-			g.setColor(Color.RED);
-			g.setFont(new Font("Book Antiqua", Font.BOLD, 15));
-			while (it.hasNext()) {
-				key = it.next();
-				actual = NPCsDisponibles.get(key);
-				if (actual != null && NPCsDisponibles.get(actual.getId()).getEstado() == Estado.ESTADO_JUEGO) {
-					Pantalla.centerString(g,
-							new Rectangle((int) (actual.getPosX() - getJuego().getCamara().getxOffset() + 32),
-									(int) (actual.getPosY() - getJuego().getCamara().getyOffset() - 4), 0, 10),
-							NPCsDisponibles.get(actual.getId()).getNombre());
-					// NPCsDisponibles.get(actual.getId()).getNombre() + "X: " +
-					// NPCsDisponibles.get(actual.getId()).getPosX() + "Y: " +
-					// NPCsDisponibles.get(actual.getId()).getPosY());
-					g.drawImage(
-							Recursos.personaje.get(NPCsDisponibles.get(actual.getId()).getRaza())
-									.get(actual.getDireccion())[actual.getFrame()],
-							(int) (actual.getPosX() - getJuego().getCamara().getxOffset()),
-							(int) (actual.getPosY() - getJuego().getCamara().getyOffset()), 128, 128, null);
-				}
-			}
-		}
-	}
+            int key;
+            PaqueteNPC actual;
+            g.setColor(Color.RED);
+            final int fontSize = 15;
+            g.setFont(new Font("Book Antiqua", Font.BOLD, fontSize));
+            while (it.hasNext()) {
+                key = it.next();
+                actual = npcsDisponibles.get(key);
+                if (actual != null && npcsDisponibles.get(actual.getId()).getEstado() == Estado.ESTADO_JUEGO) {
+                    final int offset = 32;
+                    final int size = 10;
+                    final int offsetY = 4;
+                    Pantalla.centerString(g,
+                            new Rectangle((int) (actual.getPosX() - getJuego().getCamara().getxOffset() + offset),
+                                    (int) (actual.getPosY() - getJuego().getCamara().getyOffset() - offsetY), 0, size),
+                            npcsDisponibles.get(actual.getId()).getNombre());
+                    // NPCsDisponibles.get(actual.getId()).getNombre() + "X: " +
+                    // NPCsDisponibles.get(actual.getId()).getPosX() + "Y: " +
+                    // NPCsDisponibles.get(actual.getId()).getPosY());
+                    final int size2 = 128;
+                    g.drawImage(
+                            Recursos.personaje.get(npcsDisponibles.get(actual.getId()).getRaza())
+                                    .get(actual.getDireccion())[actual.getFrame()],
+                            (int) (actual.getPosX() - getJuego().getCamara().getxOffset()),
+                            (int) (actual.getPosY() - getJuego().getCamara().getyOffset()), size2, size2, null);
+                }
+            }
+        }
+    }
 
-	public Entidad getPersonaje() {
-		return entidadPersonaje;
-	}
+    /**
+     * Get personaje
+     *
+     * @return Entidad personaje
+     */
+    public Entidad getPersonaje() {
+        return entidadPersonaje;
+    }
 
-	private String getMundo() {
-		final int mundo = getJuego().getPersonaje().getMapa();
+    /**
+     * Get de mundo
+     *
+     * @return String Mundo
+     */
+    private String getMundo() {
+        final int mundoActual = getJuego().getPersonaje().getMapa() - 1;
 
-		if (mundo == 1) {
-			return "Aubenor";
-		} else if (mundo == 2) {
-			return "Aris";
-		} else if (mundo == 3) {
-			return "Eodrim";
-		}
+        final String[] mapas = {"Aubenor", "Aris", "Eodrim"};
 
-		return null;
-	}
+        return mapas[mundoActual];
+        // if (mundoActual == 1) {
+        // return "Aubenor";
+        // } else {
+        // final int aris = 2;
+        // if (mundoActual == aris) {
+        // return "Aris";
+        // } else {
+        // final int eodrim = 3;
+        // if (mundoActual == eodrim) {
+        // return "Eodrim";
+        // }
+        // }
+        // }
+        //
+        // return null;
+    }
 
-	public void setHaySolicitud(final boolean b, final PaquetePersonaje enemigo, final int tipoSolicitud) {
-		haySolicitud = b;
-		// menu que mostrara al enemigo
-		if (tipoSolicitud != MenuInfoNPC.MENU_BATALLARNPC && enemigo != null) {
-			menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
-		}
-		this.tipoSolicitud = tipoSolicitud;
-	}
+    /**
+     * Solicitud de batalla
+     *
+     * @param b
+     *            boolean
+     * @param enemigo
+     *            a solicitar
+     * @param tipoSol
+     *            tipo batalla
+     */
+    public void setHaySolicitud(final boolean b, final PaquetePersonaje enemigo, final int tipoSol) {
+        haySolicitud = b;
+        // menu que mostrara al enemigo
+        if (tipoSolicitud != MenuInfoNPC.MENU_BATALLARNPC && enemigo != null) {
+            final int x = 300;
+            final int y = 50;
+            setMenuEnemigo(new MenuInfoPersonaje(x, y, enemigo));
+        }
+        this.tipoSolicitud = tipoSol;
+    }
 
-	public void setHaySolicitud(final boolean b, final PaqueteNPC enemigo) {
-		haySolicitud = b;
-		// menu que mostrara al enemigo
-		menuEnemigoNPC = new MenuInfoNPC(300, 50, enemigo);
-		this.tipoSolicitud = MenuInfoNPC.MENU_BATALLARNPC;
-	}
+    /**
+     * Solicitud de batalla
+     *
+     * @param b
+     *            boolean
+     * @param enemigo
+     *            enemigo
+     */
+    public void setHaySolicitud(final boolean b, final PaqueteNPC enemigo) {
+        haySolicitud = b;
+        // menu que mostrara al enemigo
+        final int x = 300;
+        final int y = 50;
+        setMenuEnemigoNPC(new MenuInfoNPC(x, y, enemigo));
+        this.tipoSolicitud = MenuInfoNPC.MENU_BATALLARNPC;
+    }
 
-	public boolean getHaySolicitud() {
-		return haySolicitud;
-	}
+    /**
+     * Get solicitud
+     *
+     * @return boolean hay solicitud
+     */
+    public boolean getHaySolicitud() {
+        return haySolicitud;
+    }
 
-	public void actualizarPersonaje() {
-		paquetePersonaje = getJuego().getPersonaje();
-	}
+    /**
+     * Actualizar personaje
+     */
+    public void actualizarPersonaje() {
+        paquetePersonaje = getJuego().getPersonaje();
+    }
 
-	public MenuInfoPersonaje getMenuEnemigo() {
-		return menuEnemigo;
-	}
+    /**
+     * Muestra info del enemigo
+     *
+     * @return MenuInfoPersonaje menu
+     */
+    public MenuInfoPersonaje getMenuEnemigo() {
+        return menuEnemigo;
+    }
 
-	public MenuInfoNPC getMenuEnemigoNPC() {
-		return menuEnemigoNPC;
-	}
+    /**
+     * Muestra info del enemigo
+     *
+     * @return MenuInfoNPC menu
+     */
+    public MenuInfoNPC getMenuEnemigoNPC() {
+        return menuEnemigoNPC;
+    }
 
-	public int getTipoSolicitud() {
-		return tipoSolicitud;
-	}
+    /**
+     * Tipo solicitud
+     *
+     * @return int tipo solicitud
+     */
+    public int getTipoSolicitud() {
+        return tipoSolicitud;
+    }
 
-	@Override
-	public boolean esEstadoDeJuego() {
-		return true;
-	}
+    @Override
+    public boolean esEstadoDeJuego() {
+        return true;
+    }
+
+    /**
+     * Set menu enemigo
+     *
+     * @param menuEnemigo
+     *            menu enemigo
+     */
+    void setMenuEnemigo(final MenuInfoPersonaje menuEnemigo) {
+        this.menuEnemigo = menuEnemigo;
+    }
+
+    /**
+     * Set menu enemigo npc
+     *
+     * @param menuEnemigoNPC
+     *            menu enemig npc
+     */
+    void setMenuEnemigoNPC(final MenuInfoNPC menuEnemigoNPC) {
+        this.menuEnemigoNPC = menuEnemigoNPC;
+    }
 
 }

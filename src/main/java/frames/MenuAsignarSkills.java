@@ -26,10 +26,17 @@ import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 
+/**
+ * Menu para asignar skills al subir de nivel
+ */
 public class MenuAsignarSkills extends JFrame {
 
+    private static final int MAX_PUNTOS = 200;
+    private static final int PUNTOS_NIVEL = 3;
+    private static final int PUNTOS_INICIALES = 10;
+    private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
-    private int puntosAsignarInicial = 10;
+    private int puntosAsignarInicial = PUNTOS_INICIALES;
     private int puntosFuerzaInicial = 0;
     private int puntosDestrezaInicial = 0;
     private int puntosInteligenciaInicial = 0;
@@ -43,24 +50,27 @@ public class MenuAsignarSkills extends JFrame {
     private int puntosDestrezaBase = 0;
     private int puntosIntBase = 0;
 
-    final int vecFuerza[] = {15, 10, 10};
-    final int vecDestreza[] = {10, 10, 15};
-    final int vecInteligencia[] = {10, 15, 10};
+    static final int[] FUERZA_BASE = {15, 10, 10};
+    static final int[] DESTREZA_BASE = {10, 10, 15};
+    static final int[] INTELIGENCIA_BASE = {10, 15, 10};
 
-    final String Casta[] = {"Guerrero", "Hechicero", "Asesino"};
+    static final String[] CASTA = {"Guerrero", "Hechicero", "Asesino"};
 
     private boolean reAsigno = false;
 
     /**
-     * Create the frame.
+     * Constructor del menu
+     *
+     * @param cliente
+     *            instancia de cliente
      */
     public MenuAsignarSkills(final Cliente cliente) {
 
-        for (int i = 0; i < Casta.length && puntosFuerzaBase == 0; i++) {
-            if (Casta[i].trim().equals(cliente.getPaquetePersonaje().getCasta().trim())) {
-                puntosFuerzaBase = vecFuerza[i];
-                puntosDestrezaBase = vecDestreza[i];
-                puntosIntBase = vecInteligencia[i];
+        for (int i = 0; i < CASTA.length && puntosFuerzaBase == 0; i++) {
+            if (CASTA[i].trim().equals(cliente.getPaquetePersonaje().getCasta().trim())) {
+                puntosFuerzaBase = FUERZA_BASE[i];
+                puntosDestrezaBase = DESTREZA_BASE[i];
+                puntosIntBase = INTELIGENCIA_BASE[i];
             }
         }
 
@@ -72,7 +82,7 @@ public class MenuAsignarSkills extends JFrame {
             final int puntosTotales = personajeAux.getInteligencia() + personajeAux.getFuerza()
                     + personajeAux.getDestreza();
             final int puntosRestantes = ((puntosFuerzaBase + puntosDestrezaBase + puntosIntBase)
-                    + (cliente.getPaquetePersonaje().getNivel() * 3)) - puntosTotales;
+                    + (cliente.getPaquetePersonaje().getNivel() * PUNTOS_NIVEL)) - puntosTotales;
 
             puntosAsignarInicial = puntosRestantes;
 
@@ -81,7 +91,7 @@ public class MenuAsignarSkills extends JFrame {
             }
 
         } else {
-            puntosAsignarInicial = 3;
+            puntosAsignarInicial = PUNTOS_NIVEL;
         }
 
         puntosFuerzaInicial = cliente.getPaquetePersonaje().getFuerza();
@@ -94,15 +104,21 @@ public class MenuAsignarSkills extends JFrame {
         puntosInteligencia = puntosInteligenciaInicial;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        final int bounds = 100;
+        final int widthMenu = 450;
+        final int heightMenu = 300;
+        setBounds(bounds, bounds, widthMenu, heightMenu);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        final int border = 5;
+        contentPane.setBorder(new EmptyBorder(border, border, border, border));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
         setIconImage(Toolkit.getDefaultToolkit().getImage("recursos//1up.png"));
         setTitle("Asignar");
-        setBounds(100, 100, 298, 294);
+        final int widthAsignar = 298;
+        final int heightAsignar = 294;
+        setBounds(bounds, bounds, widthAsignar, heightAsignar);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
         setVisible(true);
@@ -112,71 +128,91 @@ public class MenuAsignarSkills extends JFrame {
 
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent arg0) {
+            public void windowClosing(final WindowEvent arg0) {
                 Pantalla.setMenuAsignar(null);
                 dispose();
             }
         });
 
+        final int xLabels = 50;
+        final int widthLabels = 56;
+        final int heightLabels = 16;
+
         final JLabel labelFuerza = new JLabel("");
         labelFuerza.setForeground(Color.WHITE);
         labelFuerza.setHorizontalAlignment(SwingConstants.CENTER);
-        labelFuerza.setBounds(50, 101, 56, 16);
+        final int yFza = 101;
+        labelFuerza.setBounds(xLabels, yFza, widthLabels, heightLabels);
         labelFuerza.setText(String.valueOf(puntosFuerzaInicial));
         contentPane.add(labelFuerza);
 
         final JLabel labelDestreza = new JLabel("");
         labelDestreza.setForeground(Color.WHITE);
         labelDestreza.setHorizontalAlignment(SwingConstants.CENTER);
-        labelDestreza.setBounds(50, 159, 56, 16);
+        final int yDestreza = 159;
+        labelDestreza.setBounds(xLabels, yDestreza, widthLabels, heightLabels);
         labelDestreza.setText(String.valueOf(puntosDestrezaInicial));
         contentPane.add(labelDestreza);
 
         final JLabel labelInteligencia = new JLabel("");
         labelInteligencia.setForeground(Color.WHITE);
         labelInteligencia.setHorizontalAlignment(SwingConstants.CENTER);
-        labelInteligencia.setBounds(50, 217, 56, 16);
+        final int yInt = 217;
+        labelInteligencia.setBounds(xLabels, yInt, widthLabels, heightLabels);
         labelInteligencia.setText(String.valueOf(puntosInteligenciaInicial));
         contentPane.add(labelInteligencia);
 
         final JLabel labelPuntos = new JLabel("");
         labelPuntos.setForeground(Color.WHITE);
         labelPuntos.setHorizontalAlignment(SwingConstants.CENTER);
-        labelPuntos.setBounds(39, 41, 83, 26);
+        final int xLblPts = 39;
+        final int yLblPts = 41;
+        final int widthLblPts = 83;
+        final int heightLblPts = 26;
+        labelPuntos.setBounds(xLblPts, yLblPts, widthLblPts, heightLblPts);
         labelPuntos.setText(String.valueOf(puntosAsignarInicial));
         contentPane.add(labelPuntos);
 
         final JLabel lblCantidadDePuntos = new JLabel("Cantidad de Puntos a Asignar");
         lblCantidadDePuntos.setForeground(Color.WHITE);
-        lblCantidadDePuntos.setBounds(12, 13, 177, 29);
+        final int xCoord = 12;
+        final int xCantPts = xCoord;
+        final int yCantPts = 13;
+        final int widthCantPts = 177;
+        final int heightCantPts = 29;
+        lblCantidadDePuntos.setBounds(xCantPts, yCantPts, widthCantPts, heightCantPts);
         contentPane.add(lblCantidadDePuntos);
 
         final JLabel lblInteligencia = new JLabel("Inteligencia");
         lblInteligencia.setForeground(Color.WHITE);
         lblInteligencia.setHorizontalAlignment(SwingConstants.CENTER);
-        lblInteligencia.setBounds(39, 188, 83, 16);
+        final int xLblInt = 39;
+        final int yLblInt = 188;
+        final int widthLblInt = 83;
+        lblInteligencia.setBounds(xLblInt, yLblInt, widthLblInt, heightLabels);
         contentPane.add(lblInteligencia);
 
         final JLabel lblDestreza = new JLabel("Destreza");
         lblDestreza.setForeground(Color.WHITE);
         lblDestreza.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDestreza.setBounds(50, 130, 56, 16);
+        final int yLblDest = 130;
+        lblDestreza.setBounds(xLabels, yLblDest, widthLabels, heightLabels);
         contentPane.add(lblDestreza);
 
         final JLabel lblFuerza = new JLabel("Fuerza");
         lblFuerza.setForeground(Color.WHITE);
         lblFuerza.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFuerza.setBounds(50, 72, 56, 16);
+        final int yLblFz = 72;
+        lblFuerza.setBounds(xLabels, yLblFz, widthLabels, heightLabels);
         contentPane.add(lblFuerza);
 
         final JButton buttonConfirm = new JButton("Confirmar");
-        final ImageIcon icono_confirm = new ImageIcon("recursos//botonConfirmar.png");
-        buttonConfirm.setIcon(icono_confirm);
+        final ImageIcon iconoConfirm = new ImageIcon("recursos//botonConfirmar.png");
+        buttonConfirm.setIcon(iconoConfirm);
         buttonConfirm.setEnabled(false);
         buttonConfirm.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                ;
+            public void actionPerformed(final ActionEvent e) {
 
                 if (reAsigno) {
                     cliente.getPaquetePersonaje().setInteligencia(puntosInteligenciaInicial);
@@ -206,20 +242,29 @@ public class MenuAsignarSkills extends JFrame {
                 dispose();
             }
         });
-        buttonConfirm.setBounds(176, 112, 97, 25);
+        final int xBtn = 176;
+        final int yBtn = 112;
+        final int widthBtn = 97;
+        final int heightBtn = 25;
+
+        buttonConfirm.setBounds(xBtn, yBtn, widthBtn, heightBtn);
         contentPane.add(buttonConfirm);
 
         final JButton buttonCancel = new JButton("Cancelar");
-        final ImageIcon icono_c = new ImageIcon("recursos//botonCancelar.png");
-        buttonCancel.setIcon(icono_c);
+        final ImageIcon iconoCancel = new ImageIcon("recursos//botonCancelar.png");
+        buttonCancel.setIcon(iconoCancel);
         buttonCancel.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 Pantalla.setMenuAsignar(null);
                 dispose();
             }
         });
-        buttonCancel.setBounds(176, 146, 97, 25);
+        final int xCancel = 176;
+        final int yCancel = 146;
+        final int widthCancel = 97;
+        final int heightCancel = heightBtn;
+        buttonCancel.setBounds(xCancel, yCancel, widthCancel, heightCancel);
         contentPane.add(buttonCancel);
 
         final JButton buttonMinus = new JButton("");
@@ -232,18 +277,18 @@ public class MenuAsignarSkills extends JFrame {
         buttonMinus1.setEnabled(false);
         buttonMinus2.setEnabled(false);
 
-        final ImageIcon icono_1 = new ImageIcon("recursos//botonMenoss.png");
-        buttonMinus.setIcon(icono_1);
+        final ImageIcon iconoMenos = new ImageIcon("recursos//botonMenoss.png");
+        buttonMinus.setIcon(iconoMenos);
         buttonMinus.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 if (puntosFuerza > puntosFuerzaInicial) {
                     puntosFuerza--;
                     if (puntosAsignar == 0) {
-                        if (puntosInteligencia != 200) {
+                        if (puntosInteligencia != MAX_PUNTOS) {
                             buttonMore2.setEnabled(true);
                         }
-                        if (puntosDestreza != 200) {
+                        if (puntosDestreza != MAX_PUNTOS) {
                             buttonMore1.setEnabled(true);
                         }
                     } else {
@@ -266,19 +311,21 @@ public class MenuAsignarSkills extends JFrame {
                 }
             }
         });
-        buttonMinus.setBounds(12, 92, 34, 25);
+        final int yCoord = 92;
+        final int widthBtns = 34;
+        buttonMinus.setBounds(xCoord, yCoord, widthBtns, heightBtn);
         contentPane.add(buttonMinus);
 
         buttonMinus1.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 if (puntosDestreza > puntosDestrezaInicial) {
                     puntosDestreza--;
                     if (puntosAsignar == 0) {
-                        if (puntosInteligencia != 200) {
+                        if (puntosInteligencia != MAX_PUNTOS) {
                             buttonMore2.setEnabled(true);
                         }
-                        if (puntosFuerza != 200) {
+                        if (puntosFuerza != MAX_PUNTOS) {
                             buttonMore.setEnabled(true);
                         }
                     } else {
@@ -302,20 +349,21 @@ public class MenuAsignarSkills extends JFrame {
             }
         });
 
-        buttonMinus1.setIcon(icono_1);
-        buttonMinus1.setBounds(12, 159, 34, 25);
+        buttonMinus1.setIcon(iconoMenos);
+        final int yMinus = 159;
+        buttonMinus1.setBounds(xCoord, yMinus, widthBtns, heightBtn);
         contentPane.add(buttonMinus1);
 
         buttonMinus2.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 if (puntosInteligencia > puntosInteligenciaInicial) {
                     puntosInteligencia--;
                     if (puntosAsignar == 0) {
-                        if (puntosFuerza != 200) {
+                        if (puntosFuerza != MAX_PUNTOS) {
                             buttonMore.setEnabled(true);
                         }
-                        if (puntosDestreza != 200) {
+                        if (puntosDestreza != MAX_PUNTOS) {
                             buttonMore1.setEnabled(true);
                         }
                     } else {
@@ -338,14 +386,15 @@ public class MenuAsignarSkills extends JFrame {
                 }
             }
         });
-        buttonMinus2.setIcon(icono_1);
-        buttonMinus2.setBounds(12, 217, 34, 25);
+        buttonMinus2.setIcon(iconoMenos);
+        final int yMinus2 = 217;
+        buttonMinus2.setBounds(xCoord, yMinus2, widthBtns, heightBtn);
         contentPane.add(buttonMinus2);
 
         buttonMore.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (puntosAsignar != 0 && !labelFuerza.getText().equals("200")) {
+            public void actionPerformed(final ActionEvent e) {
+                if (puntosAsignar != 0 && !labelFuerza.getText().equals(Integer.toString(MAX_PUNTOS))) {
                     puntosFuerza++;
                     puntosAsignar--;
                     buttonConfirm.setEnabled(true);
@@ -358,20 +407,21 @@ public class MenuAsignarSkills extends JFrame {
                         buttonMore2.setEnabled(false);
                     }
                 }
-                if (puntosAsignar == 0 || labelFuerza.getText().equals("200")) {
+                if (puntosAsignar == 0 || labelFuerza.getText().equals(Integer.toString(MAX_PUNTOS))) {
                     buttonMore.setEnabled(false);
                 }
             }
         });
-        final ImageIcon icono_2 = new ImageIcon("recursos//botonMass.png");
-        buttonMore.setIcon(icono_2);
-        buttonMore.setBounds(118, 92, 34, 25);
+        final ImageIcon iconoMas = new ImageIcon("recursos//botonMass.png");
+        buttonMore.setIcon(iconoMas);
+        final int xMore = 118;
+        buttonMore.setBounds(xMore, yCoord, widthBtns, heightBtn);
         contentPane.add(buttonMore);
 
         buttonMore1.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (puntosAsignar != 0 && !labelDestreza.getText().equals("200")) {
+            public void actionPerformed(final ActionEvent e) {
+                if (puntosAsignar != 0 && !labelDestreza.getText().equals(Integer.toString(MAX_PUNTOS))) {
                     puntosDestreza++;
                     puntosAsignar--;
                     buttonConfirm.setEnabled(true);
@@ -383,20 +433,21 @@ public class MenuAsignarSkills extends JFrame {
                         buttonMore1.setEnabled(false);
                         buttonMore2.setEnabled(false);
                     }
-                    if (puntosAsignar == 0 || labelDestreza.getText().equals("200")) {
+                    if (puntosAsignar == 0 || labelDestreza.getText().equals(Integer.toString(MAX_PUNTOS))) {
                         buttonMore1.setEnabled(false);
                     }
                 }
             }
         });
-        buttonMore1.setIcon(icono_2);
-        buttonMore1.setBounds(118, 159, 34, 25);
+        buttonMore1.setIcon(iconoMas);
+        final int yMore = 159;
+        buttonMore1.setBounds(xMore, yMore, widthBtns, heightBtn);
         contentPane.add(buttonMore1);
 
         buttonMore2.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (puntosAsignar != 0 && !labelInteligencia.getText().equals("200")) {
+            public void actionPerformed(final ActionEvent e) {
+                if (puntosAsignar != 0 && !labelInteligencia.getText().equals(Integer.toString(MAX_PUNTOS))) {
                     puntosInteligencia++;
                     puntosAsignar--;
                     buttonConfirm.setEnabled(true);
@@ -408,14 +459,15 @@ public class MenuAsignarSkills extends JFrame {
                         buttonMore1.setEnabled(false);
                         buttonMore2.setEnabled(false);
                     }
-                    if (puntosAsignar == 0 || labelInteligencia.getText().equals("200")) {
+                    if (puntosAsignar == 0 || labelInteligencia.getText().equals(Integer.toString(MAX_PUNTOS))) {
                         buttonMore2.setEnabled(false);
                     }
                 }
             }
         });
-        buttonMore2.setIcon(icono_2);
-        buttonMore2.setBounds(118, 217, 34, 25);
+        buttonMore2.setIcon(iconoMas);
+        final int yMore2 = 217;
+        buttonMore2.setBounds(xMore, yMore2, widthBtns, heightBtn);
         contentPane.add(buttonMore2);
 
         final JButton buttonReasignar = new JButton("Reasignar");
@@ -430,7 +482,7 @@ public class MenuAsignarSkills extends JFrame {
 
         buttonReasignar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
 
                 final PaquetePersonaje personajeAux = (PaquetePersonaje) cliente.getPaquetePersonaje().clone();
 
@@ -440,7 +492,7 @@ public class MenuAsignarSkills extends JFrame {
 
                 personajeAux.ponerBonus();
 
-                puntosAsignarInicial = personajeAux.getNivel() * 3;
+                puntosAsignarInicial = personajeAux.getNivel() * PUNTOS_NIVEL;
                 puntosAsignar = puntosAsignarInicial;
 
                 puntosFuerzaInicial = personajeAux.getFuerza();
@@ -461,11 +513,16 @@ public class MenuAsignarSkills extends JFrame {
 
         });
 
-        buttonReasignar.setBounds(176, 78, 97, 25);
+        final int xReasignar = 176;
+        final int yReasingar = 78;
+        final int widthReasingar = 97;
+        buttonReasignar.setBounds(xReasignar, yReasingar, widthReasingar, heightBtn);
         contentPane.add(buttonReasignar);
 
         final JLabel imageLabel = new JLabel(new ImageIcon("recursos//background.jpg"));
-        imageLabel.setBounds(0, 0, 298, 294);
+        final int widthImg = 298;
+        final int heightImg = 294;
+        imageLabel.setBounds(0, 0, widthImg, heightImg);
         imageLabel.setVisible(true);
         contentPane.add(imageLabel);
     }

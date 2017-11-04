@@ -3,77 +3,164 @@ package mensajeria;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Atacar NPC. Se utiliza en la batalla vs un NPC
+ */
 public class PaqueteAtacarNPC extends Paquete implements Serializable, Cloneable {
 
-	private int id;
-	private int idNPCEnemigo;
-	private int nuevaSaludPersonaje;
-	private int nuevaEnergiaPersonaje;
-	private int nuevaSaludEnemigo;
-	private HashMap<String, Number> mapPersonaje = new HashMap<String, Number>();
-	private HashMap<String, Number> mapNPCEnemigo = new HashMap<String, Number>();
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private int idNPCEnemigo;
+    private int nuevaSaludPersonaje;
+    private int nuevaEnergiaPersonaje;
+    private int nuevaSaludEnemigo;
+    private final HashMap<String, Number> mapPersonaje = new HashMap<String, Number>();
+    private final HashMap<String, Number> mapNPCEnemigo = new HashMap<String, Number>();
 
-	public PaqueteAtacarNPC(int id, int idNPCEnemigo, int nuevaSalud, int nuevaEnergia, int nuevaSaludEnemigo,
-			int nuevaDefensa, double probEvitarDano) {
-		setComando(Comando.ATACARNPC);
-		this.id = id;
-		this.idNPCEnemigo = idNPCEnemigo;
-		this.nuevaSaludPersonaje = nuevaSalud;
-		this.nuevaEnergiaPersonaje = nuevaEnergia;
-		this.nuevaSaludEnemigo = nuevaSaludEnemigo;
-		mapPersonaje.put("salud", nuevaSalud);
-		mapPersonaje.put("energia", nuevaEnergia);
-		mapPersonaje.put("defensa", nuevaDefensa);
-		mapPersonaje.put("probEvitarDanio", probEvitarDano);
-		mapNPCEnemigo.put("salud", nuevaSaludEnemigo);
-	}
+    /**
+     * Constructor paquete
+     *
+     * @param id
+     *            paquete
+     * @param idNPCEnemigo
+     *            id npc
+     * @param nuevaSalud
+     *            salud
+     * @param nuevaEnergia
+     *            energia
+     * @param nuevaSaludEnemigo
+     *            salud enemigo
+     * @param nuevaDefensa
+     *            defensa
+     * @param probEvitarDano
+     *            probabilidad evitar daño
+     */
+    public PaqueteAtacarNPC(final int id, final int idNPCEnemigo, final int nuevaSalud, final int nuevaEnergia,
+            final int nuevaSaludEnemigo, final int nuevaDefensa, final double probEvitarDano) {
+        setComando(Comando.ATACARNPC);
+        this.id = id;
+        this.idNPCEnemigo = idNPCEnemigo;
+        this.nuevaSaludPersonaje = nuevaSalud;
+        this.nuevaEnergiaPersonaje = nuevaEnergia;
+        this.nuevaSaludEnemigo = nuevaSaludEnemigo;
+        mapPersonaje.put("salud", nuevaSalud);
+        mapPersonaje.put("energia", nuevaEnergia);
+        mapPersonaje.put("defensa", nuevaDefensa);
+        mapPersonaje.put("probEvitarDanio", probEvitarDano);
+        mapNPCEnemigo.put("salud", nuevaSaludEnemigo);
+    }
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * Get de id
+     *
+     * @return int id
+     */
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Setter de id
+     *
+     * @param id
+     *            int
+     */
+    public void setId(final int id) {
+        this.id = id;
+    }
 
-	public int getIdNPCEnemigo() {
-		return idNPCEnemigo;
-	}
+    /**
+     * Get id npc enemigo
+     *
+     * @return int id npc enemigo
+     */
+    public int getIdNPCEnemigo() {
+        return idNPCEnemigo;
+    }
 
-	public void setIdNPCEnemigo(int idNPCEnemigo) {
-		this.idNPCEnemigo = idNPCEnemigo;
-	}
+    /**
+     * Setter de id npc enemigo
+     *
+     * @param idNPCEnemigo
+     *            int
+     */
+    public void setIdNPCEnemigo(final int idNPCEnemigo) {
+        this.idNPCEnemigo = idNPCEnemigo;
+    }
 
-	public int getNuevaSaludPersonaje() {
-		return nuevaSaludPersonaje;
-	}
+    /**
+     * Nueva salud personaje
+     *
+     * @return int nueva salud
+     */
+    public int getNuevaSaludPersonaje() {
+        return nuevaSaludPersonaje;
+    }
 
-	public void setNuevaSaludPersonaje(int nuevaSaludPersonaje) {
-		this.nuevaSaludPersonaje = nuevaSaludPersonaje;
-	}
+    /**
+     * Set nueva salud personaje
+     *
+     * @param nuevaSaludPersonaje
+     *            salud
+     */
+    public void setNuevaSaludPersonaje(final int nuevaSaludPersonaje) {
+        this.nuevaSaludPersonaje = nuevaSaludPersonaje;
+    }
 
-	public int getNuevaEnergiaPersonaje() {
-		return nuevaEnergiaPersonaje;
-	}
+    /**
+     * Get nueva energia
+     *
+     * @return nueva energia personaje
+     */
+    public int getNuevaEnergiaPersonaje() {
+        return nuevaEnergiaPersonaje;
+    }
 
-	public void setNuevaEnergiaPersonaje(int nuevaEnergiaPersonaje) {
-		this.nuevaEnergiaPersonaje = nuevaEnergiaPersonaje;
-	}
+    /**
+     * Set nueva energia
+     *
+     * @param nuevaEnergiaPersonaje
+     *            nueva energia
+     */
+    public void setNuevaEnergiaPersonaje(final int nuevaEnergiaPersonaje) {
+        this.nuevaEnergiaPersonaje = nuevaEnergiaPersonaje;
+    }
 
-	public int getNuevaSaludEnemigo() {
-		return nuevaSaludEnemigo;
-	}
+    /**
+     * Get Nueva salud enemigo
+     *
+     * @return int nueva salud
+     */
+    public int getNuevaSaludEnemigo() {
+        return nuevaSaludEnemigo;
+    }
 
-	public void setNuevaSaludEnemigo(int nuevaSaludEnemigo) {
-		this.nuevaSaludEnemigo = nuevaSaludEnemigo;
-	}
+    /**
+     * Set nueva salud enemigo
+     *
+     * @param nuevaSaludEnemigo
+     *            nueva salud
+     */
+    public void setNuevaSaludEnemigo(final int nuevaSaludEnemigo) {
+        this.nuevaSaludEnemigo = nuevaSaludEnemigo;
+    }
 
-	public HashMap<String, Number> getMapPersonaje() {
-		return mapPersonaje;
-	}
+    /**
+     * Map de pesonaje
+     *
+     * @return HashMap<String, Number> map
+     */
+    public HashMap<String, Number> getMapPersonaje() {
+        return mapPersonaje;
+    }
 
-	public HashMap<String, Number> getMapNPCEnemigo() {
-		return mapNPCEnemigo;
-	}
+    /**
+     * Set de map de personaje
+     *
+     * @return HashMap<String, Number> map
+     */
+    public HashMap<String, Number> getMapNPCEnemigo() {
+        return mapNPCEnemigo;
+    }
 
 }
