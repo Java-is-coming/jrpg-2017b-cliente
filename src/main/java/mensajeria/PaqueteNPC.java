@@ -3,283 +3,308 @@ package mensajeria;
 import java.io.IOException;
 import java.io.Serializable;
 
+import dominio.NonPlayableCharacter;
 import estados.Estado;
 
 /**
  * Paquete que contiene la información de un NPC
  */
 public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
-    // https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
+	// https://cdn-images-1.medium.com/max/455/1*snTXFElFuQLSFDnvZKJ6IA.png
 
-    private static final long serialVersionUID = 1L;
-    private int id;
-    private int idMapa;
-    private int estado;
-    private String nombre;
-    private final String raza = "NPC";
-    private int saludTope;
-    private int fuerza;
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private int idMapa;
+	private int estado;
+	private String nombre;
+	private final String raza = "NPC";
+	private int saludTope;
+	private int fuerza;
 
-    private int nivel = 1;
-    private int dificultad;
+	private int nivel = 1;
+	private int dificultad;
 
-    // Posicion
-    private float posX;
-    private float posY;
-    private int direccion;
-    private int frame;
+	// Posicion
+	private float posX;
+	private float posY;
+	private int direccion;
+	private int frame;
 
-    /**
-     * Constructor
-     *
-     * @throws IOException
-     *             exception
-     */
-    public PaqueteNPC() throws IOException {
-        estado = Estado.ESTADO_OFFLINE;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @throws IOException
+	 *             exception
+	 */
+	public PaqueteNPC() throws IOException {
+		estado = Estado.ESTADO_OFFLINE;
+	}
 
-    /**
-     * Devuelve el estado
-     *
-     * @return int estado
-     */
-    public int getEstado() {
-        return estado;
-    }
+	public PaqueteNPC(int id) {
+		super();
+		this.id = id;
+	}
 
-    /**
-     * Devuelve el nivel
-     *
-     * @return int nivel
-     */
-    public int getNivel() {
-        return nivel;
-    }
+	public PaqueteNPC(int id, int idMapa, int estado, String nombre, int nivel, int dificultad, float posX, float posY,
+			int direccion, int frame) {
+		super();
+		this.id = id;
+		this.idMapa = idMapa;
+		this.estado = estado;
+		this.nombre = nombre;
+		this.nivel = nivel;
+		this.dificultad = dificultad;
+		this.posX = posX;
+		this.posY = posY;
+		this.direccion = direccion;
+		this.frame = frame;
 
-    /**
-     * Setea el nivel
-     *
-     * @param nivel
-     *            int
-     */
-    public void setNivel(final int nivel) {
-        this.nivel = nivel;
-    }
+		final NonPlayableCharacter npcChar = new NonPlayableCharacter(nombre, nivel, dificultad);
+		this.saludTope = npcChar.getSaludTope();
+		this.fuerza = npcChar.getFuerza();
+	}
 
-    /**
-     * Setea el estado
-     *
-     * @param estado
-     *            int
-     */
-    public void setEstado(final int estado) {
-        this.estado = estado;
-    }
+	/**
+	 * Devuelve el estado
+	 *
+	 * @return int estado
+	 */
+	public int getEstado() {
+		return estado;
+	}
 
-    /**
-     * Devuelve el nombre del NPC
-     *
-     * @return nombre string
-     */
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * Devuelve el nivel
+	 *
+	 * @return int nivel
+	 */
+	public int getNivel() {
+		return nivel;
+	}
 
-    /**
-     * Setea el nombre del NPC
-     *
-     * @param nombre
-     *            del npc
-     */
-    public void setNombre(final String nombre) {
-        this.nombre = nombre;
-    }
+	/**
+	 * Setea el nivel
+	 *
+	 * @param nivel
+	 *            int
+	 */
+	public void setNivel(final int nivel) {
+		this.nivel = nivel;
+	}
 
-    /**
-     * Devuelve el ID del mapa
-     *
-     * @return int idMapa
-     */
-    public int getMapa() {
-        return idMapa;
-    }
+	/**
+	 * Setea el estado
+	 *
+	 * @param estado
+	 *            int
+	 */
+	public void setEstado(final int estado) {
+		this.estado = estado;
+	}
 
-    /**
-     * Devuelve la raza
-     *
-     * @return String raza
-     */
-    public String getRaza() {
-        return raza;
-    }
+	/**
+	 * Devuelve el nombre del NPC
+	 *
+	 * @return nombre string
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    /**
-     * Setea el mapa
-     *
-     * @param mapa
-     *            int
-     */
-    public void setMapa(final int mapa) {
-        idMapa = mapa;
-    }
+	/**
+	 * Setea el nombre del NPC
+	 *
+	 * @param nombre
+	 *            del npc
+	 */
+	public void setNombre(final String nombre) {
+		this.nombre = nombre;
+	}
 
-    /**
-     * Devuelve el id
-     *
-     * @return int id
-     */
-    public int getId() {
-        return id;
-    }
+	/**
+	 * Devuelve el ID del mapa
+	 *
+	 * @return int idMapa
+	 */
+	public int getMapa() {
+		return idMapa;
+	}
 
-    /**
-     * Setea el id
-     *
-     * @param id
-     *            int
-     */
-    public void setId(final int id) {
-        this.id = id;
-    }
+	/**
+	 * Devuelve la raza
+	 *
+	 * @return String raza
+	 */
+	public String getRaza() {
+		return raza;
+	}
 
-    /**
-     * Devuelve el tope de salud
-     *
-     * @return int salud tope
-     */
-    public int getSaludTope() {
-        return saludTope;
-    }
+	/**
+	 * Setea el mapa
+	 *
+	 * @param mapa
+	 *            int
+	 */
+	public void setMapa(final int mapa) {
+		idMapa = mapa;
+	}
 
-    /**
-     * Setea el tope de salud
-     *
-     * @param saludTope
-     *            int
-     */
-    public void setSaludTope(final int saludTope) {
-        this.saludTope = saludTope;
-    }
+	/**
+	 * Devuelve el id
+	 *
+	 * @return int id
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * Devuelve la fuerza
-     *
-     * @return int fuerza
-     */
-    public int getFuerza() {
-        return fuerza;
-    }
+	/**
+	 * Setea el id
+	 *
+	 * @param id
+	 *            int
+	 */
+	public void setId(final int id) {
+		this.id = id;
+	}
 
-    /**
-     * Setea la fuerza
-     *
-     * @param fuerza
-     *            int
-     */
-    public void setFuerza(final int fuerza) {
-        this.fuerza = fuerza;
-    }
+	/**
+	 * Devuelve el tope de salud
+	 *
+	 * @return int salud tope
+	 */
+	public int getSaludTope() {
+		return saludTope;
+	}
 
-    /**
-     * Devuelve la dificultad del NPC
-     *
-     * @return int dificultad
-     */
-    public int getDificultad() {
-        return dificultad;
-    }
+	/**
+	 * Setea el tope de salud
+	 *
+	 * @param saludTope
+	 *            int
+	 */
+	public void setSaludTope(final int saludTope) {
+		this.saludTope = saludTope;
+	}
 
-    /**
-     * Setea la dificultad
-     *
-     * @param dificultad
-     *            int
-     */
-    public void setDificultad(final int dificultad) {
-        this.dificultad = dificultad;
-    }
+	/**
+	 * Devuelve la fuerza
+	 *
+	 * @return int fuerza
+	 */
+	public int getFuerza() {
+		return fuerza;
+	}
 
-    /**
-     * Posicion X
-     *
-     * @return float pos x
-     */
-    public float getPosX() {
-        return posX;
-    }
+	/**
+	 * Setea la fuerza
+	 *
+	 * @param fuerza
+	 *            int
+	 */
+	public void setFuerza(final int fuerza) {
+		this.fuerza = fuerza;
+	}
 
-    /**
-     * Set de posicion X
-     *
-     * @param posX
-     *            float
-     */
-    public void setPosX(final float posX) {
-        this.posX = posX;
-    }
+	/**
+	 * Devuelve la dificultad del NPC
+	 *
+	 * @return int dificultad
+	 */
+	public int getDificultad() {
+		return dificultad;
+	}
 
-    /**
-     * Posicion Y
-     *
-     * @return float pos y
-     */
-    public float getPosY() {
-        return posY;
-    }
+	/**
+	 * Setea la dificultad
+	 *
+	 * @param dificultad
+	 *            int
+	 */
+	public void setDificultad(final int dificultad) {
+		this.dificultad = dificultad;
+	}
 
-    /**
-     * Set de pos y
-     *
-     * @param posY
-     *            float
-     */
-    public void setPosY(final float posY) {
-        this.posY = posY;
-    }
+	/**
+	 * Posicion X
+	 *
+	 * @return float pos x
+	 */
+	public float getPosX() {
+		return posX;
+	}
 
-    /**
-     * Direccion
-     *
-     * @return int dir
-     */
-    public int getDireccion() {
-        return direccion;
-    }
+	/**
+	 * Set de posicion X
+	 *
+	 * @param posX
+	 *            float
+	 */
+	public void setPosX(final float posX) {
+		this.posX = posX;
+	}
 
-    /**
-     * Setea la direccion
-     *
-     * @param direccion
-     *            int
-     */
-    public void setDireccion(final int direccion) {
-        this.direccion = direccion;
-    }
+	/**
+	 * Posicion Y
+	 *
+	 * @return float pos y
+	 */
+	public float getPosY() {
+		return posY;
+	}
 
-    /**
-     * Devuelve el frame
-     *
-     * @return int frame
-     */
-    public int getFrame() {
-        return frame;
-    }
+	/**
+	 * Set de pos y
+	 *
+	 * @param posY
+	 *            float
+	 */
+	public void setPosY(final float posY) {
+		this.posY = posY;
+	}
 
-    /**
-     * Setea el frame
-     *
-     * @param frame
-     *            int
-     */
-    public void setFrame(final int frame) {
-        this.frame = frame;
-    }
+	/**
+	 * Direccion
+	 *
+	 * @return int dir
+	 */
+	public int getDireccion() {
+		return direccion;
+	}
 
-    @Override
-    public Object clone() {
-        Object obj = null;
-        obj = super.clone();
-        return obj;
-    }
+	/**
+	 * Setea la direccion
+	 *
+	 * @param direccion
+	 *            int
+	 */
+	public void setDireccion(final int direccion) {
+		this.direccion = direccion;
+	}
+
+	/**
+	 * Devuelve el frame
+	 *
+	 * @return int frame
+	 */
+	public int getFrame() {
+		return frame;
+	}
+
+	/**
+	 * Setea el frame
+	 *
+	 * @param frame
+	 *            int
+	 */
+	public void setFrame(final int frame) {
+		this.frame = frame;
+	}
+
+	@Override
+	public Object clone() {
+		Object obj = null;
+		obj = super.clone();
+		return obj;
+	}
 }
