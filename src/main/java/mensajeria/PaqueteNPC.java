@@ -2,6 +2,7 @@ package mensajeria;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 
 import estados.Estado;
 
@@ -29,6 +30,10 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	private int direccion;
 	private int frame;
 
+	// Re generacion
+	private int secsToRespawn;
+	private Date deathTime;
+
 	/**
 	 * Constructor
 	 *
@@ -45,7 +50,7 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	}
 
 	public PaqueteNPC(int id, int idMapa, int estado, String nombre, int nivel, int dificultad, float posX, float posY,
-			int direccion, int frame) {
+			int direccion, int frame, int secsToRespawn) {
 		super();
 		this.id = id;
 		this.idMapa = idMapa;
@@ -57,6 +62,7 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.posY = posY;
 		this.direccion = direccion;
 		this.frame = frame;
+		this.setSecsToRespawn(secsToRespawn);
 	}
 
 	/**
@@ -294,6 +300,22 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	 */
 	public void setFrame(final int frame) {
 		this.frame = frame;
+	}
+
+	public int getSecsToRespawn() {
+		return secsToRespawn;
+	}
+
+	public void setSecsToRespawn(int secsToRespawn) {
+		this.secsToRespawn = secsToRespawn;
+	}
+
+	public Date getDeathTime() {
+		return deathTime;
+	}
+
+	public void setDeathTime(Date deathTime) {
+		this.deathTime = deathTime;
 	}
 
 	@Override

@@ -559,8 +559,8 @@ public class Entidad {
 		final int offsetx = 32;
 		final int offsetY = 20;
 		final int height = 10;
-		Pantalla.centerString(g, new java.awt.Rectangle(drawX + offsetx, drawY - offsetY, 0, height),
-				nombre + " X: " + getX() + " Y: " + getY());
+		Pantalla.centerString(g, new java.awt.Rectangle(drawX + offsetx, drawY - offsetY, 0, height), nombre);
+		// ,nombre + " X: " + getX() + " Y: " + getY());
 	}
 
 	/**

@@ -94,7 +94,7 @@ public class EstadoJuego extends Estado {
 		// entidadPersonaje.graficar(g);
 		graficarPersonajes(g);
 
-		// Agregamos el grafico de losw NPC
+		// Agregamos el grafico de los NPC
 		graficarNPC(g);
 
 		mundo.graficarObstaculos(g);
