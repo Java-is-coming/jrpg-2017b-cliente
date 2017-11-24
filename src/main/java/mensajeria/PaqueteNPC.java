@@ -3,6 +3,7 @@ package mensajeria;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
 import estados.Estado;
 
@@ -34,6 +35,12 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 	private int secsToRespawn;
 	private Date deathTime;
 
+	// Rango de posicion
+	private float maxX;
+	private float minX;
+	private float maxY;
+	private float minY;
+
 	/**
 	 * Constructor
 	 *
@@ -49,8 +56,8 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.id = id;
 	}
 
-	public PaqueteNPC(int id, int idMapa, int estado, String nombre, int nivel, int dificultad, float posX, float posY,
-			int direccion, int frame, int secsToRespawn) {
+	public PaqueteNPC(int id, int idMapa, int estado, String nombre, int nivel, int dificultad, int direccion,
+			int frame, int secsToRespawn, float maxX, float minX, float maxY, float minY) {
 		super();
 		this.id = id;
 		this.idMapa = idMapa;
@@ -63,6 +70,10 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.direccion = direccion;
 		this.frame = frame;
 		this.setSecsToRespawn(secsToRespawn);
+		this.maxX = maxX;
+		this.minX = minX;
+		this.maxY = maxY;
+		this.minY = minY;
 	}
 
 	/**
@@ -316,6 +327,50 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 
 	public void setDeathTime(Date deathTime) {
 		this.deathTime = deathTime;
+	}
+
+	public float getMaxX() {
+		return maxX;
+	}
+
+	public void setMaxX(float maxX) {
+		this.maxX = maxX;
+	}
+
+	public float getMinX() {
+		return minX;
+	}
+
+	public void setMinX(float minX) {
+		this.minX = minX;
+	}
+
+	public float getMaxY() {
+		return maxY;
+	}
+
+	public void setMaxY(float maxY) {
+		this.maxY = maxY;
+	}
+
+	public float getMinY() {
+		return minY;
+	}
+
+	public void setMinY(float minY) {
+		this.minY = minY;
+	}
+
+	public void setXYRandom() {
+		float xOffsetMax = maxX - minX;
+		float yOffsetMax = maxY - minY;
+
+		Random random = new Random();
+		float xRnd = random.nextFloat() * xOffsetMax + minX;
+		float yRnd = random.nextFloat() * yOffsetMax + minY;
+
+		setPosX(xRnd);
+		setPosY(yRnd);
 	}
 
 	@Override
