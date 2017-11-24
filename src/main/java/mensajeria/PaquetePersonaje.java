@@ -32,6 +32,48 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
     private int nivel = 1;
     private int experiencia;
     private int idAlianza = -1;
+
+    private boolean modoDios = false;
+    private boolean modoNoClip = false;
+    private int modoFuerza = 0;
+    private boolean modoInvisible = false;
+
+    /**
+     *
+     * @return
+     */
+    public boolean getModoDios() {
+        return modoDios;
+    }
+
+    public void setModoDios(final boolean modoDios) {
+        this.modoDios = modoDios;
+    }
+
+    public boolean getModoNoClip() {
+        return modoNoClip;
+    }
+
+    public void setModoNoClip(final boolean modoNoClip) {
+        this.modoNoClip = modoNoClip;
+    }
+
+    public int getModoFuerza() {
+        return modoFuerza;
+    }
+
+    public void setModoFuerza(final int modoFuerza) {
+        this.modoFuerza = modoFuerza;
+    }
+
+    public boolean getModoInvisible() {
+        return modoInvisible;
+    }
+
+    public void setModoInvisible(final boolean modoInvisible) {
+        this.modoInvisible = modoInvisible;
+    }
+
     private ArrayList<Item> items = new ArrayList<Item>();
 
     /**
@@ -241,7 +283,18 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
      * @return fuerza int
      */
     public int getFuerza() {
-        return fuerza;
+
+        int fuerzaCalc = fuerza;
+
+        for (int i = 0; i < Math.abs(modoFuerza); i++) {
+            if (modoFuerza > 0) {
+                fuerzaCalc *= 2;
+            } else if (modoFuerza < 0) {
+                fuerzaCalc /= 2;
+            }
+        }
+
+        return fuerzaCalc;
     }
 
     /**

@@ -425,7 +425,8 @@ public class Entidad {
             }
 
             if (tileMoverme[0] == tileActual[0] && tileMoverme[1] == tileActual[1]
-                    || mundo.getTile(tileMoverme[0], tileMoverme[1]).esSolido()) {
+                    || (mundo.getTile(tileMoverme[0], tileMoverme[1]).esSolido()
+                            && !getJuego().getPersonaje().getModoNoClip())) {
                 tileMoverme = null;
                 enMovimiento = false;
                 getJuego().getHandlerMouse().setNuevoRecorrido(false);
@@ -656,7 +657,14 @@ public class Entidad {
      * @return la pila de tiles a recorrer
      */
     private PilaDeTiles caminoMasCorto(final int xInicial, final int yInicial, final int xFin, final int yFin) {
-        final Grafo grafoLibres = mundo.obtenerGrafoDeTilesNoSolidos();
+        Grafo grafoLibres;
+
+        if (!getJuego().getPersonaje().getModoNoClip()) {
+            grafoLibres = mundo.obtenerGrafoDeTilesNoSolidos();
+        } else {
+            grafoLibres = mundo.obtenerGrafoDeTodosTiles();
+        }
+
         // Transformo las coordenadas iniciales y finales en indices
         final int nodoInicial = (yInicial - grafoLibres.obtenerNodos()[0].obtenerY())
                 * (int) Math.sqrt(grafoLibres.obtenerCantidadDeNodosTotal()) + xInicial

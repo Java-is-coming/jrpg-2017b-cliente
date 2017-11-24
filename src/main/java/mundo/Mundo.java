@@ -29,6 +29,16 @@ public class Mundo {
     private static final int EODRIM = 3;
 
     private Grafo grafoDeTilesNoSolidos;
+    private Grafo grafoDeTodosTiles;
+
+    /**
+     * Devuelve el grafo con todos los tiles incluyendo los solidos.
+     *
+     * @return Grafo grafoDeTodosTiles
+     */
+    public Grafo obtenerGrafoDeTodosTiles() {
+        return grafoDeTodosTiles;
+    }
 
     /**
      * Construy el mundo
@@ -196,55 +206,87 @@ public class Mundo {
     private void mundoAGrafo() {
         // Creo una matriz de nodos
         final Nodo[][] nodos = new Nodo[ancho][alto];
+        final Nodo[][] nodosNoClip = new Nodo[ancho][alto];
+        grafoDeTodosTiles = new Grafo(ancho * alto);
         int indice = 0;
         // Lleno la matriz con los nodos
         for (int y = 0; y < alto; y++) {
             for (int x = 0; x < ancho; x++) {
-                nodos[y][x] = new Nodo(indice++, x, y);
+                nodos[y][x] = new Nodo(indice, x, y);
+                nodosNoClip[y][x] = new Nodo(indice, x, y);
+                indice++;
             }
         }
         // Variables finales
         final int xFinal = ancho;
         final int yFinal = alto;
+
         // Uno cada nodo con sus adyacentes
         for (int x = 0; x < yFinal; x++) {
             for (int y = 0; y < xFinal; y++) {
-                if (!Tile.getTiles()[tilesInv[x][y]].esSolido()) {
-                    // Si no es la ultima fila y el tile de abajo es no solido,
-                    // lo uno
-                    if (y < yFinal - 1 && !Tile.getTiles()[tilesInv[x][y + 1]].esSolido()) {
+
+                // if (!Tile.getTiles()[tilesInv[x][y]].esSolido()) {
+                // Si no es la ultima fila y el tile de abajo es no solido,
+                // lo uno
+                if (y < yFinal - 1) {
+
+                    if (!Tile.getTiles()[tilesInv[x][y]].esSolido()
+                            && !Tile.getTiles()[tilesInv[x][y + 1]].esSolido()) {
                         nodos[x][y].agregarAdyacente(nodos[x][y + 1]);
                         nodos[x][y + 1].agregarAdyacente(nodos[x][y]);
                     }
-                    // Si no es la ultima columna
-                    if (x < xFinal - 1) {
-                        // Si el de arriba a la derecha no es un tile solido
-                        // Y ademas el de arriba ni el de la derecha lo son, lo
-                        // uno
-                        // Tiene que ser a partir de la segunda fila
-                        if (y > 0 && !Tile.getTiles()[tilesInv[x + 1][y - 1]].esSolido()
+
+                    nodosNoClip[x][y].agregarAdyacente(nodosNoClip[x][y + 1]);
+                    nodosNoClip[x][y + 1].agregarAdyacente(nodosNoClip[x][y]);
+                }
+                // Si no es la ultima columna
+                if (x < xFinal - 1) {
+                    // Si el de arriba a la derecha no es un tile solido
+                    // Y ademas el de arriba ni el de la derecha lo son, lo
+                    // uno
+                    // Tiene que ser a partir de la segunda fila
+                    if (y > 0) {
+                        if (!Tile.getTiles()[tilesInv[x][y]].esSolido()
+                                && !Tile.getTiles()[tilesInv[x + 1][y - 1]].esSolido()
                                 && !Tile.getTiles()[tilesInv[x + 1][y]].esSolido()
                                 && !Tile.getTiles()[tilesInv[x][y - 1]].esSolido()) {
                             nodos[x][y].agregarAdyacente(nodos[x + 1][y - 1]);
                             nodos[x + 1][y - 1].agregarAdyacente(nodos[x][y]);
                         }
-                        // Si el de la derecha no es un tile solido lo uno
-                        if (!Tile.getTiles()[tilesInv[x + 1][y]].esSolido()) {
-                            nodos[x][y].agregarAdyacente(nodos[x + 1][y]);
-                            nodos[x + 1][y].agregarAdyacente(nodos[x][y]);
-                        }
-                        // Si el de abajo a la derecha no es un tile solido
-                        // Y ademas el de abajo ni el de la derecha lo son, lo
-                        // uno
-                        // Debe ser antes de la ultima fila
-                        if (y < yFinal - 1 && !Tile.getTiles()[tilesInv[x + 1][y + 1]].esSolido()
+
+                        nodosNoClip[x][y].agregarAdyacente(nodosNoClip[x + 1][y - 1]);
+                        nodosNoClip[x + 1][y - 1].agregarAdyacente(nodosNoClip[x][y]);
+                    }
+                    // Si el de la derecha no es un tile solido lo uno
+                    if (!Tile.getTiles()[tilesInv[x][y]].esSolido()
+                            && !Tile.getTiles()[tilesInv[x + 1][y]].esSolido()) {
+                        nodos[x][y].agregarAdyacente(nodos[x + 1][y]);
+                        nodos[x + 1][y].agregarAdyacente(nodos[x][y]);
+                    }
+
+                    nodosNoClip[x][y].agregarAdyacente(nodosNoClip[x + 1][y]);
+                    nodosNoClip[x + 1][y].agregarAdyacente(nodosNoClip[x][y]);
+
+                    // Si el de abajo a la derecha no es un tile solido
+                    // Y ademas el de abajo ni el de la derecha lo son, lo
+                    // uno
+                    // Debe ser antes de la ultima fila
+                    if (y < yFinal - 1) {
+                        if (!Tile.getTiles()[tilesInv[x][y]].esSolido()
+                                && !Tile.getTiles()[tilesInv[x + 1][y + 1]].esSolido()
                                 && !Tile.getTiles()[tilesInv[x + 1][y]].esSolido()
                                 && !Tile.getTiles()[tilesInv[x][y + 1]].esSolido()) {
                             nodos[x][y].agregarAdyacente(nodos[x + 1][y + 1]);
                             nodos[x + 1][y + 1].agregarAdyacente(nodos[x][y]);
                         }
+
+                        nodosNoClip[x][y].agregarAdyacente(nodosNoClip[x + 1][y + 1]);
+                        nodosNoClip[x + 1][y + 1].agregarAdyacente(nodosNoClip[x][y]);
+
                     }
                 }
+                // }
+
             }
         }
         // Creo un grafo para almacenar solo los tiles no solidos
@@ -254,6 +296,7 @@ public class Mundo {
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
                 grafoDeTilesNoSolidos.agregarNodo(nodos[i][j]);
+                grafoDeTodosTiles.agregarNodo(nodosNoClip[i][j]);
             }
         }
     }
