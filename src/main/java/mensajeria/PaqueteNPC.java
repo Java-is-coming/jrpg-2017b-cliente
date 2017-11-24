@@ -3,7 +3,6 @@ package mensajeria;
 import java.io.IOException;
 import java.io.Serializable;
 
-import dominio.NonPlayableCharacter;
 import estados.Estado;
 
 /**
@@ -58,10 +57,6 @@ public class PaqueteNPC extends Paquete implements Serializable, Cloneable {
 		this.posY = posY;
 		this.direccion = direccion;
 		this.frame = frame;
-
-		final NonPlayableCharacter npcChar = new NonPlayableCharacter(nombre, nivel, dificultad);
-		this.saludTope = npcChar.getSaludTope();
-		this.fuerza = npcChar.getFuerza();
 	}
 
 	/**
