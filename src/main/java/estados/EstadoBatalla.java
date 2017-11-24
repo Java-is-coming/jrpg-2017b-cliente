@@ -106,6 +106,10 @@ public class EstadoBatalla extends Estado {
 
         if (miTurno) {
 
+            boolean esInvulnerable = false;
+
+            esInvulnerable = !paquetePersonaje.getModoDios() && paqueteEnemigo.getModoDios();
+
             if (getJuego().getHandlerMouse().getNuevoClick()) {
                 posMouse = getJuego().getHandlerMouse().getPosMouse();
 
@@ -114,7 +118,9 @@ public class EstadoBatalla extends Estado {
                     if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 1) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
-                            personaje.habilidadRaza1(enemigo);
+                            if (!esInvulnerable) {
+                                personaje.habilidadRaza1(enemigo);
+                            }
                         }
                         haySpellSeleccionada = true;
                     }
@@ -123,7 +129,9 @@ public class EstadoBatalla extends Estado {
                     if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton2) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
-                            personaje.habilidadRaza2(enemigo);
+                            if (!esInvulnerable) {
+                                personaje.habilidadRaza2(enemigo);
+                            }
                         }
                         haySpellSeleccionada = true;
                     }
@@ -132,7 +140,9 @@ public class EstadoBatalla extends Estado {
                     if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton3) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
-                            personaje.habilidadCasta1(enemigo);
+                            if (!esInvulnerable) {
+                                personaje.habilidadCasta1(enemigo);
+                            }
                         }
                         haySpellSeleccionada = true;
                     }
@@ -141,7 +151,9 @@ public class EstadoBatalla extends Estado {
                     if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton4) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
-                            personaje.habilidadCasta2(enemigo);
+                            if (!esInvulnerable) {
+                                personaje.habilidadCasta2(enemigo);
+                            }
                         }
                         haySpellSeleccionada = true;
                     }
@@ -150,7 +162,9 @@ public class EstadoBatalla extends Estado {
                     if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == boton5) {
                         if (personaje.puedeAtacar()) {
                             seRealizoAccion = true;
-                            personaje.habilidadCasta3(enemigo);
+                            if (!esInvulnerable) {
+                                personaje.habilidadCasta3(enemigo);
+                            }
                         }
                         haySpellSeleccionada = true;
                     }
