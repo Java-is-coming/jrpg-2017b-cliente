@@ -90,7 +90,7 @@ public class MenuEscape extends JFrame {
             public void actionPerformed(final ActionEvent e) {
                 dispose();
                 Pantalla.setMenuEscp(null);
-                if (Pantalla.getMenuAsignar() == null) {
+                if (Pantalla.getMenuAsignar() == null && cliente.getPaquetePersonaje().getModoFuerza() == 0) {
                     Pantalla.setMenuAsignar(new MenuAsignarSkills(cliente));
                     Pantalla.getMenuAsignar().setVisible(true);
                 }
