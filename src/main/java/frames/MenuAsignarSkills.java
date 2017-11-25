@@ -471,6 +471,9 @@ public class MenuAsignarSkills extends JFrame {
         contentPane.add(buttonMore2);
 
         final JButton buttonReasignar = new JButton("Reasignar");
+
+        final ImageIcon iconoReasignar = new ImageIcon("recursos//botonReasignar.png");
+        buttonReasignar.setIcon(iconoReasignar);
         buttonReasignar.setEnabled(true);
 
         if (puntosAsignarInicial == 0) {

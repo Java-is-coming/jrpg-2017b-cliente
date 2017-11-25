@@ -39,37 +39,77 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
     private boolean modoInvisible = false;
 
     /**
+     * Modo dios
      *
-     * @return
+     * @return boolean modoDios
      */
     public boolean getModoDios() {
         return modoDios;
     }
 
+    /**
+     * Set de modoDios
+     *
+     * @param modoDios
+     *            boolean
+     */
     public void setModoDios(final boolean modoDios) {
         this.modoDios = modoDios;
     }
 
+    /**
+     * Modo noclip
+     *
+     * @return modoNoClip
+     */
     public boolean getModoNoClip() {
         return modoNoClip;
     }
 
+    /**
+     * Set de modoNoClip
+     *
+     * @param modoNoClip
+     *            boolean
+     */
     public void setModoNoClip(final boolean modoNoClip) {
         this.modoNoClip = modoNoClip;
     }
 
+    /**
+     * Modo fuerza
+     *
+     * @return modoFuerza
+     */
     public int getModoFuerza() {
         return modoFuerza;
     }
 
+    /**
+     * Set de modoFuerza
+     *
+     * @param modoFuerza
+     *            entero
+     */
     public void setModoFuerza(final int modoFuerza) {
         this.modoFuerza = modoFuerza;
     }
 
+    /**
+     * Modo invisible
+     *
+     * @return modoInvisible
+     */
     public boolean getModoInvisible() {
         return modoInvisible;
     }
 
+    /**
+     * Set de modoInvisible
+     *
+     * @param modoInvisible
+     *            boolean
+     */
     public void setModoInvisible(final boolean modoInvisible) {
         this.modoInvisible = modoInvisible;
     }
